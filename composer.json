@@ -15,6 +15,7 @@
         "infyomlabs/generator-builder": "dev-master",
         "infyomlabs/laravel-generator": "dev-infyom-dev",
         "infyomlabs/laravel-ui-stisla": "^3.0",
+        "infyomlabs/routes-explorer": "dev-master",
         "infyomlabs/stisla-templates": "^1.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",

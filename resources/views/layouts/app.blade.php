@@ -14,14 +14,19 @@
     <link href="{{ asset('assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
     @routes
-@yield('page_css')
-<!-- Template CSS -->
+    @yield('page_css')
+    @stack('styles-before')
+    <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('web/css/components.css')}}">
     @yield('page_css')
-
-
     @yield('css')
+    @stack('styles-after')
+    <style>
+        td {
+            vertical-align: middle!important;
+        }
+    </style>
 </head>
 <body>
 
@@ -56,7 +61,7 @@
 <script src="{{ asset('assets/js/iziToast.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.nicescroll.js') }}"></script>
-
+@stack('sripts-before')
 <!-- Template JS File -->
 <script src="{{ asset('web/js/stisla.js') }}"></script>
 <script src="{{ asset('web/js/scripts.js') }}"></script>
@@ -79,4 +84,5 @@
         };
     }(jQuery));
 </script>
+@stack('sripts-after')
 </html>
