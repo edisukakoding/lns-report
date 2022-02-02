@@ -7,3 +7,7 @@
     <a href="{{ route('classRooms.index') }}"><i class="fa fa-edit"></i><span>@lang('models/classRooms.plural')</span></a>
 </li>
 
+<li class="{{ Request::is('students*') ? 'active' : '' }}">
+    <a href="{{ route('students.index') }}"><i class="fa fa-edit"></i><span>@lang('models/students.plural')</span></a>
+</li>
+

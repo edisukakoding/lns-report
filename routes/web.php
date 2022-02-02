@@ -39,3 +39,6 @@ Route::post(
 )->name('io_generator_builder_generate_from_file');
 
 Route::resource('classRooms', App\Http\Controllers\ClassRoomController::class);
+
+
+Route::resource('students', App\Http\Controllers\StudentController::class);
