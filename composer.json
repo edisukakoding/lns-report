@@ -20,6 +20,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
+        "rezaamini-ir/migrator": "^1.5",
         "tightenco/ziggy": "^1.4",
         "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-oracle": "~9.0"

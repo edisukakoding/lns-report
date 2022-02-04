@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreatePeriodSettingsTable extends Migration
+{
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('period_settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('title');
+            $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('INACTIVE');
+            $table->text('description');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('period_settings');
+    }
+}

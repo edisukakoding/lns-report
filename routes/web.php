@@ -42,3 +42,41 @@ Route::resource('classRooms', App\Http\Controllers\ClassRoomController::class);
 
 
 Route::resource('students', App\Http\Controllers\StudentController::class);
+
+
+
+
+Route::resource('guards', App\Http\Controllers\GuardController::class);
+
+
+Route::resource('periodSettings', App\Http\Controllers\PeriodSettingController::class);
+
+
+Route::resource('scalaEvaluationSettings', App\Http\Controllers\ScalaEvaluationSettingController::class);
+
+
+Route::resource('personals', App\Http\Controllers\PersonalController::class);
+
+
+Route::resource('anecdotEvaluations', App\Http\Controllers\AnecdoteEvaluationController::class);
+
+
+Route::resource('anecdotEvaluationDetails', App\Http\Controllers\AnecdotEvaluationDetailController::class);
+
+
+Route::resource('evaluations', App\Http\Controllers\EvaluationController::class);
+
+
+Route::resource('attainments', App\Http\Controllers\AttainmentController::class);
+
+
+Route::resource('attainmentDetails', App\Http\Controllers\AttainmentDetailController::class);
+
+
+Route::resource('raports', App\Http\Controllers\RaportController::class);
+
+
+Route::resource('raportDetails', App\Http\Controllers\RaportDetailController::class);
+
+
+Route::resource('raportEtcs', App\Http\Controllers\RaportEtcController::class);
