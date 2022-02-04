@@ -12,7 +12,7 @@
                 <img alt="image" src="{{ asset('img/logo.png') }}"
                      class="rounded-circle mr-1 thumbnail-rounded user-thumbnail ">
                 <div class="d-sm-none d-lg-inline-block">
-                    {{ __('messages.common.hello') }}, {{\Illuminate\Support\Facades\Auth::user()->name}}</div>
+                    {{ __('messages.common.hello') }}, {{\Illuminate\Support\Facades\Auth::user()->name}}, {{ \App\Models\PeriodSetting::getActivePeriod() }}</div>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">

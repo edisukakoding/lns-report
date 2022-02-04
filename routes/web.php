@@ -22,6 +22,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
+require_once __DIR__ . './admin.php';
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('io_generator_builder');
 
@@ -38,10 +39,8 @@ Route::post(
     '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generateFromFile'
 )->name('io_generator_builder_generate_from_file');
 
-Route::resource('classRooms', App\Http\Controllers\ClassRoomController::class);
 
 
-Route::resource('students', App\Http\Controllers\StudentController::class);
 
 
 
@@ -49,7 +48,7 @@ Route::resource('students', App\Http\Controllers\StudentController::class);
 Route::resource('guards', App\Http\Controllers\GuardController::class);
 
 
-Route::resource('periodSettings', App\Http\Controllers\PeriodSettingController::class);
+
 
 
 Route::resource('scalaEvaluationSettings', App\Http\Controllers\ScalaEvaluationSettingController::class);

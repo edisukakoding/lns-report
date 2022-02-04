@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\DataTables\PeriodSettingDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreatePeriodSettingRequest;
 use App\Http\Requests\UpdatePeriodSettingRequest;
+use App\Models\PeriodSetting;
 use App\Repositories\PeriodSettingRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
-use Response;
+use Illuminate\Support\Facades\Response;
 
 class PeriodSettingController extends AppBaseController
 {
@@ -29,7 +30,7 @@ class PeriodSettingController extends AppBaseController
      */
     public function index(PeriodSettingDataTable $periodSettingDataTable)
     {
-        return $periodSettingDataTable->render('period_settings.index');
+        return $periodSettingDataTable->render('admin.period_settings.index');
     }
 
     /**
@@ -39,7 +40,7 @@ class PeriodSettingController extends AppBaseController
      */
     public function create()
     {
-        return view('period_settings.create');
+        return view('admin.period_settings.create');
     }
 
     /**
@@ -53,6 +54,9 @@ class PeriodSettingController extends AppBaseController
     {
         $input = $request->all();
 
+        if($input['status']) {
+            PeriodSetting::query()->update(['status' => false]);
+        }
         $periodSetting = $this->periodSettingRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/periodSettings.singular')]));
@@ -77,7 +81,7 @@ class PeriodSettingController extends AppBaseController
             return redirect(route('periodSettings.index'));
         }
 
-        return view('period_settings.show')->with('periodSetting', $periodSetting);
+        return view('admin.period_settings.show')->with('periodSetting', $periodSetting);
     }
 
     /**
@@ -97,7 +101,7 @@ class PeriodSettingController extends AppBaseController
             return redirect(route('periodSettings.index'));
         }
 
-        return view('period_settings.edit')->with('periodSetting', $periodSetting);
+        return view('admin.period_settings.edit')->with('periodSetting', $periodSetting);
     }
 
     /**
@@ -118,6 +122,9 @@ class PeriodSettingController extends AppBaseController
             return redirect(route('periodSettings.index'));
         }
 
+        if($request->status) {
+            PeriodSetting::query()->update(['status' => false]);
+        }
         $periodSetting = $this->periodSettingRepository->update($request->all(), $id);
 
         Flash::success(__('messages.updated', ['model' => __('models/periodSettings.singular')]));

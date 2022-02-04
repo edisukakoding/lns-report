@@ -19,7 +19,7 @@ class PeriodSettingDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'period_settings.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.period_settings.datatables_actions');
     }
 
     /**
@@ -75,9 +75,7 @@ class PeriodSettingDataTable extends DataTable
                        'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
                     ],
                 ],
-                 'language' => [
-                   'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
-                 ],
+                 'language' => __('datatables.id'),
             ]);
     }
 
@@ -88,9 +86,15 @@ class PeriodSettingDataTable extends DataTable
      */
     protected function getColumns()
     {
+        $active     = '<i class="fas fa-check text-success"></i>';
+        $inactive   = '<i class="fas fa-times text-danger"></i>';
         return [
             'title' => new Column(['title' => __('models/periodSettings.fields.title'), 'data' => 'title']),
-            'status' => new Column(['title' => __('models/periodSettings.fields.status'), 'data' => 'status']),
+            'status' => new Column([
+                'title' => __('models/periodSettings.fields.status'),
+                'data' => 'status',
+                'render' => "data == 1 ? '$active' : '$inactive'"
+            ]),
             'description' => new Column(['title' => __('models/periodSettings.fields.description'), 'data' => 'description'])
         ];
     }

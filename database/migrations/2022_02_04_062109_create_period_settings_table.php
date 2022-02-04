@@ -17,8 +17,8 @@ class CreatePeriodSettingsTable extends Migration
         Schema::create('period_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->text('title');
-            $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('INACTIVE');
-            $table->text('description');
+            $table->boolean('status')->default(false);
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

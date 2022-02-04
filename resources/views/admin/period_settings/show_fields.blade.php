@@ -1,8 +1,8 @@
 <!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', __('models/periodSettings.fields.id').':') !!}
-    <p>{{ $periodSetting->id }}</p>
-</div>
+{{--<div class="form-group">--}}
+{{--    {!! Form::label('id', __('models/periodSettings.fields.id').':') !!}--}}
+{{--    <p>{{ $periodSetting->id }}</p>--}}
+{{--</div>--}}
 
 <!-- Title Field -->
 <div class="form-group">
@@ -13,7 +13,7 @@
 <!-- Status Field -->
 <div class="form-group">
     {!! Form::label('status', __('models/periodSettings.fields.status').':') !!}
-    <p>{{ $periodSetting->status }}</p>
+    <p>{{ $periodSetting->status ? 'Aktif' : 'Non Aktif' }}</p>
 </div>
 
 <!-- Description Field -->

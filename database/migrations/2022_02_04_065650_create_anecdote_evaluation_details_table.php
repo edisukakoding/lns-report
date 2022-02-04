@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttainmentDetailsTable extends Migration
+class CreateAnecdoteEvaluationDetailsTable extends Migration
 {
 
     /**
@@ -14,18 +14,21 @@ class CreateAttainmentDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('attainment_details', function (Blueprint $table) {
+        Schema::create('anecdote_evaluation_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('attainment_id')->unsigned();
+            $table->integer('anecdote_evaluation_id')->unsigned();
             $table->integer('student_id')->unsigned();
-            $table->string('title');
-            $table->text('description');
-            $table->text('image');
+            $table->string('location');
+            $table->dateTime('time');
+            $table->text('incident');
             $table->timestamps();
             $table->softDeletes();
-            $table->index('attainment_id');
+        });
+
+        Schema::table('anecdote_evaluation_details', function (Blueprint $table) {
+            $table->index('anecdote_evaluation_id');
             $table->index('student_id');
-            $table->foreign('attainment_id')->references('id')->on('attainments');
+            $table->foreign('anecdote_evaluation_id')->references('id')->on('anecdote_evaluations');
             $table->foreign('student_id')->references('id')->on('students');
         });
     }
@@ -37,6 +40,6 @@ class CreateAttainmentDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('attainment_details');
+        Schema::drop('anecdote_evaluation_details');
     }
 }

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title')
-    @lang('models/students.singular')  @lang('crud.details') 
+    @lang('models/periodSettings.singular')  @lang('crud.details')
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-        <h1>@lang('models/students.singular') @lang('crud.details')</h1>
+        <h1>@lang('models/periodSettings.singular') @lang('crud.details')</h1>
         <div class="section-header-breadcrumb">
-            <a href="{{ route('students.index') }}"
+            <a href="{{ route('periodSettings.index') }}"
                  class="btn btn-primary form-btn float-right">@lang('crud.back')</a>
         </div>
       </div>
@@ -15,7 +15,7 @@
     <div class="section-body">
            <div class="card">
             <div class="card-body">
-                    @include('students.show_fields')
+                    @include('admin.period_settings.show_fields')
             </div>
             </div>
     </div>

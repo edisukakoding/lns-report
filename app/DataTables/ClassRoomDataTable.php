@@ -19,7 +19,7 @@ class ClassRoomDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'class_rooms.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.class_rooms.datatables_actions');
     }
 
     /**

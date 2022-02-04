@@ -1,15 +1,15 @@
 <!-- Title Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('title', __('models/periodSettings.fields.title').':') !!}
     {!! Form::text('title', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Status Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('status', __('models/periodSettings.fields.status').':') !!}
     <label class="checkbox-inline">
         {!! Form::hidden('status', 0) !!}
-        {!! Form::checkbox('status', '1', null) !!} 1
+        {!! Form::checkbox('status', '1', null) !!} Aktifkan
     </label>
 </div>
 

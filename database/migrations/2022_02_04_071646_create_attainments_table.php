@@ -16,11 +16,14 @@ class CreateAttainmentsTable extends Migration
     {
         Schema::create('attainments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('class_room_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->unsignedInteger('class_room_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('date');
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::table('attainments', function (Blueprint $table) {
             $table->index('class_room_id');
             $table->index('user_id');
             $table->foreign('class_room_id')->references('id')->on('class_rooms');

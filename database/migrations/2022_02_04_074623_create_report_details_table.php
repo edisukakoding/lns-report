@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRaportEtcsTable extends Migration
+class CreateReportDetailsTable extends Migration
 {
 
     /**
@@ -14,14 +14,15 @@ class CreateRaportEtcsTable extends Migration
      */
     public function up()
     {
-        Schema::create('raport_etcs', function (Blueprint $table) {
+        Schema::create('report_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('raport_id')->unsigned();
-            $table->string('title');
-            $table->text('note');
+            $table->integer('report_id')->unsigned();
+            $table->text('type');
+            $table->text('description');
+            $table->enum('result', ['A', 'B', 'C']);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('raport_id')->references('id')->on('raports');
+            $table->foreign('report_id')->references('id')->on('reports');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateRaportEtcsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('raport_etcs');
+        Schema::drop('report_details');
     }
 }

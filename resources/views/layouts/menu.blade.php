@@ -1,23 +1,33 @@
-<li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
+<li class="side-menus {{ \Illuminate\Support\Facades\Request::is('*') ? 'active' : '' }}">
     <a class="nav-link" href="/">
-        <i class=" fas fa-building"></i><span>Dashboard</span>
+        <i class=" fas fa-tachometer-alt"></i><span>Dashboard</span>
     </a>
 </li>
-<li class="{{ Request::is('classRooms*') ? 'active' : '' }}">
-    <a href="{{ route('classRooms.index') }}"><i class="fa fa-edit"></i><span>@lang('models/classRooms.plural')</span></a>
-</li>
-
-<li class="{{ Request::is('students*') ? 'active' : '' }}">
-    <a href="{{ route('students.index') }}"><i class="fa fa-edit"></i><span>@lang('models/students.plural')</span></a>
+<li class="menu-header">Master</li>
+<li class="nav-item dropdown active">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i><span>Sekolah</span></a>
+    <ul class="dropdown-menu">
+        <li>
+            <a class="{{ \Illuminate\Support\Facades\Request::is('periodSettings*') ? 'active' : 'nav-link' }}"
+               href="{{ route('periodSettings.index') }}">@lang('models/periodSettings.plural')
+            </a>
+        </li>
+        <li>
+            <a class="{{ \Illuminate\Support\Facades\Request::is('classRooms*') ? 'active' : 'nav-link' }}"
+               href="{{ route('classRooms.index') }}">@lang('models/classRooms.plural')
+            </a>
+        </li>
+        <li>
+            <a class="{{ \Illuminate\Support\Facades\Request::is('students*') ? 'active' : 'nav-link' }}"
+               href="{{ route('students.index') }}">@lang('models/students.plural')
+            </a>
+        </li>
+    </ul>
 </li>
 
 
 <li class="{{ Request::is('guards*') ? 'active' : '' }}">
     <a href="{{ route('guards.index') }}"><i class="fa fa-edit"></i><span>@lang('models/guards.plural')</span></a>
-</li>
-
-<li class="{{ Request::is('periodSettings*') ? 'active' : '' }}">
-    <a href="{{ route('periodSettings.index') }}"><i class="fa fa-edit"></i><span>@lang('models/periodSettings.plural')</span></a>
 </li>
 
 <li class="{{ Request::is('scalaEvaluationSettings*') ? 'active' : '' }}">

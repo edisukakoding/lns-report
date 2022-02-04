@@ -1,7 +1,7 @@
 <!-- Class Room Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('class_room_id', __('models/students.fields.class_room_id').':') !!}
-    {!! Form::select('class_room_id', ['' => ''], null, ['class' => 'form-control']) !!}
+    {!! Form::select('class_room_id', ['a' => 'b'], null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Name Field -->

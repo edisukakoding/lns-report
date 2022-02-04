@@ -1,23 +1,23 @@
 @extends('layouts.app')
 @section('title')
-     @lang('models/classRooms.plural')
+     @lang('models/periodSettings.plural')
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>@lang('models/classRooms.plural')</h1>
+            <h1>@lang('models/periodSettings.plural')</h1>
             <div class="section-header-breadcrumb">
-                <a href="{{ route('classRooms.create')}}" class="btn btn-primary form-btn">@lang('crud.add_new')<i class="fas fa-plus"></i></a>
+                <a href="{{ route('periodSettings.create')}}" class="btn btn-primary form-btn">@lang('crud.add_new')<i class="fas fa-plus"></i></a>
             </div>
         </div>
     <div class="section-body">
        <div class="card">
             <div class="card-body">
-                @include('class_rooms.table')
+                @include('admin.period_settings.table')
             </div>
        </div>
    </div>
-    
+
     </section>
 @endsection
 

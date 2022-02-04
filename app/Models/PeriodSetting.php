@@ -21,7 +21,7 @@ class PeriodSetting extends Model
 
 
     public $table = 'period_settings';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -54,5 +54,8 @@ class PeriodSetting extends Model
         'title' => 'required'
     ];
 
-    
+    public static function getActivePeriod()
+    {
+        return static::where('status', 1)->first()->title;
+    }
 }

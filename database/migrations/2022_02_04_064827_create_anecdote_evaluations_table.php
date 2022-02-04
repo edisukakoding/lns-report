@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnecdotEvaluationsTable extends Migration
+class CreateAnecdoteEvaluationsTable extends Migration
 {
 
     /**
@@ -36,6 +36,6 @@ class CreateAnecdotEvaluationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('anecdot_evaluations');
+        Schema::drop('anecdote_evaluations');
     }
 }

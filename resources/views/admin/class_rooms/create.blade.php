@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title')
-    @lang('crud.add_new') @lang('models/students.singular')
+    @lang('crud.add_new') @lang('models/classRooms.singular')
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading m-0">@lang('crud.add_new') @lang('models/students.singular')</h3>
+            <h3 class="page__heading m-0">@lang('crud.add_new') @lang('models/classRooms.singular')</h3>
             <div class="filter-container section-header-breadcrumb row justify-content-md-end">
-                <a href="{{ route('students.index') }}" class="btn btn-primary">@lang('crud.back')</a>
+                <a href="{{ route('classRooms.index') }}" class="btn btn-primary">@lang('crud.back')</a>
             </div>
         </div>
         <div class="content">
@@ -17,9 +17,9 @@
                    <div class="col-lg-12">
                        <div class="card">
                            <div class="card-body ">
-                                {!! Form::open(['route' => 'students.store']) !!}
+                                {!! Form::open(['route' => 'classRooms.store']) !!}
                                     <div class="row">
-                                        @include('students.fields')
+                                        @include('admin.class_rooms.fields')
                                     </div>
                                 {!! Form::close() !!}
                            </div>

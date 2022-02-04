@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\DataTables\StudentDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Repositories\StudentRepository;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
-use Response;
+use Illuminate\Support\Facades\Response;
 
 class StudentController extends AppBaseController
 {
@@ -29,7 +29,7 @@ class StudentController extends AppBaseController
      */
     public function index(StudentDataTable $studentDataTable)
     {
-        return $studentDataTable->render('students.index');
+        return $studentDataTable->render('admin.students.index');
     }
 
     /**
@@ -39,7 +39,7 @@ class StudentController extends AppBaseController
      */
     public function create()
     {
-        return view('students.create', [
+        return view('admin.students.create', [
             'classes'   => \App\Models\ClassRoom::all()
         ]);
     }
@@ -59,7 +59,7 @@ class StudentController extends AppBaseController
 
         Flash::success(__('messages.saved', ['model' => __('models/students.singular')]));
 
-        return redirect(route('students.index'));
+        return redirect(route('admin.students.index'));
     }
 
     /**
@@ -79,7 +79,7 @@ class StudentController extends AppBaseController
             return redirect(route('students.index'));
         }
 
-        return view('students.show')->with('student', $student);
+        return view('admin.students.show')->with('student', $student);
     }
 
     /**
@@ -99,7 +99,7 @@ class StudentController extends AppBaseController
             return redirect(route('students.index'));
         }
 
-        return view('students.edit')->with('student', $student);
+        return view('admin.students.edit')->with('student', $student);
     }
 
     /**
