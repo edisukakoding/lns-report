@@ -56,6 +56,11 @@ class PeriodSetting extends Model
 
     public static function getActivePeriod()
     {
-        return static::where('status', 1)->first()->title;
+        $period= static::where('status', 1)->first();
+        if($period) {
+            return $period->title;
+        }
+
+        return false;
     }
 }

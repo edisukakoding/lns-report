@@ -19,7 +19,7 @@ class CreateAnecdoteEvaluationDetailsTable extends Migration
             $table->integer('anecdote_evaluation_id')->unsigned();
             $table->integer('student_id')->unsigned();
             $table->string('location');
-            $table->dateTime('time');
+            $table->time('time');
             $table->text('incident');
             $table->timestamps();
             $table->softDeletes();

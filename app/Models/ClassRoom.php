@@ -20,7 +20,7 @@ class ClassRoom extends Model
 
 
     public $table = 'class_rooms';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -51,4 +51,13 @@ class ClassRoom extends Model
         'name' => 'required'
     ];
 
+    public static function makeOptionList()
+    {
+        $option = [];
+        foreach (static::select('id', 'name')->get() as $class) {
+            $option[$class->id] = $class->name;
+        }
+
+        return $option;
+    }
 }

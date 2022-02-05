@@ -20,7 +20,7 @@ class CreateAttainmentDetailsTable extends Migration
             $table->integer('student_id')->unsigned();
             $table->string('title');
             $table->text('description');
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->index('attainment_id');

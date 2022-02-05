@@ -19,11 +19,11 @@ class CreateGuardsTable extends Migration
             $table->integer('student_id')->unsigned();
             $table->string('type');
             $table->string('name');
-            $table->integer('birthyear');
-            $table->string('graduates');
-            $table->string('job');
-            $table->integer('income');
-            $table->text('status');
+            $table->integer('birth_year')->nullable();
+            $table->string('graduates')->nullable();
+            $table->string('job')->nullable();
+            $table->integer('income')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->index('student_id');

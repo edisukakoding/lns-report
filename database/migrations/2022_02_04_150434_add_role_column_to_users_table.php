@@ -14,7 +14,7 @@ class AddRoleColumnToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['ADMIN', 'TEACHER', 'STUDENT', 'PARENT', 'GUEST'])
+            $table->enum('role', \Illuminate\Support\Facades\Config::get('constants.user_role'))
                 ->default('GUEST')
                 ->after('email');
         });

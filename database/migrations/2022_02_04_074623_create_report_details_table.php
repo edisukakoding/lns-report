@@ -19,7 +19,7 @@ class CreateReportDetailsTable extends Migration
             $table->integer('report_id')->unsigned();
             $table->text('type');
             $table->text('description');
-            $table->enum('result', ['A', 'B', 'C']);
+            $table->enum('result', \Illuminate\Support\Facades\Config::get('constants.report_indicators'));
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('report_id')->references('id')->on('reports');

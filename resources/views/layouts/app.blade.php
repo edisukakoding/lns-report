@@ -37,11 +37,25 @@
             @include('layouts.header')
 
         </nav>
-        <div class="main-sidebar main-sidebar-postion">
+        <div class="main-sidebar main-sidebar-position">
             @include('layouts.sidebar')
         </div>
         <!-- Main Content -->
         <div class="main-content">
+            @if(\App\Models\PeriodSetting::getActivePeriod() === false)
+            <div class="alert alert-warning alert-has-icon">
+                <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">Periode tahun ajaran belum diatur</div>
+                    Mohon untuk mengatur periode tahun ajar agar sistem bisa digunakan secara menyeluruh.
+                    @if(\Illuminate\Support\Facades\Auth::user()->role === 'ADMIN')
+                        <a href="{{route('periodSettings.create')}}"><strong>klik disini untuk membuat / mengkatifkan tahun ajar</strong></a>
+                    @else
+                        Silahkan hubungi Administrator
+                    @endif
+                </div>
+            </div>
+            @endif
             @yield('content')
         </div>
         <footer class="main-footer">
@@ -61,7 +75,7 @@
 <script src="{{ asset('assets/js/iziToast.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.nicescroll.js') }}"></script>
-@stack('sripts-before')
+@stack('scripts-before')
 <!-- Template JS File -->
 <script src="{{ asset('web/js/stisla.js') }}"></script>
 <script src="{{ asset('web/js/scripts.js') }}"></script>

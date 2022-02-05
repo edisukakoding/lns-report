@@ -1,7 +1,13 @@
 <!-- Class Room Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('class_room_id', __('models/students.fields.class_room_id').':') !!}
-    {!! Form::select('class_room_id', ['a' => 'b'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('class_room_id', \App\Models\ClassRoom::makeOptionList(), null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Nik Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('nik', __('models/students.fields.nik').':') !!}
+    {!! Form::text('nik', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Name Field -->
@@ -13,13 +19,7 @@
 <!-- Gender Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('gender', __('models/students.fields.gender').':') !!}
-    {!! Form::select('gender', ['Laki - Laki' => 'Laki - Laki', ' Perempuan' => ' Perempuan'], null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Nik Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('nik', __('models/students.fields.nik').':') !!}
-    {!! Form::text('nik', null, ['class' => 'form-control']) !!}
+    {!! Form::select('gender', \App\Helpers\Helper::assoc_of_array(\Illuminate\Support\Facades\Config::get('constants.gender')), null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Birthplace Field -->
@@ -31,22 +31,28 @@
 <!-- Birthdate Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('birthdate', __('models/students.fields.birthdate').':') !!}
-    {!! Form::date('birthdate', null, ['class' => 'form-control','id'=>'birthdate']) !!}
+    {!! Form::text('birthdate', null, ['class' => 'form-control datepicker','id'=>'birthdate']) !!}
 </div>
 
-@push('scripts')
-    <script type="text/javascript">
-        $('#birthdate').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: false
-        })
-    </script>
+@push('styles-before')
+{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" />--}}
+    <link rel="stylesheet" href="{{ asset('stisla-master/node_modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" />
+@endpush
+@push('scripts-before')
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>--}}
+    <script src="{{ asset('stisla-master/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+{{--    <script type="text/javascript">--}}
+{{--        $('#birthdate').datetimepicker({--}}
+{{--            format: 'YYYY-MM-DD HH:mm:ss',--}}
+{{--            useCurrent: false--}}
+{{--        })--}}
+{{--    </script>--}}
 @endpush
 
 <!-- Religion Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('religion', __('models/students.fields.religion').':') !!}
-    {!! Form::select('religion', ['' => ''], null, ['class' => 'form-control']) !!}
+    {!! Form::select('religion', \App\Helpers\Helper::assoc_of_array(\Illuminate\Support\Facades\Config::get('constants.religion')), null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Disabled Field -->

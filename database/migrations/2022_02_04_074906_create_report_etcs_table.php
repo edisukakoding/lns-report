@@ -18,7 +18,7 @@ class CreateReportEtcsTable extends Migration
             $table->increments('id');
             $table->integer('report_id')->unsigned();
             $table->string('title');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('report_id')->references('id')->on('reports');

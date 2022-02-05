@@ -12,15 +12,15 @@
                 <img alt="image" src="{{ asset('img/logo.png') }}"
                      class="rounded-circle mr-1 thumbnail-rounded user-thumbnail ">
                 <div class="d-sm-none d-lg-inline-block">
-                    {{ __('messages.common.hello') }}, {{\Illuminate\Support\Facades\Auth::user()->name}}, {{ \App\Models\PeriodSetting::getActivePeriod() }}</div>
+                    {{ __('messages.common.hello') }}, {{\Illuminate\Support\Facades\Auth::user()->name}}</div>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">
                     {{__('messages.common.welcome')}}, {{\Illuminate\Support\Facades\Auth::user()->name}}</div>
-                <a class="dropdown-item has-icon edit-profile" href="#" data-id="{{ \Auth::id() }}">
+                <a class="dropdown-item has-icon edit-profile" href="#" data-id="{{ \Illuminate\Support\Facades\Auth::id() }}">
                     <i class="fa fa-user"></i>{{__('messages.common.edit_profile')}}</a>
-                <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changePasswordModal" href="#" data-id="{{ \Auth::id() }}"><i
+                <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changePasswordModal" href="#" data-id="{{ \Illuminate\Support\Facades\Auth::id() }}"><i
                             class="fa fa-lock"> </i>{{__('messages.common.change_password')}}</a>
                 <a href="{{ url('logout') }}" class="dropdown-item has-icon text-danger"
                    onclick="event.preventDefault(); localStorage.clear();  document.getElementById('logout-form').submit();">

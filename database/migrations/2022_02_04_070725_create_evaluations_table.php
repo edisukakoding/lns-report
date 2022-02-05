@@ -16,9 +16,9 @@ class CreateEvaluationsTable extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('evaluation_type', ['SKALA', 'HASIL KARYA']);
+            $table->enum('evaluation_type', \Illuminate\Support\Facades\Config::get('constants.evaluation_types'));
             $table->text('basic_competencies');
-            $table->enum('achievements', ['BB', 'MB', 'BSH', 'BSB']);
+            $table->enum('achievements', \Illuminate\Support\Facades\Config::get('constants.evaluation_indicators'));
             $table->integer('period_setting_id')->unsigned();
             $table->integer('evaluation_id');
             $table->timestamps();

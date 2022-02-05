@@ -6,7 +6,7 @@ return array (
   'fields' =>
   array (
     'id' => 'Id',
-    'class_room_id' => 'Class Room Id',
+    'class_room_id' => 'Kelas / kelompok belajar',
     'name' => 'Nama',
     'gender' => 'Jenis Kelamin',
     'nik' => 'Nomor Induk Kependudukan',
