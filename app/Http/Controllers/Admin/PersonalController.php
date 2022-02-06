@@ -55,6 +55,9 @@ class PersonalController extends AppBaseController
     {
         $input = $request->all();
 
+        if($request->hasFile('image')) {
+            $input['image']  = $request->file('image')->store('public/profiles');
+        }
         $personal = $this->personalRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/personals.singular')]));
@@ -99,7 +102,7 @@ class PersonalController extends AppBaseController
             return redirect(route('personals.index'));
         }
 
-        return view('admin.personals.edit')->with('admin.personal', $personal);
+        return view('admin.personals.edit')->with('personal', $personal);
     }
 
     /**
@@ -120,7 +123,17 @@ class PersonalController extends AppBaseController
             return redirect(route('personals.index'));
         }
 
-        $personal = $this->personalRepository->update($request->all(), $id);
+        $input = $request->all();
+
+        if(\Illuminate\Support\Facades\Storage::disk()->exists($personal->image)) {
+            \Illuminate\Support\Facades\Storage::delete($personal->image);
+            $input['image']  = $request->file('image')->store('public/profiles');
+        } else {
+            if($request->hasFile('image')) {
+                $input['image']  = $request->file('image')->store('public/profiles');
+            }
+        }
+        $personal = $this->personalRepository->update($input, $id);
 
         Flash::success(__('messages.updated', ['model' => __('models/personals.singular')]));
 

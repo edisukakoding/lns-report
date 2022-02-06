@@ -19,17 +19,17 @@
 <!-- Birthdate Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('birthdate', __('models/personals.fields.birthdate').':') !!}
-    {!! Form::date('birthdate', null, ['class' => 'form-control','id'=>'birthdate']) !!}
+    {!! Form::date('birthdate', isset($personal) ? $personal->birthdate : null, ['class' => 'form-control','id'=>'birthdate']) !!}
 </div>
 
-@push('scripts')
-    <script type="text/javascript">
-        $('#birthdate').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: false
-        })
-    </script>
-@endpush
+{{--@push('scripts')--}}
+{{--    <script type="text/javascript">--}}
+{{--        $('#birthdate').datetimepicker({--}}
+{{--            format: 'YYYY-MM-DD HH:mm:ss',--}}
+{{--            useCurrent: false--}}
+{{--        })--}}
+{{--    </script>--}}
+{{--@endpush--}}
 
 <!-- Birthplace Field -->
 <div class="form-group col-sm-6">
