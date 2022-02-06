@@ -125,6 +125,7 @@ class PersonalController extends AppBaseController
 
         $input = $request->all();
 
+//        dd($input);
         if(\Illuminate\Support\Facades\Storage::disk()->exists($personal->image)) {
             \Illuminate\Support\Facades\Storage::delete($personal->image);
             $input['image']  = $request->file('image')->store('public/profiles');

@@ -1,66 +1,53 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', __('models/personals.fields.id').':') !!}
-    <p>{{ $personal->id }}</p>
+<div class="row">
+    <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <img src="{{ \Illuminate\Support\Facades\Storage::url($personal->image) }}" alt="" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-12 col-lg-8">
+        <table class="table table-hover table-borderless table-sm">
+            <tr>
+                <th>{{ __('models/personals.fields.firstname') }}</th>
+                <td>: {{ $personal->firstname }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.lastname') }}</th>
+                <td>: {{ $personal->lastname }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.user_id') }}</th>
+                <td>: {{ $personal->user->email }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.phone') }}</th>
+                <td>: {{ $personal->phone }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.address') }}</th>
+                <td>: {{ $personal->address }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.birthplace') }}</th>
+                <td>: {{ $personal->birthplace }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.birthdate') }}</th>
+                <td>: {{ $personal->birthdate }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.graduates') }}</th>
+                <td>: {{ $personal->graduates }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.created_at') }}</th>
+                <td>: {{ $personal->created_at }}</td>
+            </tr>
+            <tr>
+                <th>{{ __('models/personals.fields.updated_at') }}</th>
+                <td>: {{ $personal->updated_at }}</td>
+            </tr>
+        </table>
+    </div>
 </div>
-
-<!-- Firstname Field -->
-<div class="form-group">
-    {!! Form::label('firstname', __('models/personals.fields.firstname').':') !!}
-    <p>{{ $personal->firstname }}</p>
-</div>
-
-<!-- Lastname Field -->
-<div class="form-group">
-    {!! Form::label('lastname', __('models/personals.fields.lastname').':') !!}
-    <p>{{ $personal->lastname }}</p>
-</div>
-
-<!-- Address Field -->
-<div class="form-group">
-    {!! Form::label('address', __('models/personals.fields.address').':') !!}
-    <p>{{ $personal->address }}</p>
-</div>
-
-<!-- Birthdate Field -->
-<div class="form-group">
-    {!! Form::label('birthdate', __('models/personals.fields.birthdate').':') !!}
-    <p>{{ $personal->birthdate }}</p>
-</div>
-
-<!-- Birthplace Field -->
-<div class="form-group">
-    {!! Form::label('birthplace', __('models/personals.fields.birthplace').':') !!}
-    <p>{{ $personal->birthplace }}</p>
-</div>
-
-<!-- Phone Field -->
-<div class="form-group">
-    {!! Form::label('phone', __('models/personals.fields.phone').':') !!}
-    <p>{{ $personal->phone }}</p>
-</div>
-
-<!-- Graduates Field -->
-<div class="form-group">
-    {!! Form::label('graduates', __('models/personals.fields.graduates').':') !!}
-    <p>{{ $personal->graduates }}</p>
-</div>
-
-<!-- Image Field -->
-<div class="form-group">
-    {!! Form::label('image', __('models/personals.fields.image').':') !!}
-    <p>{{ $personal->image }}</p>
-</div>
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', __('models/personals.fields.created_at').':') !!}
-    <p>{{ $personal->created_at }}</p>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', __('models/personals.fields.updated_at').':') !!}
-    <p>{{ $personal->updated_at }}</p>
-</div>
-

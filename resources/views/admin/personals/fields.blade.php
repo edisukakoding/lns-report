@@ -54,6 +54,12 @@
     {!! Form::label('image', __('models/personals.fields.image').':') !!}
     {!! Form::file('image') !!}
 </div>
+
+<!-- Graduates Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('user_id', __('models/personals.fields.user_id').':') !!}
+    {!! Form::select('user_id', \App\Models\User::makeOptionList(),null, ['class' => 'form-control select2']) !!}
+</div>
 <div class="clearfix"></div>
 
 <!-- Submit Field -->

@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function makeOptionList()
+    {
+        $option = [];
+        foreach (static::all() as $user) {
+            $option[$user->id] = $user->email;
+        }
+
+        return $option;
+    }
 }

@@ -14,6 +14,7 @@ return array (
     'phone' => 'HP',
     'graduates' => 'Pendidikan Terakhir',
     'image' => 'Foto',
+    'user_id' => 'Email Akun',
     'created_at' => 'Dibuat pada',
     'updated_at' => 'Diubah pada',
   ),

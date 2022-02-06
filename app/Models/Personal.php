@@ -27,7 +27,7 @@ class Personal extends Model
 
 
     public $table = 'personals';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -41,7 +41,8 @@ class Personal extends Model
         'birthplace',
         'phone',
         'graduates',
-        'image'
+        'image',
+        'user_id'
     ];
 
     /**
