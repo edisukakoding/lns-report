@@ -19,7 +19,7 @@
                              <div class="card-body ">
                                     {!! Form::model($guard, ['route' => ['guards.update', $guard->id], 'method' => 'patch']) !!}
                                         <div class="row">
-                                            @include('guards.fields')
+                                            @include('admin.guards.fields')
                                         </div>
 
                                     {!! Form::close() !!}

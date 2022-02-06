@@ -98,5 +98,28 @@
         };
     }(jQuery));
 </script>
-@stack('sripts-after')
+{{--{{dd(session()->get('warning'))}}--}}
+@if(session()->has('flash_notification'))
+    @foreach(session()->get('flash_notification') as $notification)
+    <script>
+        swal('{{ $notification->level }}', '{{ $notification->message }}', '{{ $notification->level }}');
+    </script>
+    @endforeach
+@endif
+@if(session()->has('warning'))
+    <script>
+        swal('Peringatan!', '{{ session()->get('warning') }}', 'warning');
+    </script>
+@endif
+@if(session()->has('success'))
+    <script>
+        swal('Berhasil', '{{ session()->get('success') }}', 'success');
+    </script>
+@endif
+@if(session()->has('error'))
+    <script>
+        swal('Ooops!', '{{ session()->get('error') }}', 'error');
+    </script>
+@endif
+@stack('scripts-after')
 </html>

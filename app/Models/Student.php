@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $weight
  * @property string $distance_home_to_school
  * @property string $time_go_to_school
+ * @property string period
  */
 class Student extends Model
 {
@@ -45,7 +46,7 @@ class Student extends Model
 
 
     public $table = 'students';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -77,7 +78,8 @@ class Student extends Model
         'height',
         'weight',
         'distance_home_to_school',
-        'time_go_to_school'
+        'time_go_to_school',
+        'period'
     ];
 
     /**
@@ -112,7 +114,8 @@ class Student extends Model
         'height' => 'integer',
         'weight' => 'integer',
         'distance_home_to_school' => 'string',
-        'time_go_to_school' => 'string'
+        'time_go_to_school' => 'string',
+        'period' => 'string',
     ];
 
     /**
@@ -137,6 +140,16 @@ class Student extends Model
      **/
     public function classRoom()
     {
-        return $this->hasOne(\App\Models\ClassRoom::class);
+        return $this->belongsTo(ClassRoom::class);
+    }
+
+    public static function makeOptionList()
+    {
+        $option = [];
+        foreach (static::with('classRoom')->where('period', PeriodSetting::getActivePeriod())->get() as $student) {
+            $option[$student->id] = $student->name . ' ( Kelas ' . $student->classRoom->name . ' )';
+        }
+
+        return $option;
     }
 }

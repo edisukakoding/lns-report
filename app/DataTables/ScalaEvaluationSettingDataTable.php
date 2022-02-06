@@ -19,7 +19,7 @@ class ScalaEvaluationSettingDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'scala_evaluation_settings.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.scala_evaluation_settings.datatables_actions');
     }
 
     /**
@@ -75,9 +75,7 @@ class ScalaEvaluationSettingDataTable extends DataTable
                        'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
                     ],
                 ],
-                 'language' => [
-                   'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
-                 ],
+                 'language' => __('datatables.id'),
             ]);
     }
 

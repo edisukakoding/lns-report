@@ -31,16 +31,16 @@
 <!-- Birthdate Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('birthdate', __('models/students.fields.birthdate').':') !!}
-    {!! Form::text('birthdate', null, ['class' => 'form-control datepicker','id'=>'birthdate']) !!}
+    {!! Form::date('birthdate', isset($student) ? $student->birthdate->format('Y-m-d') : null, ['class' => 'form-control','id'=>'birthdate']) !!}
 </div>
 
 @push('styles-before')
 {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" />--}}
-    <link rel="stylesheet" href="{{ asset('stisla-master/node_modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" />
+{{--    <link rel="stylesheet" href="{{ asset('stisla-master/node_modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" />--}}
 @endpush
-@push('scripts-before')
+@push('scripts-after')
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>--}}
-    <script src="{{ asset('stisla-master/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+{{--    <script src="{{ asset('stisla-master/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>--}}
 {{--    <script type="text/javascript">--}}
 {{--        $('#birthdate').datetimepicker({--}}
 {{--            format: 'YYYY-MM-DD HH:mm:ss',--}}
@@ -122,24 +122,27 @@
 </div>
 
 <!-- Email Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('email', __('models/students.fields.email').':') !!}
     {!! Form::email('email', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Is Kps Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('is_kps', __('models/students.fields.is_kps').':') !!}
     <label class="checkbox-inline">
         {!! Form::hidden('is_kps', 0) !!}
-        {!! Form::checkbox('is_kps', '1', null) !!} 1
+        {!! Form::checkbox('is_kps', '1', null) !!} Ya
     </label>
 </div>
 
 <!-- Is Pip Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('is_pip', __('models/students.fields.is_pip').':') !!}
-    {!! Form::text('is_pip', null, ['class' => 'form-control']) !!}
+    <label class="checkbox-inline">
+        {!! Form::hidden('is_pip', 0) !!}
+        {!! Form::checkbox('is_pip', '1', null) !!} Ya
+    </label>
 </div>
 
 <!-- Nationality Field -->
@@ -163,13 +166,13 @@
 <!-- Distance Home To School Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('distance_home_to_school', __('models/students.fields.distance_home_to_school').':') !!}
-    {!! Form::select('distance_home_to_school', ['' => ''], null, ['class' => 'form-control']) !!}
+    {!! Form::select('distance_home_to_school', \App\Helpers\Helper::assoc_of_array(\Illuminate\Support\Facades\Config::get('constants.distance_from_home')), null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Time Go To School Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('time_go_to_school', __('models/students.fields.time_go_to_school').':') !!}
-    {!! Form::text('time_go_to_school', null, ['class' => 'form-control']) !!}
+    {!! Form::select('time_go_to_school', \App\Helpers\Helper::assoc_of_array(\Illuminate\Support\Facades\Config::get('constants.time_from_home')), null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

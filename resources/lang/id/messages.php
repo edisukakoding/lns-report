@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'common' => [
@@ -8,6 +8,10 @@ return [
         'welcome'           => 'Selamat Datang',
         'edit_profile'      => 'Ubah Profil',
         'change_password'   => 'Ubah Password',
-        'logout'            => 'Keluar'
-    ]
+        'logout'            => 'Keluar',
+    ],
+    'saved'             => 'Data berhasil disimpan',
+    'not_found'         => 'Data tidak ditemukan',
+    'updated'           => 'Data berhasil diubah',
+    'deleted'           => 'Data berhasil dihapus'
 ];

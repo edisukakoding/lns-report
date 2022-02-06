@@ -11,7 +11,7 @@ use App\Repositories\BaseRepository;
  * @version February 2, 2022, 7:03 am UTC
 */
 
-class StudentRepository extends BaseRepository
+class   StudentRepository extends BaseRepository
 {
     /**
      * @var array
@@ -42,7 +42,8 @@ class StudentRepository extends BaseRepository
         'height',
         'weight',
         'distance_home_to_school',
-        'time_go_to_school'
+        'time_go_to_school',
+        'period'
     ];
 
     /**

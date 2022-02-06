@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\DataTables\PersonalDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreatePersonalRequest;
 use App\Http\Requests\UpdatePersonalRequest;
 use App\Repositories\PersonalRepository;
-use Flash;
-use App\Http\Controllers\AppBaseController;
-use Response;
+use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\Response;
+use function __;
+use function redirect;
+use function view;
 
 class PersonalController extends AppBaseController
 {
@@ -29,7 +31,7 @@ class PersonalController extends AppBaseController
      */
     public function index(PersonalDataTable $personalDataTable)
     {
-        return $personalDataTable->render('personals.index');
+        return $personalDataTable->render('admin.personals.index');
     }
 
     /**
@@ -39,7 +41,7 @@ class PersonalController extends AppBaseController
      */
     public function create()
     {
-        return view('personals.create');
+        return view('admin.personals.create');
     }
 
     /**
@@ -74,10 +76,10 @@ class PersonalController extends AppBaseController
         if (empty($personal)) {
             Flash::error(__('messages.not_found', ['model' => __('models/personals.singular')]));
 
-            return redirect(route('personals.index'));
+            return redirect(route('admin.personals.index'));
         }
 
-        return view('personals.show')->with('personal', $personal);
+        return view('admin.personals.show')->with('personal', $personal);
     }
 
     /**
@@ -97,7 +99,7 @@ class PersonalController extends AppBaseController
             return redirect(route('personals.index'));
         }
 
-        return view('personals.edit')->with('personal', $personal);
+        return view('admin.personals.edit')->with('admin.personal', $personal);
     }
 
     /**

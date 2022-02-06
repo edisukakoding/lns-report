@@ -3,10 +3,10 @@
 return array (
   'singular' => 'Kelas',
   'plural' => 'Kelas',
-  'fields' => 
+  'fields' =>
   array (
     'id' => 'Id',
-    'name' => 'Kelas',
+    'name' => 'Kelas / Kelompok Belajar',
     'description' => 'Keterangan',
     'created_at' => 'Dibuat',
     'updated_at' => 'Diubah',

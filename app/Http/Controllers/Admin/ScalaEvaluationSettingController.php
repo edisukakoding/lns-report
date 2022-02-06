@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\DataTables\ScalaEvaluationSettingDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateScalaEvaluationSettingRequest;
 use App\Http\Requests\UpdateScalaEvaluationSettingRequest;
 use App\Repositories\ScalaEvaluationSettingRepository;
-use Flash;
+use Illuminate\Support\Facades\Lang;
+use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
-use Response;
+use Illuminate\Support\Facades\Response;
 
 class ScalaEvaluationSettingController extends AppBaseController
 {
@@ -29,7 +30,7 @@ class ScalaEvaluationSettingController extends AppBaseController
      */
     public function index(ScalaEvaluationSettingDataTable $scalaEvaluationSettingDataTable)
     {
-        return $scalaEvaluationSettingDataTable->render('scala_evaluation_settings.index');
+        return $scalaEvaluationSettingDataTable->render('admin.scala_evaluation_settings.index');
     }
 
     /**
@@ -39,7 +40,7 @@ class ScalaEvaluationSettingController extends AppBaseController
      */
     public function create()
     {
-        return view('scala_evaluation_settings.create');
+        return view('admin.scala_evaluation_settings.create');
     }
 
     /**
@@ -77,7 +78,7 @@ class ScalaEvaluationSettingController extends AppBaseController
             return redirect(route('scalaEvaluationSettings.index'));
         }
 
-        return view('scala_evaluation_settings.show')->with('scalaEvaluationSetting', $scalaEvaluationSetting);
+        return view('admin.scala_evaluation_settings.show')->with('scalaEvaluationSetting', $scalaEvaluationSetting);
     }
 
     /**
@@ -97,7 +98,7 @@ class ScalaEvaluationSettingController extends AppBaseController
             return redirect(route('scalaEvaluationSettings.index'));
         }
 
-        return view('scala_evaluation_settings.edit')->with('scalaEvaluationSetting', $scalaEvaluationSetting);
+        return view('admin.scala_evaluation_settings.edit')->with('scalaEvaluationSetting', $scalaEvaluationSetting);
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'action'        => 'Aksi',
@@ -7,5 +7,6 @@ return [
     'cancel'        => 'Batal',
     'back'          => 'Kembali',
     'details'       => 'Rincian',
-    'are_you_sure'  => 'Apakah kamu yakin?'
-];  
+    'are_you_sure'  => 'Apakah kamu yakin?',
+    'edit'          => 'Update'
+];

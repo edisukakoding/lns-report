@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\DataTables\GuardDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateGuardRequest;
 use App\Http\Requests\UpdateGuardRequest;
 use App\Repositories\GuardRepository;
-use Flash;
-use App\Http\Controllers\AppBaseController;
-use Response;
+use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\Response;
+use function __;
+use function redirect;
+use function view;
 
 class GuardController extends AppBaseController
 {
@@ -29,7 +31,7 @@ class GuardController extends AppBaseController
      */
     public function index(GuardDataTable $guardDataTable)
     {
-        return $guardDataTable->render('guards.index');
+        return $guardDataTable->render('admin.guards.index');
     }
 
     /**
@@ -39,7 +41,7 @@ class GuardController extends AppBaseController
      */
     public function create()
     {
-        return view('guards.create');
+        return view('admin.guards.create');
     }
 
     /**
@@ -77,7 +79,7 @@ class GuardController extends AppBaseController
             return redirect(route('guards.index'));
         }
 
-        return view('guards.show')->with('guard', $guard);
+        return view('admin.guards.show')->with('guard', $guard);
     }
 
     /**
@@ -97,7 +99,7 @@ class GuardController extends AppBaseController
             return redirect(route('guards.index'));
         }
 
-        return view('guards.edit')->with('guard', $guard);
+        return view('admin.guards.edit')->with('guard', $guard);
     }
 
     /**

@@ -19,7 +19,7 @@
                              <div class="card-body ">
                                     {!! Form::model($scalaEvaluationSetting, ['route' => ['scalaEvaluationSettings.update', $scalaEvaluationSetting->id], 'method' => 'patch']) !!}
                                         <div class="row">
-                                            @include('scala_evaluation_settings.fields')
+                                            @include('admin.scala_evaluation_settings.fields')
                                         </div>
 
                                     {!! Form::close() !!}

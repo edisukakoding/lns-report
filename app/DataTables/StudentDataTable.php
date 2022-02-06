@@ -28,9 +28,10 @@ class StudentDataTable extends DataTable
      * @param \App\Models\Student $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Student $model)
+    public function query()
     {
-        return $model->newQuery();
+        $model = Student::with('classRoom')->newQuery();
+        return $model;
     }
 
     /**
@@ -75,9 +76,7 @@ class StudentDataTable extends DataTable
                        'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
                     ],
                 ],
-                 'language' => [
-                   'url' => __('datatables.id'),
-                 ],
+                 'language' => __('datatables.id'),
             ]);
     }
 
@@ -88,12 +87,27 @@ class StudentDataTable extends DataTable
      */
     protected function getColumns()
     {
+        $active     = '<i class="fas fa-check text-success"></i>';
+        $inactive   = '<i class="fas fa-times text-danger"></i>';
         return [
             'nik' => new Column(['title' => __('models/students.fields.nik'), 'data' => 'nik']),
             'name' => new Column(['title' => __('models/students.fields.name'), 'data' => 'name']),
+            'class_room' => new Column([
+                'title' => __('models/classRooms.fields.name'),
+                'data' => 'class_room',
+                'render' => 'data.name + " " + data.description'
+            ]),
             'gender' => new Column(['title' => __('models/students.fields.gender'), 'data' => 'gender']),
-            'is_kps' => new Column(['title' => __('models/students.fields.is_kps'), 'data' => 'is_kps']),
-            'is_pip' => new Column(['title' => __('models/students.fields.is_pip'), 'data' => 'is_pip']),
+            'is_kps' => new Column([
+                'title' => __('models/students.fields.is_kps'),
+                'data' => 'is_kps',
+                'render' => "data ? '$active' : '$inactive'"
+            ]),
+            'is_pip' => new Column([
+                'title' => __('models/students.fields.is_pip'),
+                'data' => 'is_pip',
+                'render' => "data ? '$active' : '$inactive'"
+            ]),
         ];
     }
 

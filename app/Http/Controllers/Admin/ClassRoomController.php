@@ -115,14 +115,14 @@ class ClassRoomController extends AppBaseController
         if (empty($classRoom)) {
             Flash::error(__('messages.not_found', ['model' => __('models/classRooms.singular')]));
 
-            return redirect(route('admin.classRooms.index'));
+            return redirect(route('classRooms.index'));
         }
 
         $classRoom = $this->classRoomRepository->update($request->all(), $id);
 
         Flash::success(__('messages.updated', ['model' => __('models/classRooms.singular')]));
 
-        return redirect(route('admin.classRooms.index'));
+        return redirect(route('classRooms.index'));
     }
 
     /**

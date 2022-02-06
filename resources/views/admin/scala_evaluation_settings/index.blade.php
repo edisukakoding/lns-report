@@ -13,11 +13,11 @@
     <div class="section-body">
        <div class="card">
             <div class="card-body">
-                @include('scala_evaluation_settings.table')
+                @include('admin.scala_evaluation_settings.table')
             </div>
        </div>
    </div>
-    
+
     </section>
 @endsection
 

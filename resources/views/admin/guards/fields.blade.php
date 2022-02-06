@@ -1,13 +1,13 @@
 <!-- Student Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('student_id', __('models/guards.fields.student_id').':') !!}
-    {!! Form::select('student_id', ['' => ''], null, ['class' => 'form-control']) !!}
+    {!! Form::select('student_id', \App\Models\Student::makeOptionList(), null, ['class' => 'form-control select2']) !!}
 </div>
 
 <!-- Type Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('type', __('models/guards.fields.type').':') !!}
-    {!! Form::select('type', ['' => ''], null, ['class' => 'form-control']) !!}
+    {!! Form::select('type', \App\Helpers\Helper::assoc_of_array(\Illuminate\Support\Facades\Config::get('constants.guards')), null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Name Field -->

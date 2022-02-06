@@ -26,7 +26,7 @@ class Guard extends Model
 
 
     public $table = 'guards';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -70,5 +70,8 @@ class Guard extends Model
         'name' => 'required'
     ];
 
-    
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

@@ -19,7 +19,7 @@ class GuardDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'guards.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.guards.datatables_actions');
     }
 
     /**
@@ -28,9 +28,10 @@ class GuardDataTable extends DataTable
      * @param \App\Models\Guard $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Guard $model)
+    public function query()
     {
-        return $model->newQuery();
+        $model = Guard::with('student')->newQuery();
+        return $model;
     }
 
     /**
@@ -75,9 +76,7 @@ class GuardDataTable extends DataTable
                        'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
                     ],
                 ],
-                 'language' => [
-                   'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
-                 ],
+                 'language' => __('datatables.id'),
             ]);
     }
 
@@ -89,14 +88,13 @@ class GuardDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'student_id' => new Column(['title' => __('models/guards.fields.student_id'), 'data' => 'student_id']),
             'type' => new Column(['title' => __('models/guards.fields.type'), 'data' => 'type']),
             'name' => new Column(['title' => __('models/guards.fields.name'), 'data' => 'name']),
+            'student' => new Column(['title' => __('models/guards.fields.student_id'), 'data' => 'student.name']),
             'birthyear' => new Column(['title' => __('models/guards.fields.birthyear'), 'data' => 'birthyear']),
             'graduates' => new Column(['title' => __('models/guards.fields.graduates'), 'data' => 'graduates']),
             'job' => new Column(['title' => __('models/guards.fields.job'), 'data' => 'job']),
             'income' => new Column(['title' => __('models/guards.fields.income'), 'data' => 'income']),
-            'status' => new Column(['title' => __('models/guards.fields.status'), 'data' => 'status'])
         ];
     }
 

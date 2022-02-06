@@ -19,7 +19,7 @@
                              <div class="card-body ">
                                     {!! Form::model($personal, ['route' => ['personals.update', $personal->id], 'method' => 'patch', 'files' => true]) !!}
                                         <div class="row">
-                                            @include('personals.fields')
+                                            @include('admin.personals.fields')
                                         </div>
 
                                     {!! Form::close() !!}

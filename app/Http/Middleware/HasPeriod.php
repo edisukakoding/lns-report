@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HasPeriod
 {
@@ -20,6 +21,10 @@ class HasPeriod
             return $next($request);
         }
 
-        return redirect()->back()->with('warning', 'Periode tahun ajar belum diatur');
+        if(Auth::user()->role === 'ADMIN') {
+            return redirect('admin/periodSettings/create')->with('error', 'Periode tahun ajar belum diatur');
+        }else {
+            return redirect()->back()->with('error', 'Periode tahun ajar belum diatur');
+        }
     }
 }

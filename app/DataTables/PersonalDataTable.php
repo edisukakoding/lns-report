@@ -19,7 +19,7 @@ class PersonalDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'personals.datatables_actions');
+        return $dataTable->addColumn('action', 'admin.personals.datatables_actions');
     }
 
     /**
@@ -75,9 +75,7 @@ class PersonalDataTable extends DataTable
                        'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
                     ],
                 ],
-                 'language' => [
-                   'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
-                 ],
+                 'language' => __('datatables.id'),
             ]);
     }
 
@@ -89,14 +87,15 @@ class PersonalDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'firstname' => new Column(['title' => __('models/personals.fields.firstname'), 'data' => 'firstname']),
-            'lastname' => new Column(['title' => __('models/personals.fields.lastname'), 'data' => 'lastname']),
+            'firstname' => new Column([
+                'title' => __('models/personals.fields.firstname'),
+                'data' => 'firstname',
+                'render' => 'full.firstname + " " + full.lastname'
+            ]),
             'address' => new Column(['title' => __('models/personals.fields.address'), 'data' => 'address']),
             'birthdate' => new Column(['title' => __('models/personals.fields.birthdate'), 'data' => 'birthdate']),
             'birthplace' => new Column(['title' => __('models/personals.fields.birthplace'), 'data' => 'birthplace']),
             'phone' => new Column(['title' => __('models/personals.fields.phone'), 'data' => 'phone']),
-            'graduates' => new Column(['title' => __('models/personals.fields.graduates'), 'data' => 'graduates']),
-            'image' => new Column(['title' => __('models/personals.fields.image'), 'data' => 'image'])
         ];
     }
 

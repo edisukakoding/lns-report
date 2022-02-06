@@ -45,16 +45,16 @@ Route::post(
 
 
 
-Route::resource('guards', App\Http\Controllers\GuardController::class);
 
 
 
 
 
-Route::resource('scalaEvaluationSettings', App\Http\Controllers\ScalaEvaluationSettingController::class);
 
 
-Route::resource('personals', App\Http\Controllers\PersonalController::class);
+
+
+
 
 
 Route::resource('anecdotEvaluations', App\Http\Controllers\AnecdoteEvaluationController::class);

@@ -54,12 +54,12 @@ class StudentController extends AppBaseController
     public function store(CreateStudentRequest $request)
     {
         $input = $request->all();
-
+        $input['period']    = \App\Models\PeriodSetting::getActivePeriod();
         $student = $this->studentRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/students.singular')]));
 
-        return redirect(route('admin.students.index'));
+        return redirect(route('students.index'));
     }
 
     /**
