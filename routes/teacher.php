@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Teacher\ScalaEvaluationController;
-use App\Http\Controllers\Admin\ScalaEvaluationSettingController;
+use App\Http\Controllers\Teacher\ScalaEvaluationSettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('teacher')->middleware(['teacher', 'auth'])->group(function () {

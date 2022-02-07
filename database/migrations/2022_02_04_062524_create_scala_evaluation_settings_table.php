@@ -17,7 +17,7 @@ class CreateScalaEvaluationSettingsTable extends Migration
         Schema::create('scala_evaluation_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

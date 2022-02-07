@@ -19,7 +19,7 @@
                            <div class="card-body ">
                                 {!! Form::open(['route' => 'scalaEvaluationSettings.store']) !!}
                                     <div class="row">
-                                        @include('admin.scala_evaluation_settings.fields')
+                                        @include('teacher.scala_evaluation_settings.fields')
                                     </div>
                                 {!! Form::close() !!}
                            </div>

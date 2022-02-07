@@ -19,7 +19,7 @@ class ScalaEvaluationSettingDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'admin.scala_evaluation_settings.datatables_actions');
+        return $dataTable->addColumn('action', 'teacher.scala_evaluation_settings.datatables_actions');
     }
 
     /**

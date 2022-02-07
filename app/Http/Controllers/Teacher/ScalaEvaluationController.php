@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Response;
 use Laracasts\Flash\Flash;
 use function __;
 use function redirect;
@@ -33,9 +32,9 @@ class ScalaEvaluationController extends AppBaseController
      * Display a listing of the ScalaEvaluation.
      *
      * @param ScalaEvaluationDataTable $scalaEvaluationDataTable
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function index(ScalaEvaluationDataTable $scalaEvaluationDataTable): Response
+    public function index(ScalaEvaluationDataTable $scalaEvaluationDataTable)
     {
         return $scalaEvaluationDataTable->render('teacher.scala_evaluations.index');
     }
@@ -61,6 +60,7 @@ class ScalaEvaluationController extends AppBaseController
     {
         $input = $request->all();
 
+        $input['user_id'] = \Illuminate\Support\Facades\Auth::user()->id;
         $this->scalaEvaluationRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/scalaEvaluations.singular')]));

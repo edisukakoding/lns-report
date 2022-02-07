@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Teacher;
 
 use App\DataTables\ScalaEvaluationSettingDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateScalaEvaluationSettingRequest;
 use App\Http\Requests\UpdateScalaEvaluationSettingRequest;
 use App\Repositories\ScalaEvaluationSettingRepository;
-use Illuminate\Support\Facades\Lang;
-use Laracasts\Flash\Flash;
-use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Response;
+use Laracasts\Flash\Flash;
+use function __;
+use function redirect;
+use function view;
 
 class ScalaEvaluationSettingController extends AppBaseController
 {
@@ -30,7 +31,7 @@ class ScalaEvaluationSettingController extends AppBaseController
      */
     public function index(ScalaEvaluationSettingDataTable $scalaEvaluationSettingDataTable)
     {
-        return $scalaEvaluationSettingDataTable->render('admin.scala_evaluation_settings.index');
+        return $scalaEvaluationSettingDataTable->render('teacher.scala_evaluation_settings.index');
     }
 
     /**
@@ -40,7 +41,7 @@ class ScalaEvaluationSettingController extends AppBaseController
      */
     public function create()
     {
-        return view('admin.scala_evaluation_settings.create');
+        return view('teacher.scala_evaluation_settings.create');
     }
 
     /**
@@ -78,7 +79,7 @@ class ScalaEvaluationSettingController extends AppBaseController
             return redirect(route('scalaEvaluationSettings.index'));
         }
 
-        return view('admin.scala_evaluation_settings.show')->with('scalaEvaluationSetting', $scalaEvaluationSetting);
+        return view('teacher.scala_evaluation_settings.show')->with('scalaEvaluationSetting', $scalaEvaluationSetting);
     }
 
     /**
@@ -98,7 +99,7 @@ class ScalaEvaluationSettingController extends AppBaseController
             return redirect(route('scalaEvaluationSettings.index'));
         }
 
-        return view('admin.scala_evaluation_settings.edit')->with('scalaEvaluationSetting', $scalaEvaluationSetting);
+        return view('teacher.scala_evaluation_settings.edit')->with('scalaEvaluationSetting', $scalaEvaluationSetting);
     }
 
     /**

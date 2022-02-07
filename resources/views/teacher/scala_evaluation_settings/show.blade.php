@@ -15,7 +15,7 @@
     <div class="section-body">
            <div class="card">
             <div class="card-body">
-                    @include('admin.scala_evaluation_settings.show_fields')
+                    @include('teacher.scala_evaluation_settings.show_fields')
             </div>
             </div>
     </div>

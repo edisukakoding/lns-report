@@ -21,18 +21,17 @@ class ScalaEvaluationDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'scala_evaluations.datatables_actions');
+        return $dataTable->addColumn('action', 'teacher.scala_evaluations.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param ScalaEvaluation $model
      * @return Builder
      */
-    public function query(ScalaEvaluation $model): Builder
+    public function query(): Builder
     {
-        return $model->newQuery();
+        return ScalaEvaluation::with('student.classRoom')->newQuery();
     }
 
     /**
@@ -90,9 +89,12 @@ class ScalaEvaluationDataTable extends DataTable
     {
         return [
             'date' => new Column(['title' => __('models/scalaEvaluations.fields.date'), 'data' => 'date']),
-            'student_id' => new Column(['title' => __('models/scalaEvaluations.fields.student_id'), 'data' => 'student_id']),
+            'student' => new Column([
+                'title' => __('models/scalaEvaluations.fields.student_id'),
+                'data' => 'student',
+                'render' => '`${data.name} ( Kelas ${data.class_room.name} )`'
+            ]),
             'indicator' => new Column(['title' => __('models/scalaEvaluations.fields.indicator'), 'data' => 'indicator']),
-            'user_id' => new Column(['title' => __('models/scalaEvaluations.fields.user_id'), 'data' => 'user_id'])
         ];
     }
 

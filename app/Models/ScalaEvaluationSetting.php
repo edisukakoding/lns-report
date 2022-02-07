@@ -33,7 +33,7 @@ class ScalaEvaluationSetting extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
@@ -52,5 +52,13 @@ class ScalaEvaluationSetting extends Model
 
     ];
 
+    public static function makeOptionList(): array
+    {
+        $option = ['' => '- Pilih Indikator -'];
+        foreach (static::all() as $scala) {
+            $option[$scala->value] = $scala->value;
+        }
 
+        return $option;
+    }
 }

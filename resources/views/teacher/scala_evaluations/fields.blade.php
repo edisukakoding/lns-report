@@ -1,34 +1,19 @@
 <!-- Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('date', __('models/scalaEvaluations.fields.date').':') !!}
-    {!! Form::date('date', null, ['class' => 'form-control','id'=>'date']) !!}
+    {!! Form::date('date', isset($scalaEvaluation->date) ? $scalaEvaluation->date->format('Y-m-d') : null , ['class' => 'form-control','id'=>'date']) !!}
 </div>
-
-@push('scripts')
-    <script type="text/javascript">
-        $('#date').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: false
-        })
-    </script>
-@endpush
 
 <!-- Student Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('student_id', __('models/scalaEvaluations.fields.student_id').':') !!}
-    {!! Form::select('student_id', ['' => ''], null, ['class' => 'form-control']) !!}
+    {!! Form::select('student_id', \App\Models\Student::makeOptionList(), null, ['class' => 'form-control select2']) !!}
 </div>
 
 <!-- Indicator Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('indicator', __('models/scalaEvaluations.fields.indicator').':') !!}
-    {!! Form::textarea('indicator', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- User Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('user_id', __('models/scalaEvaluations.fields.user_id').':') !!}
-    {!! Form::text('user_id', null, ['class' => 'form-control']) !!}
+    {!! Form::select('indicator', \App\Models\ScalaEvaluationSetting::makeOptionList(), null, ['class' => 'form-control select2']) !!}
 </div>
 
 <!-- Submit Field -->

@@ -73,13 +73,13 @@
     </ul>
 </li>
 
-<li class="{{ Request::is('anecdotEvaluations*') ? 'active' : '' }}">
-    <a href="{{ route('anecdotEvaluations.index') }}"><i class="fa fa-edit"></i><span>@lang('models/anecdotEvaluations.plural')</span></a>
-</li>
+{{--<li class="{{ Request::is('anecdotEvaluations*') ? 'active' : '' }}">--}}
+{{--    <a href="{{ route('anecdotEvaluations.index') }}"><i class="fa fa-edit"></i><span>@lang('models/anecdotEvaluations.plural')</span></a>--}}
+{{--</li>--}}
 
-<li class="{{ Request::is('anecdotEvaluationDetails*') ? 'active' : '' }}">
-    <a href="{{ route('anecdotEvaluationDetails.index') }}"><i class="fa fa-edit"></i><span>@lang('models/anecdotEvaluationDetails.plural')</span></a>
-</li>
+{{--<li class="{{ Request::is('anecdotEvaluationDetails*') ? 'active' : '' }}">--}}
+{{--    <a href="{{ route('anecdotEvaluationDetails.index') }}"><i class="fa fa-edit"></i><span>@lang('models/anecdotEvaluationDetails.plural')</span></a>--}}
+{{--</li>--}}
 
 <li class="{{ Request::is('evaluations*') ? 'active' : '' }}">
     <a href="{{ route('evaluations.index') }}"><i class="fa fa-edit"></i><span>@lang('models/evaluations.plural')</span></a>

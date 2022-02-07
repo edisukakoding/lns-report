@@ -95,7 +95,7 @@ class StudentDataTable extends DataTable
             'class_room' => new Column([
                 'title' => __('models/classRooms.fields.name'),
                 'data' => 'class_room',
-                'render' => 'data.name + " " + data.description'
+                'render' => '`${data.name} ${data.description ? data.description : ""}`'
             ]),
             'gender' => new Column(['title' => __('models/students.fields.gender'), 'data' => 'gender']),
             'is_kps' => new Column([

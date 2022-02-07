@@ -23,6 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 require_once __DIR__ . './admin.php';
+require_once __DIR__ . './teacher.php';
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('io_generator_builder');
 
@@ -57,10 +58,10 @@ Route::post(
 
 
 
-Route::resource('anecdotEvaluations', App\Http\Controllers\AnecdoteEvaluationController::class);
+//Route::resource('anecdotEvaluations', App\Http\Controllers\AnecdoteEvaluationController::class);
 
 
-Route::resource('anecdotEvaluationDetails', App\Http\Controllers\AnecdotEvaluationDetailController::class);
+//Route::resource('anecdotEvaluationDetails', App\Http\Controllers\AnecdotEvaluationDetailController::class);
 
 
 Route::resource('evaluations', \App\Http\Controllers\Teacher\EvaluationController::class);
