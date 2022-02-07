@@ -18,7 +18,7 @@
             </tr>
             <tr>
                 <th>{{ __('models/personals.fields.user_id') }}</th>
-                <td>: {{ $personal->user->email }}</td>
+                <td>: {{ $personal?->user?->email }}</td>
             </tr>
             <tr>
                 <th>{{ __('models/personals.fields.phone') }}</th>
@@ -42,11 +42,11 @@
             </tr>
             <tr>
                 <th>{{ __('models/personals.fields.created_at') }}</th>
-                <td>: {{ $personal->created_at }}</td>
+                <td>: {{ $personal->created_at->diffForHumans() }}</td>
             </tr>
             <tr>
                 <th>{{ __('models/personals.fields.updated_at') }}</th>
-                <td>: {{ $personal->updated_at }}</td>
+                <td>: {{ $personal->updated_at->diffForHumans() }}</td>
             </tr>
         </table>
     </div>

@@ -145,7 +145,7 @@ class Student extends Model
 
     public static function makeOptionList()
     {
-        $option = [];
+        $option = ['' => '- Pilih Siswa -'];
         foreach (static::with('classRoom')->where('period', PeriodSetting::getActivePeriod())->get() as $student) {
             $option[$student->id] = $student->name . ' ( Kelas ' . $student->classRoom->name . ' )';
         }

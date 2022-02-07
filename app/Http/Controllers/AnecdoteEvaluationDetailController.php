@@ -3,57 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\AnecdoteEvaluationDetailDataTable;
-use App\Http\Requests;
-use App\Http\Requests\CreateAnecdotEvaluationDetailRequest;
+use App\Http\Requests\CreateAnecdoteEvaluationDetailRequest;
 use App\Http\Requests\UpdateAnecdoteEvaluationDetailRequest;
-use App\Repositories\AnecdotEvaluationDetailRepository;
-use Flash;
-use App\Http\Controllers\AppBaseController;
-use Response;
+use App\Repositories\AnecdoteEvaluationDetailRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\Response;
 
-class AnecdotEvaluationDetailController extends AppBaseController
+class AnecdoteEvaluationDetailController extends AppBaseController
 {
-    /** @var  AnecdotEvaluationDetailRepository */
-    private $anecdotEvaluationDetailRepository;
+    /** @var  AnecdoteEvaluationDetailRepository */
+    private $anecdoteEvaluationDetailRepository;
 
-    public function __construct(AnecdotEvaluationDetailRepository $anecdotEvaluationDetailRepo)
+    public function __construct(AnecdoteEvaluationDetailRepository $anecdoteEvaluationDetailRepo)
     {
-        $this->anecdotEvaluationDetailRepository = $anecdotEvaluationDetailRepo;
+        $this->anecdoteEvaluationDetailRepository = $anecdoteEvaluationDetailRepo;
     }
 
     /**
-     * Display a listing of the AnecdotEvaluationDetail.
+     * Display a listing of the AnecdoteEvaluationDetail.
      *
-     * @param AnecdoteEvaluationDetailDataTable $anecdotEvaluationDetailDataTable
+     * @param AnecdoteEvaluationDetailDataTable $anecdoteEvaluationDetailDataTable
      * @return Response
      */
-    public function index(AnecdoteEvaluationDetailDataTable $anecdotEvaluationDetailDataTable)
+    public function index(AnecdoteEvaluationDetailDataTable $anecdoteEvaluationDetailDataTable): Response
     {
-        return $anecdotEvaluationDetailDataTable->render('anecdot_evaluation_details.index');
+        return $anecdoteEvaluationDetailDataTable->render('anecdote_evaluation_details.index');
     }
 
     /**
-     * Show the form for creating a new AnecdotEvaluationDetail.
+     * Show the form for creating a new AnecdoteEvaluationDetail.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        return view('anecdot_evaluation_details.create');
+        return view('anecdote_evaluation_details.create');
     }
 
     /**
-     * Store a newly created AnecdotEvaluationDetail in storage.
+     * Store a newly created AnecdoteEvaluationDetail in storage.
      *
-     * @param CreateAnecdotEvaluationDetailRequest $request
+     * @param CreateAnecdoteEvaluationDetailRequest $request
      *
-     * @return Response
+     * @return Application|RedirectResponse|Redirector
      */
     public function store(CreateAnecdotEvaluationDetailRequest $request)
     {
         $input = $request->all();
 
-        $anecdotEvaluationDetail = $this->anecdotEvaluationDetailRepository->create($input);
+        $anecdotEvaluationDetail = $this->anecdoteEvaluationDetailRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/anecdotEvaluationDetails.singular')]));
 
@@ -69,7 +72,7 @@ class AnecdotEvaluationDetailController extends AppBaseController
      */
     public function show($id)
     {
-        $anecdotEvaluationDetail = $this->anecdotEvaluationDetailRepository->find($id);
+        $anecdotEvaluationDetail = $this->anecdoteEvaluationDetailRepository->find($id);
 
         if (empty($anecdotEvaluationDetail)) {
             Flash::error(__('messages.not_found', ['model' => __('models/anecdotEvaluationDetails.singular')]));
@@ -89,7 +92,7 @@ class AnecdotEvaluationDetailController extends AppBaseController
      */
     public function edit($id)
     {
-        $anecdotEvaluationDetail = $this->anecdotEvaluationDetailRepository->find($id);
+        $anecdotEvaluationDetail = $this->anecdoteEvaluationDetailRepository->find($id);
 
         if (empty($anecdotEvaluationDetail)) {
             Flash::error(__('messages.not_found', ['model' => __('models/anecdotEvaluationDetails.singular')]));
@@ -110,7 +113,7 @@ class AnecdotEvaluationDetailController extends AppBaseController
      */
     public function update($id, UpdateAnecdoteEvaluationDetailRequest $request)
     {
-        $anecdotEvaluationDetail = $this->anecdotEvaluationDetailRepository->find($id);
+        $anecdotEvaluationDetail = $this->anecdoteEvaluationDetailRepository->find($id);
 
         if (empty($anecdotEvaluationDetail)) {
             Flash::error(__('messages.not_found', ['model' => __('models/anecdotEvaluationDetails.singular')]));
@@ -118,7 +121,7 @@ class AnecdotEvaluationDetailController extends AppBaseController
             return redirect(route('anecdotEvaluationDetails.index'));
         }
 
-        $anecdotEvaluationDetail = $this->anecdotEvaluationDetailRepository->update($request->all(), $id);
+        $anecdotEvaluationDetail = $this->anecdoteEvaluationDetailRepository->update($request->all(), $id);
 
         Flash::success(__('messages.updated', ['model' => __('models/anecdotEvaluationDetails.singular')]));
 
@@ -134,7 +137,7 @@ class AnecdotEvaluationDetailController extends AppBaseController
      */
     public function destroy($id)
     {
-        $anecdotEvaluationDetail = $this->anecdotEvaluationDetailRepository->find($id);
+        $anecdotEvaluationDetail = $this->anecdoteEvaluationDetailRepository->find($id);
 
         if (empty($anecdotEvaluationDetail)) {
             Flash::error(__('messages.not_found', ['model' => __('models/anecdotEvaluationDetails.singular')]));
@@ -142,7 +145,7 @@ class AnecdotEvaluationDetailController extends AppBaseController
             return redirect(route('anecdotEvaluationDetails.index'));
         }
 
-        $this->anecdotEvaluationDetailRepository->delete($id);
+        $this->anecdoteEvaluationDetailRepository->delete($id);
 
         Flash::success(__('messages.deleted', ['model' => __('models/anecdotEvaluationDetails.singular')]));
 

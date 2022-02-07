@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Teacher;
 
 use App\DataTables\EvaluationDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateEvaluationRequest;
 use App\Http\Requests\UpdateEvaluationRequest;
 use App\Repositories\EvaluationRepository;
 use Flash;
-use App\Http\Controllers\AppBaseController;
 use Response;
+use function __;
+use function redirect;
+use function view;
 
 class EvaluationController extends AppBaseController
 {
@@ -29,7 +31,7 @@ class EvaluationController extends AppBaseController
      */
     public function index(EvaluationDataTable $evaluationDataTable)
     {
-        return $evaluationDataTable->render('evaluations.index');
+        return $evaluationDataTable->render('teacher.evaluations.index');
     }
 
     /**
@@ -39,7 +41,7 @@ class EvaluationController extends AppBaseController
      */
     public function create()
     {
-        return view('evaluations.create');
+        return view('teacher.evaluations.create');
     }
 
     /**
@@ -77,7 +79,7 @@ class EvaluationController extends AppBaseController
             return redirect(route('evaluations.index'));
         }
 
-        return view('evaluations.show')->with('evaluation', $evaluation);
+        return view('teacher.evaluations.show')->with('evaluation', $evaluation);
     }
 
     /**
@@ -97,7 +99,7 @@ class EvaluationController extends AppBaseController
             return redirect(route('evaluations.index'));
         }
 
-        return view('evaluations.edit')->with('evaluation', $evaluation);
+        return view('teacher.evaluations.edit')->with('evaluation', $evaluation);
     }
 
     /**

@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+//use Collective\Html\Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -20,7 +21,7 @@ class ScalaEvaluationSetting extends Model
 
 
     public $table = 'scala_evaluation_settings';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -48,8 +49,8 @@ class ScalaEvaluationSetting extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+
 }

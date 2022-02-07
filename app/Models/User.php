@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public static function makeOptionList()
     {
-        $option = [];
+        $option = ['' => '- Pilih Akun -'];
         foreach (static::all() as $user) {
             $option[$user->id] = $user->email;
         }

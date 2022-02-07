@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\AnecdoteEvaluationDetail;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\AnecdoteEvaluation;
 
 class UpdateAnecdoteEvaluationDetailRequest extends FormRequest
 {
@@ -13,7 +13,7 @@ class UpdateAnecdoteEvaluationDetailRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -23,10 +23,8 @@ class UpdateAnecdoteEvaluationDetailRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        $rules = AnecdoteEvaluationDetail::$rules;
-
-        return $rules;
+        return AnecdoteEvaluationDetail::$rules;
     }
 }

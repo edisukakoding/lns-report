@@ -93,8 +93,8 @@ class PersonalDataTable extends DataTable
                 'render' => 'full.firstname + " " + full.lastname'
             ]),
             'address' => new Column(['title' => __('models/personals.fields.address'), 'data' => 'address']),
-            'birthdate' => new Column(['title' => __('models/personals.fields.birthdate'), 'data' => 'birthdate']),
             'birthplace' => new Column(['title' => __('models/personals.fields.birthplace'), 'data' => 'birthplace']),
+            'birthdate' => new Column(['title' => __('models/personals.fields.birthdate'), 'data' => 'birthdate']),
             'phone' => new Column(['title' => __('models/personals.fields.phone'), 'data' => 'phone']),
         ];
     }

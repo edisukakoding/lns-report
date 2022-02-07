@@ -16,6 +16,12 @@
     {!! Form::textarea('address', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Birthplace Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('birthplace', __('models/personals.fields.birthplace').':') !!}
+    {!! Form::text('birthplace', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Birthdate Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('birthdate', __('models/personals.fields.birthdate').':') !!}
@@ -30,12 +36,6 @@
 {{--        })--}}
 {{--    </script>--}}
 {{--@endpush--}}
-
-<!-- Birthplace Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('birthplace', __('models/personals.fields.birthplace').':') !!}
-    {!! Form::text('birthplace', null, ['class' => 'form-control']) !!}
-</div>
 
 <!-- Phone Field -->
 <div class="form-group col-sm-6">
@@ -52,7 +52,7 @@
 <!-- Image Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('image', __('models/personals.fields.image').':') !!}
-    {!! Form::file('image') !!}
+    {!! Form::file('image', ['class' => 'form-control']) !!}
 </div>
 
 <!-- Graduates Field -->

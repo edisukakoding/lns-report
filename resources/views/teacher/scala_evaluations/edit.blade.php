@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title')
-    @lang('crud.edit') @lang('models/evaluations.singular')
+    @lang('crud.edit') @lang('models/scalaEvaluations.singular')
 @endsection
 @section('content')
     <section class="section">
             <div class="section-header">
-                <h3 class="page__heading m-0">@lang('crud.edit') @lang('models/evaluations.singular')</h3>
+                <h3 class="page__heading m-0">@lang('crud.edit') @lang('models/scalaEvaluations.singular')</h3>
                 <div class="filter-container section-header-breadcrumb row justify-content-md-end">
-                    <a href="{{ route('evaluations.index') }}"  class="btn btn-primary">@lang('crud.back')</a>
+                    <a href="{{ route('scalaEvaluations.index') }}"  class="btn btn-primary">@lang('crud.back')</a>
                 </div>
             </div>
   <div class="content">
@@ -17,9 +17,9 @@
                      <div class="col-lg-12">
                          <div class="card">
                              <div class="card-body ">
-                                    {!! Form::model($evaluation, ['route' => ['evaluations.update', $evaluation->id], 'method' => 'patch']) !!}
+                                    {!! Form::model($scalaEvaluation, ['route' => ['scalaEvaluations.update', $scalaEvaluation->id], 'method' => 'patch']) !!}
                                         <div class="row">
-                                            @include('evaluations.fields')
+                                            @include('teacher.scala_evaluations.fields')
                                         </div>
 
                                     {!! Form::close() !!}

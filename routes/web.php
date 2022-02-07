@@ -63,7 +63,7 @@ Route::resource('anecdotEvaluations', App\Http\Controllers\AnecdoteEvaluationCon
 Route::resource('anecdotEvaluationDetails', App\Http\Controllers\AnecdotEvaluationDetailController::class);
 
 
-Route::resource('evaluations', App\Http\Controllers\EvaluationController::class);
+Route::resource('evaluations', \App\Http\Controllers\Teacher\EvaluationController::class);
 
 
 Route::resource('attainments', App\Http\Controllers\AttainmentController::class);
@@ -79,3 +79,6 @@ Route::resource('raportDetails', App\Http\Controllers\RaportDetailController::cl
 
 
 Route::resource('raportEtcs', App\Http\Controllers\RaportEtcController::class);
+
+
+

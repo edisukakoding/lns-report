@@ -53,7 +53,7 @@ class ClassRoom extends Model
 
     public static function makeOptionList()
     {
-        $option = [];
+        $option = ['' => '- Pilih Kelas -'];
         foreach (static::select('id', 'name')->get() as $class) {
             $option[$class->id] = $class->name;
         }

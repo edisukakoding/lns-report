@@ -30,20 +30,7 @@
         </li>
     </ul>
 </li>
-<li class="nav-item dropdown {{
-    in_array(\Illuminate\Support\Facades\Request::segment(2), [
-    'scalaEvaluationSettings',
-    ]) ? 'active' : ''
-    }}">
-    <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i><span>Pengaturan Nilai</span></a>
-    <ul class="dropdown-menu">
-        <li class="{{ \Illuminate\Support\Facades\Request::is('admin/scalaEvaluationSettings*') ? 'active' : '' }}">
-            <a class="nav-link"
-               href="{{ route('scalaEvaluationSettings.index') }}">@lang('models/scalaEvaluationSettings.plural')
-            </a>
-        </li>
-    </ul>
-</li>
+
 <li class="nav-item dropdown {{
     in_array(\Illuminate\Support\Facades\Request::segment(2), [
     'guards',
@@ -60,6 +47,27 @@
         <li class="{{ \Illuminate\Support\Facades\Request::is('admin/personals*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('personals.index') }}">@lang('models/personals.plural')
+            </a>
+        </li>
+    </ul>
+</li>
+
+<li class="nav-item dropdown {{
+    in_array(\Illuminate\Support\Facades\Request::segment(2), [
+    'scalaEvaluationSettings',
+    'scalaEvaluations',
+    ]) ? 'active' : ''
+    }}">
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>Penilaian</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ \Illuminate\Support\Facades\Request::is('admin/scalaEvaluationSettings*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('scalaEvaluationSettings.index') }}">@lang('models/scalaEvaluationSettings.plural')
+            </a>
+        </li>
+        <li class="{{ \Illuminate\Support\Facades\Request::is('admin/scalaEvaluations*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('scalaEvaluations.index') }}">@lang('models/scalaEvaluations.plural')
             </a>
         </li>
     </ul>
@@ -96,4 +104,3 @@
 <li class="{{ Request::is('raportEtcs*') ? 'active' : '' }}">
     <a href="{{ route('raportEtcs.index') }}"><i class="fa fa-edit"></i><span>@lang('models/raportEtcs.plural')</span></a>
 </li>
-

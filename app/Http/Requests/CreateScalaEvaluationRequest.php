@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\AnecdoteEvaluation;
+use App\Models\ScalaEvaluation;
 
-class CreateAnecdoteEvaluationRequest extends FormRequest
+class CreateScalaEvaluationRequest extends FormRequest
 {
 
     /**
@@ -13,7 +13,7 @@ class CreateAnecdoteEvaluationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -23,8 +23,8 @@ class CreateAnecdoteEvaluationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        return AnecdoteEvaluation::$rules;
+        return ScalaEvaluation::$rules;
     }
 }

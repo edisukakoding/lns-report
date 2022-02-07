@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\AnecdoteEvaluationDetail;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\AnecdoteEvaluation;
 
-class CreateAnecdoteEvaluationRequest extends FormRequest
+class CreateAnecdoteEvaluationDetailRequest extends FormRequest
 {
 
     /**
@@ -25,6 +25,6 @@ class CreateAnecdoteEvaluationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return AnecdoteEvaluation::$rules;
+        return AnecdoteEvaluationDetail::$rules;
     }
 }
