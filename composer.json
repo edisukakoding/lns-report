@@ -8,10 +8,13 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
+        "barryvdh/laravel-snappy": "^1.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "h4cc/wkhtmltoimage-i386": "0.12.x",
+        "h4cc/wkhtmltopdf-i386": "0.12.x",
         "infyomlabs/generator-builder": "dev-master",
         "infyomlabs/laravel-generator": "dev-infyom-dev",
         "infyomlabs/laravel-ui-stisla": "^3.0",
@@ -23,6 +26,7 @@
         "rezaamini-ir/migrator": "^1.5",
         "tightenco/ziggy": "^1.4",
         "yajra/laravel-datatables": "^1.5",
+        "yajra/laravel-datatables-buttons": "^4.13",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

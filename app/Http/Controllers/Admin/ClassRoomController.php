@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\ClassRoomDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreateClassRoomRequest;
 use App\Http\Requests\UpdateClassRoomRequest;
 use App\Repositories\ClassRoomRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Response;
@@ -25,7 +29,7 @@ class ClassRoomController extends AppBaseController
      * Display a listing of the ClassRoom.
      *
      * @param ClassRoomDataTable $classRoomDataTable
-     * @return Response
+     * @return mixed
      */
     public function index(ClassRoomDataTable $classRoomDataTable)
     {
@@ -35,9 +39,9 @@ class ClassRoomController extends AppBaseController
     /**
      * Show the form for creating a new ClassRoom.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.class_rooms.create');
     }
@@ -47,32 +51,29 @@ class ClassRoomController extends AppBaseController
      *
      * @param CreateClassRoomRequest $request
      *
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store(CreateClassRoomRequest $request)
+    public function store(CreateClassRoomRequest $request): RedirectResponse
     {
         $input = $request->all();
-
-        $classRoom = $this->classRoomRepository->create($input);
-
-        Flash::success(__('messages.saved', ['model' => __('models/classRooms.singular')]));
-
+        $this->classRoomRepository->create($input);
+        \flash(__('messages.saved', ['model' => __('models/classRooms.singular')]))->success();
         return redirect(route('classRooms.index'));
     }
 
     /**
      * Display the specified ClassRoom.
      *
-     * @param  int $id
+     * @param int $id
      *
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id): View
     {
         $classRoom = $this->classRoomRepository->find($id);
 
         if (empty($classRoom)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/classRooms.singular')]));
+            \flash(__('messages.not_found', ['model' => __('models/classRooms.singular')]))->error();
 
             return redirect(route('classRooms.index'));
         }

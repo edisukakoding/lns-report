@@ -104,7 +104,7 @@ class AnecdoteEvaluationDetailController extends AppBaseController
     }
 
     /**
-     * Update the specified AnecdotEvaluationDetail in storage.
+     * Update the specified AnecdoteEvaluationDetail in storage.
      *
      * @param  int              $id
      * @param UpdateAnecdoteEvaluationDetailRequest $request

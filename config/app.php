@@ -175,9 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        \InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
-        \InfyOm\RoutesExplorer\RoutesExplorerServiceProvider::class,
-        \Fruitcake\Cors\CorsServiceProvider::class,
+        InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
+        InfyOm\RoutesExplorer\RoutesExplorerServiceProvider::class,
+        Fruitcake\Cors\CorsServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class
 
     ],
 

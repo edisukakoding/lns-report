@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -34,7 +34,7 @@ class PeriodSetting extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
@@ -50,15 +50,17 @@ class PeriodSetting extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'title' => 'required'
     ];
 
-    public static function getActivePeriod()
+
+    public static function getActivePeriod(): bool|string
     {
-        $period= static::where('status', 1)->first();
+
+        $period = static::query()->select()->from((new PeriodSetting)->getTable())->where('status', 1)->first();
         if($period) {
-            return $period->title;
+            return $period['title'];
         }
 
         return false;
