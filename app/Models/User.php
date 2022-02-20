@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -42,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function makeOptionList()
+    public static function makeOptionList(): array
     {
         $option = ['' => '- Pilih Akun -'];
         foreach (static::all() as $user) {
@@ -50,5 +51,10 @@ class User extends Authenticatable
         }
 
         return $option;
+    }
+
+    public function personal(): HasOne
+    {
+        return $this->hasOne(Personal::class);
     }
 }

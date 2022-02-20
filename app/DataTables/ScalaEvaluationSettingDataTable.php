@@ -3,6 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\ScalaEvaluationSetting;
+use Illuminate\Database\Eloquent\Builder;
+use JetBrains\PhpStorm\ArrayShape;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
@@ -13,9 +16,9 @@ class ScalaEvaluationSettingDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable(mixed $query): DataTableAbstract
     {
         $dataTable = new EloquentDataTable($query);
 
@@ -25,10 +28,10 @@ class ScalaEvaluationSettingDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\ScalaEvaluationSetting $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param ScalaEvaluationSetting $model
+     * @return Builder
      */
-    public function query(ScalaEvaluationSetting $model)
+    public function query(ScalaEvaluationSetting $model): Builder
     {
         return $model->newQuery();
     }
@@ -38,45 +41,9 @@ class ScalaEvaluationSettingDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
-        return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
-            ->parameters([
-                'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
-                    [
-                       'extend' => 'create',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create').''
-                    ],
-                    [
-                       'extend' => 'export',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export').''
-                    ],
-                    [
-                       'extend' => 'print',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print').''
-                    ],
-                    [
-                       'extend' => 'reset',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset').''
-                    ],
-                    [
-                       'extend' => 'reload',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
-                    ],
-                ],
-                 'language' => __('datatables.id'),
-            ]);
+        return HelperDataTable::builder($this);
     }
 
     /**
@@ -84,7 +51,8 @@ class ScalaEvaluationSettingDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    #[ArrayShape(['value' => "\Yajra\DataTables\Html\Column", 'description' => "\Yajra\DataTables\Html\Column"])]
+    public function getColumns():array
     {
         return [
             'value' => new Column(['title' => __('models/scalaEvaluationSettings.fields.value'), 'data' => 'value']),
@@ -97,8 +65,8 @@ class ScalaEvaluationSettingDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
-        return 'scala_evaluation_settings_datatable_' . time();
+        return 'Pengaturan Nilai Skala ' . time();
     }
 }

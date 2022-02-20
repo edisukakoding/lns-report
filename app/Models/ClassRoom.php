@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -47,14 +47,14 @@ class ClassRoom extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'name' => 'required'
     ];
 
-    public static function makeOptionList()
+    public static function makeOptionList(): array
     {
         $option = ['' => '- Pilih Kelas -'];
-        foreach (static::select('id', 'name')->get() as $class) {
+        foreach (static::all() as $class) {
             $option[$class->id] = $class->name;
         }
 

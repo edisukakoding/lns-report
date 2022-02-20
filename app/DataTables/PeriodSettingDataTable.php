@@ -73,6 +73,6 @@ class PeriodSettingDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'period_settings_datatable_' . time();
+        return 'Pengaturan Periode ' . time();
     }
 }

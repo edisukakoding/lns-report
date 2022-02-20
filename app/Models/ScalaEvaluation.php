@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-//use Collective\Html\Eloquent as Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $indicator
  * @property integer $user_id
  * @method belongsTo(string $class)
+ * @method static where(string $string, $id)
  */
 class ScalaEvaluation extends Model
 {
@@ -58,7 +58,7 @@ class ScalaEvaluation extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'date' => 'required',
         'student_id' => 'required',
         'indicator' => 'required'
@@ -77,6 +77,6 @@ class ScalaEvaluation extends Model
      **/
     public function teacher(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

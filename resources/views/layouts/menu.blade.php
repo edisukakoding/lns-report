@@ -56,18 +56,24 @@
     in_array(\Illuminate\Support\Facades\Request::segment(2), [
     'scalaEvaluationSettings',
     'scalaEvaluations',
+    'evaluations',
     ]) ? 'active' : ''
     }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>Penilaian</span></a>
     <ul class="dropdown-menu">
-        <li class="{{ \Illuminate\Support\Facades\Request::is('admin/scalaEvaluationSettings*') ? 'active' : '' }}">
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/scalaEvaluationSettings*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('scalaEvaluationSettings.index') }}">@lang('models/scalaEvaluationSettings.plural')
             </a>
         </li>
-        <li class="{{ \Illuminate\Support\Facades\Request::is('admin/scalaEvaluations*') ? 'active' : '' }}">
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/scalaEvaluations*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('scalaEvaluations.index') }}">@lang('models/scalaEvaluations.plural')
+            </a>
+        </li>
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/evaluations*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('evaluations.index') }}">@lang('models/evaluations.plural')
             </a>
         </li>
     </ul>
@@ -81,9 +87,6 @@
 {{--    <a href="{{ route('anecdotEvaluationDetails.index') }}"><i class="fa fa-edit"></i><span>@lang('models/anecdotEvaluationDetails.plural')</span></a>--}}
 {{--</li>--}}
 
-<li class="{{ Request::is('evaluations*') ? 'active' : '' }}">
-    <a href="{{ route('evaluations.index') }}"><i class="fa fa-edit"></i><span>@lang('models/evaluations.plural')</span></a>
-</li>
 
 <li class="{{ Request::is('attainments*') ? 'active' : '' }}">
     <a href="{{ route('attainments.index') }}"><i class="fa fa-edit"></i><span>@lang('models/attainments.plural')</span></a>

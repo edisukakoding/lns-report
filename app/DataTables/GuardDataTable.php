@@ -3,6 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\Guard;
+use Illuminate\Database\Eloquent\Builder;
+use JetBrains\PhpStorm\ArrayShape;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
@@ -13,9 +16,9 @@ class GuardDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable(mixed $query): DataTableAbstract
     {
         $dataTable = new EloquentDataTable($query);
 
@@ -25,13 +28,11 @@ class GuardDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Guard $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function query()
+    public function query(): Builder
     {
-        $model = Guard::with('student')->newQuery();
-        return $model;
+        return Guard::with('student')->newQuery();
     }
 
     /**
@@ -39,45 +40,9 @@ class GuardDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
-        return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
-            ->parameters([
-                'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
-                    [
-                       'extend' => 'create',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create').''
-                    ],
-                    [
-                       'extend' => 'export',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export').''
-                    ],
-                    [
-                       'extend' => 'print',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print').''
-                    ],
-                    [
-                       'extend' => 'reset',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset').''
-                    ],
-                    [
-                       'extend' => 'reload',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
-                    ],
-                ],
-                 'language' => __('datatables.id'),
-            ]);
+        return HelperDataTable::builder($this);
     }
 
     /**
@@ -85,7 +50,7 @@ class GuardDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    #[ArrayShape(['type' => "\Yajra\DataTables\Html\Column", 'name' => "\Yajra\DataTables\Html\Column", 'student' => "\Yajra\DataTables\Html\Column", 'birthyear' => "\Yajra\DataTables\Html\Column", 'graduates' => "\Yajra\DataTables\Html\Column", 'job' => "\Yajra\DataTables\Html\Column", 'income' => "\Yajra\DataTables\Html\Column"])] public function getColumns(): array
     {
         return [
             'type' => new Column(['title' => __('models/guards.fields.type'), 'data' => 'type']),
@@ -103,7 +68,7 @@ class GuardDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'guards_datatable_' . time();
     }

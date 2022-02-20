@@ -8,7 +8,7 @@ return array (
     'id' => 'Id',
     'student_id' => 'Siswa',
     'type' => 'Hubungan',
-    'name' => 'Nama Siswa',
+    'name' => 'Nama',
     'birthyear' => 'Tahun Lahir',
     'graduates' => 'Pendidikan Terakhir',
     'job' => 'Pekerjaan',

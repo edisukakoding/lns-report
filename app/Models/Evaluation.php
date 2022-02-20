@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @version February 4, 2022, 7:07 am UTC
  *
- * @property \App\Models\PeriodeSetting $periodeSetting
+ * @property string $period
  * @property string $evaluation_type
  * @property string $basic_competencies
  * @property string $achievements
@@ -24,7 +25,7 @@ class Evaluation extends Model
 
 
     public $table = 'evaluations';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -34,8 +35,9 @@ class Evaluation extends Model
         'evaluation_type',
         'basic_competencies',
         'achievements',
-        'period_setting_id',
-        'evaluation_id'
+        'period',
+        'evaluation_id',
+        'user_id'
     ];
 
     /**
@@ -48,7 +50,7 @@ class Evaluation extends Model
         'evaluation_type' => 'string',
         'basic_competencies' => 'string',
         'achievements' => 'string',
-        'period_setting_id' => 'integer',
+        'period' => 'string',
         'evaluation_id' => 'integer'
     ];
 
@@ -57,18 +59,24 @@ class Evaluation extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'evaluation_type' => 'required',
         'basic_competencies' => 'required',
-        'achievements' => 'required',
-        'period_setting_id' => 'required'
+        'achievements' => 'required'
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     **/
-    public function periodeSetting()
+    public function user(): BelongsTo
     {
-        return $this->hasOne(\App\Models\PeriodeSetting::class, 'id', 'period_setting_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function scala(): BelongsTo
+    {
+        return $this->belongsTo(ScalaEvaluation::class, 'evaluation_id', 'id');
+    }
+
+    public function anecdote(): BelongsTo
+    {
+        return $this->belongsTo(AnecdoteEvaluation::class, 'evaluation_id', 'id');
     }
 }

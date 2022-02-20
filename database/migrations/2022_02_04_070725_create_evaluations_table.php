@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 class CreateEvaluationsTable extends Migration
@@ -16,9 +17,9 @@ class CreateEvaluationsTable extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('evaluation_type', \Illuminate\Support\Facades\Config::get('constants.evaluation_types'));
+            $table->enum('evaluation_type', Config::get('constants.evaluation_types'));
             $table->text('basic_competencies');
-            $table->enum('achievements', \Illuminate\Support\Facades\Config::get('constants.evaluation_indicators'));
+            $table->enum('achievements', Config::get('constants.evaluation_indicators'));
             $table->string('period');
             $table->integer('evaluation_id');
             $table->bigInteger('user_id')->unsigned();

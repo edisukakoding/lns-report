@@ -3,6 +3,13 @@
 namespace App\DataTables;
 
 use App\Models\Evaluation;
+use App\Models\ScalaEvaluation;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+use JetBrains\PhpStorm\ArrayShape;
+use Yajra\DataTables\DataTableAbstract;
+use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
@@ -13,9 +20,9 @@ class EvaluationDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable(mixed $query): DataTableAbstract
     {
         $dataTable = new EloquentDataTable($query);
 
@@ -25,12 +32,13 @@ class EvaluationDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Evaluation $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Evaluation $model
+     * @return Builder
      */
-    public function query(Evaluation $model)
+
+    public function query(Evaluation $model): Builder
     {
-        return $model->newQuery();
+        return $model::with('user.personal', 'scala.student.classRoom')->newQuery();
     }
 
     /**
@@ -38,45 +46,9 @@ class EvaluationDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
-        return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
-            ->parameters([
-                'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
-                    [
-                       'extend' => 'create',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create').''
-                    ],
-                    [
-                       'extend' => 'export',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export').''
-                    ],
-                    [
-                       'extend' => 'print',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print').''
-                    ],
-                    [
-                       'extend' => 'reset',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset').''
-                    ],
-                    [
-                       'extend' => 'reload',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
-                    ],
-                ],
-                 'language' => __('datatables.id'),
-            ]);
+        return HelperDataTable::builder($this);
     }
 
     /**
@@ -84,14 +56,28 @@ class EvaluationDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    #[ArrayShape([
+        'evaluation_type' => "\Yajra\DataTables\Html\Column",
+        'basic_competencies' => "\Yajra\DataTables\Html\Column",
+        'achievements' => "\Yajra\DataTables\Html\Column",
+        'user_id' => "\Yajra\DataTables\Html\Column",
+        'evaluation_id' => "\Yajra\DataTables\Html\Column",
+    ])] public function getColumns():array
     {
         return [
             'evaluation_type' => new Column(['title' => __('models/evaluations.fields.evaluation_type'), 'data' => 'evaluation_type']),
             'basic_competencies' => new Column(['title' => __('models/evaluations.fields.basic_competencies'), 'data' => 'basic_competencies']),
             'achievements' => new Column(['title' => __('models/evaluations.fields.achievements'), 'data' => 'achievements']),
-            'period_setting_id' => new Column(['title' => __('models/evaluations.fields.period_setting_id'), 'data' => 'period_setting_id']),
-            'evaluation_id' => new Column(['title' => __('models/evaluations.fields.evaluation_id'), 'data' => 'evaluation_id'])
+            'user_id' => new Column([
+                'title' => __('models/evaluations.fields.user_id'),
+                'data' => 'user_id',
+                'render' => '`${full.user.personal.firstname} ${full.user.personal.lastname ? full.user.personal.lastname : ""}`'
+            ]),
+            'evaluation_id' => new Column([
+                'title' => __('models/evaluations.fields.evaluation_id'),
+                'data' => 'evaluation_id',
+                'render' => '`${full.scala.student.name} ( Kelas: ${full.scala.student.class_room.name} ) | ${full.scala.indicator}`'
+            ])
         ];
     }
 
@@ -100,8 +86,8 @@ class EvaluationDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
-        return 'evaluations_datatable_' . time();
+        return 'Evaluasi ' . time();
     }
 }

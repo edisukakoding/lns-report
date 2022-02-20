@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <th>{{ __('models/personals.fields.birthdate') }}</th>
-                <td>: {{ $personal->birthdate }}</td>
+                <td>: {{ $personal->birthdate->format('Y-m-d') }}</td>
             </tr>
             <tr>
                 <th>{{ __('models/personals.fields.graduates') }}</th>

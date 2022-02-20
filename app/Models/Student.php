@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -40,7 +41,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $time_go_to_school
  * @property string period
  */
-class Student extends Model
+class Student extends \Illuminate\Database\Eloquent\Model
 {
     use SoftDeletes;
 
@@ -123,7 +124,7 @@ class Student extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'class_room_id' => 'exists:class_rooms,id|required',
         'name' => 'required',
         'gender' => 'required',
@@ -136,14 +137,14 @@ class Student extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return BelongsTo
      **/
-    public function classRoom()
+    public function classRoom(): BelongsTo
     {
         return $this->belongsTo(ClassRoom::class);
     }
 
-    public static function makeOptionList()
+    public static function makeOptionList(): array
     {
         $option = ['' => '- Pilih Siswa -'];
         foreach (static::with('classRoom')->where('period', PeriodSetting::getActivePeriod())->get() as $student) {

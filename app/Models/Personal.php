@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @version February 4, 2022, 6:39 am UTC
  *
- * @property \App\Models\User $user
+ * @property User $user
  * @property string $firstname
  * @property string $lastname
  * @property string $address
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $graduates
  * @property string $image
  */
-class Personal extends Model
+class Personal extends \Illuminate\Database\Eloquent\Model
 {
     use SoftDeletes;
 
@@ -67,15 +67,15 @@ class Personal extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'firstname' => 'required'
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      **/
-    public function user()
+    public function user(): HasOne
     {
-        return $this->hasOne(\App\Models\User::class, 'id', 'user_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }

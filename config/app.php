@@ -179,9 +179,7 @@ return [
         InfyOm\RoutesExplorer\RoutesExplorerServiceProvider::class,
         Fruitcake\Cors\CorsServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Yajra\DataTables\ButtonsServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class
-
+        Yajra\DataTables\ButtonsServiceProvider::class
     ],
 
     /*
@@ -236,7 +234,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
-        'Datatables' => \Yajra\DataTables\Facades\DataTables::class,
+        'Datatables' => Yajra\DataTables\Facades\DataTables::class
     ],
 
 ];

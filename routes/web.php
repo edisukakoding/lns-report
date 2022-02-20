@@ -64,8 +64,6 @@ Route::post(
 //Route::resource('anecdotEvaluationDetails', App\Http\Controllers\AnecdotEvaluationDetailController::class);
 
 
-Route::resource('evaluations', \App\Http\Controllers\Teacher\EvaluationController::class);
-
 
 Route::resource('attainments', App\Http\Controllers\AttainmentController::class);
 

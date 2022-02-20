@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -65,12 +65,12 @@ class Guard extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'type' => 'required',
         'name' => 'required'
     ];
 
-    public function student()
+    public function student(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Student::class);
     }

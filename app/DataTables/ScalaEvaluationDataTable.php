@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\ScalaEvaluation;
 use Illuminate\Database\Eloquent\Builder;
+use JetBrains\PhpStorm\ArrayShape;
 use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
@@ -17,7 +18,7 @@ class ScalaEvaluationDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return DataTableAbstract
      */
-    public function dataTable($query): DataTableAbstract
+    public function dataTable(mixed $query): DataTableAbstract
     {
         $dataTable = new EloquentDataTable($query);
 
@@ -31,7 +32,7 @@ class ScalaEvaluationDataTable extends DataTable
      */
     public function query(): Builder
     {
-        return ScalaEvaluation::with('student.classRoom')->newQuery();
+        return ScalaEvaluation::with('student.classRoom', 'teacher')->newQuery();
     }
 
     /**
@@ -41,43 +42,7 @@ class ScalaEvaluationDataTable extends DataTable
      */
     public function html(): \Yajra\DataTables\Html\Builder
     {
-        return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
-            ->parameters([
-                'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
-                    [
-                       'extend' => 'create',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create')
-                    ],
-                    [
-                       'extend' => 'export',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export')
-                    ],
-                    [
-                       'extend' => 'print',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print')
-                    ],
-                    [
-                       'extend' => 'reset',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset')
-                    ],
-                    [
-                       'extend' => 'reload',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload')
-                    ],
-                ],
-                 'language' => __('datatables.id'),
-            ]);
+        return HelperDataTable::builder($this);
     }
 
     /**
@@ -85,10 +50,24 @@ class ScalaEvaluationDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns(): array
+    #[ArrayShape([
+        'date' => "\Yajra\DataTables\Html\Column",
+        'student' => "\Yajra\DataTables\Html\Column",
+        'indicator' => "\Yajra\DataTables\Html\Column"
+    ])]
+    public function getColumns(): array
     {
         return [
-            'date' => new Column(['title' => __('models/scalaEvaluations.fields.date'), 'data' => 'date']),
+            'date' => new Column([
+                'title' => __('models/scalaEvaluations.fields.date'),
+                'data' => 'date',
+                'render' => 'new Date(data).toLocaleDateString("id-ID", {
+                    weekday: "long",
+                    year: "numeric",
+                     month: "long",
+                     day: "numeric"
+                })'
+            ]),
             'student' => new Column([
                 'title' => __('models/scalaEvaluations.fields.student_id'),
                 'data' => 'student',
@@ -105,6 +84,6 @@ class ScalaEvaluationDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'scala_evaluations_datatable_' . time();
+        return 'Evaluasi Skala' . time();
     }
 }

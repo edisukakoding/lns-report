@@ -19,12 +19,12 @@
 <!-- Created At Field -->
 <div class="form-group">
     {!! Form::label('created_at', __('models/scalaEvaluationSettings.fields.created_at').':') !!}
-    <p>{{ $scalaEvaluationSetting->created_at }}</p>
+    <p>{{ $scalaEvaluationSetting->created_at->diffForHumans() }}</p>
 </div>
 
 <!-- Updated At Field -->
 <div class="form-group">
     {!! Form::label('updated_at', __('models/scalaEvaluationSettings.fields.updated_at').':') !!}
-    <p>{{ $scalaEvaluationSetting->updated_at }}</p>
+    <p>{{ $scalaEvaluationSetting->updated_at->diffForHumans() }}</p>
 </div>
 
