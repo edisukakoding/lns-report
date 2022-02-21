@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -11,8 +12,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @version February 4, 2022, 7:16 am UTC
  *
- * @property \App\Models\User $user
- * @property \App\Models\ClassRoom $classRoom
+ * @property User $user
+ * @property ClassRoom $classRoom
  * @property integer $class_room_id
  * @property integer $user_id
  * @property string $date
@@ -23,7 +24,7 @@ class Attainment extends Model
 
 
     public $table = 'attainments';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -36,7 +37,7 @@ class Attainment extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
@@ -52,24 +53,23 @@ class Attainment extends Model
      *
      * @var array
      */
-    public static $rules = [
-        'class_room_id' => 'requried',
-        'user_id' => 'required'
+    public static array $rules = [
+        'class_room_id' => 'required',
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      **/
-    public function user()
+    public function user(): HasOne
     {
-        return $this->hasOne(\App\Models\User::class, 'id', 'user_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      **/
-    public function classRoom()
+    public function classRoom(): HasOne
     {
-        return $this->hasOne(\App\Models\ClassRoom::class, 'id', 'class_room_id');
+        return $this->hasOne(ClassRoom::class, 'id', 'class_room_id');
     }
 }

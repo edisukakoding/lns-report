@@ -3,6 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\AttainmentDetail;
+use Illuminate\Database\Eloquent\Builder;
+use JetBrains\PhpStorm\ArrayShape;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
@@ -13,22 +16,22 @@ class AttainmentDetailDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable(mixed $query): DataTableAbstract
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'attainment_details.datatables_actions');
+        return $dataTable->addColumn('action', 'teacher.attainment_details.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\AttainmentDetail $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param AttainmentDetail $model
+     * @return Builder
      */
-    public function query(AttainmentDetail $model)
+    public function query(AttainmentDetail $model): Builder
     {
         return $model->newQuery();
     }
@@ -38,47 +41,9 @@ class AttainmentDetailDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
-        return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
-            ->parameters([
-                'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
-                    [
-                       'extend' => 'create',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create').''
-                    ],
-                    [
-                       'extend' => 'export',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export').''
-                    ],
-                    [
-                       'extend' => 'print',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print').''
-                    ],
-                    [
-                       'extend' => 'reset',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset').''
-                    ],
-                    [
-                       'extend' => 'reload',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
-                    ],
-                ],
-                 'language' => [
-                   'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
-                 ],
-            ]);
+        return HelperDataTable::builder(object: $this, buttons: false, searching: false, paging: false);
     }
 
     /**
@@ -86,13 +51,12 @@ class AttainmentDetailDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    #[ArrayShape(['attainment_id' => "\Yajra\DataTables\Html\Column", 'student_id' => "\Yajra\DataTables\Html\Column", 'title' => "\Yajra\DataTables\Html\Column", 'description' => "\Yajra\DataTables\Html\Column", 'image' => "\Yajra\DataTables\Html\Column"])] public function getColumns(): array
     {
         return [
             'attainment_id' => new Column(['title' => __('models/attainmentDetails.fields.attainment_id'), 'data' => 'attainment_id']),
             'student_id' => new Column(['title' => __('models/attainmentDetails.fields.student_id'), 'data' => 'student_id']),
             'title' => new Column(['title' => __('models/attainmentDetails.fields.title'), 'data' => 'title']),
-            'description' => new Column(['title' => __('models/attainmentDetails.fields.description'), 'data' => 'description']),
             'image' => new Column(['title' => __('models/attainmentDetails.fields.image'), 'data' => 'image'])
         ];
     }
@@ -102,8 +66,8 @@ class AttainmentDetailDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
-        return 'attainment_details_datatable_' . time();
+        return 'Detail Hasil Karya' . time();
     }
 }

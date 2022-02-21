@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -11,8 +12,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @version February 4, 2022, 7:23 am UTC
  *
- * @property \App\Models\Attainment $attainment
- * @property \App\Models\Student $student
+ * @property Attainment $attainment
+ * @property Student $student
  * @property integer $attainment_id
  * @property integer $student_id
  * @property string $title
@@ -25,7 +26,7 @@ class AttainmentDetail extends Model
 
 
     public $table = 'attainment_details';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -40,7 +41,7 @@ class AttainmentDetail extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
@@ -58,26 +59,25 @@ class AttainmentDetail extends Model
      *
      * @var array
      */
-    public static $rules = [
-        'attainment_id' => 'required',
+    public static array $rules = [
         'student_id' => 'required',
         'title' => 'required',
         'description' => 'required'
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      **/
-    public function attainment()
+    public function attainment(): HasOne
     {
-        return $this->hasOne(\App\Models\Attainment::class, 'id', 'attainment_id');
+        return $this->hasOne(Attainment::class, 'id', 'attainment_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      **/
-    public function student()
+    public function student(): HasOne
     {
-        return $this->hasOne(\App\Models\Student::class, 'id', 'student_id');
+        return $this->hasOne(Student::class, 'id', 'student_id');
     }
 }

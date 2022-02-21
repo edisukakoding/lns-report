@@ -67,12 +67,7 @@ class PersonalDataTable extends DataTable
             'birthdate' => new Column([
                 'title' => __('models/personals.fields.birthdate'),
                 'data' => 'birthdate',
-                'render' => 'new Date(data).toLocaleDateString("id-ID", {
-                    weekday: "long",
-                    year: "numeric",
-                     month: "long",
-                     day: "numeric"
-                })'
+                'render' => HelperDataTable::renderJSDate()
             ]),
             'phone' => new Column(['title' => __('models/personals.fields.phone'), 'data' => 'phone']),
         ];

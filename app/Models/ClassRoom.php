@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property string $name
  * @property string $description
+ * @method static create(string[] $array)
  */
 class ClassRoom extends Model
 {

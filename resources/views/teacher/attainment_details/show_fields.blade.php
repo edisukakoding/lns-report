@@ -1,19 +1,13 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', __('models/attainmentDetails.fields.id').':') !!}
-    <p>{{ $attainmentDetail->id }}</p>
-</div>
-
 <!-- Attainment Id Field -->
 <div class="form-group">
     {!! Form::label('attainment_id', __('models/attainmentDetails.fields.attainment_id').':') !!}
-    <p>{{ $attainmentDetail->attainment_id }}</p>
+    <p>{{ 'Kelas : ' . $attainmentDetail->attainment->classRoom->name . ' ( ' . $attainmentDetail->attainment->date->format('Y-m-d') . ' )' }}</p>
 </div>
 
 <!-- Student Id Field -->
 <div class="form-group">
     {!! Form::label('student_id', __('models/attainmentDetails.fields.student_id').':') !!}
-    <p>{{ $attainmentDetail->student_id }}</p>
+    <p>{{ $attainmentDetail->student->name }}</p>
 </div>
 
 <!-- Title Field -->
@@ -22,16 +16,16 @@
     <p>{{ $attainmentDetail->title }}</p>
 </div>
 
-<!-- Description Field -->
-<div class="form-group">
-    {!! Form::label('description', __('models/attainmentDetails.fields.description').':') !!}
-    <p>{{ $attainmentDetail->description }}</p>
-</div>
-
 <!-- Image Field -->
 <div class="form-group">
     {!! Form::label('image', __('models/attainmentDetails.fields.image').':') !!}
-    <p>{{ $attainmentDetail->image }}</p>
+    <img src="{{ \Illuminate\Support\Facades\Storage::url($attainmentDetail->image) }}" alt="">
+</div>
+
+<!-- Description Field -->
+<div class="form-group">
+    {!! Form::label('description', __('models/attainmentDetails.fields.description').':') !!}
+    <p>{!! $attainmentDetail->description !!}</p>
 </div>
 
 <!-- Created At Field -->

@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $distance_home_to_school
  * @property string $time_go_to_school
  * @property string period
+ * @method static create(array $array)
  */
 class Student extends \Illuminate\Database\Eloquent\Model
 {

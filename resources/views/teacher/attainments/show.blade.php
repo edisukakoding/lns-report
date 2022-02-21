@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    @lang('models/attainments.singular')  @lang('crud.details') 
+    @lang('models/attainments.singular')  @lang('crud.details')
 @endsection
 @section('content')
     <section class="section">
@@ -15,7 +15,7 @@
     <div class="section-body">
            <div class="card">
             <div class="card-body">
-                    @include('attainments.show_fields')
+                    @include('teacher.attainments.show_fields')
             </div>
             </div>
     </div>

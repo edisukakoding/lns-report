@@ -57,6 +57,7 @@
     'scalaEvaluationSettings',
     'scalaEvaluations',
     'evaluations',
+    'attainments'
     ]) ? 'active' : ''
     }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>Penilaian</span></a>
@@ -76,6 +77,11 @@
                href="{{ route('evaluations.index') }}">@lang('models/evaluations.plural')
             </a>
         </li>
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/attainments*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('attainments.index') }}">@lang('models/attainments.plural')
+            </a>
+        </li>
     </ul>
 </li>
 
@@ -86,15 +92,6 @@
 {{--<li class="{{ Request::is('anecdotEvaluationDetails*') ? 'active' : '' }}">--}}
 {{--    <a href="{{ route('anecdotEvaluationDetails.index') }}"><i class="fa fa-edit"></i><span>@lang('models/anecdotEvaluationDetails.plural')</span></a>--}}
 {{--</li>--}}
-
-
-<li class="{{ Request::is('attainments*') ? 'active' : '' }}">
-    <a href="{{ route('attainments.index') }}"><i class="fa fa-edit"></i><span>@lang('models/attainments.plural')</span></a>
-</li>
-
-<li class="{{ Request::is('attainmentDetails*') ? 'active' : '' }}">
-    <a href="{{ route('attainmentDetails.index') }}"><i class="fa fa-edit"></i><span>@lang('models/attainmentDetails.plural')</span></a>
-</li>
 
 <li class="{{ Request::is('raports*') ? 'active' : '' }}">
     <a href="{{ route('raports.index') }}"><i class="fa fa-edit"></i><span>@lang('models/raports.plural')</span></a>

@@ -65,10 +65,10 @@ Route::post(
 
 
 
-Route::resource('attainments', App\Http\Controllers\AttainmentController::class);
 
 
-Route::resource('attainmentDetails', App\Http\Controllers\AttainmentDetailController::class);
+
+
 
 
 Route::resource('raports', App\Http\Controllers\RaportController::class);

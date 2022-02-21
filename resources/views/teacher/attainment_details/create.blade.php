@@ -7,7 +7,7 @@
         <div class="section-header">
             <h3 class="page__heading m-0">@lang('crud.add_new') @lang('models/attainmentDetails.singular')</h3>
             <div class="filter-container section-header-breadcrumb row justify-content-md-end">
-                <a href="{{ route('attainmentDetails.index') }}" class="btn btn-primary">@lang('crud.back')</a>
+                <a href="{{ url()->previous() }}" class="btn btn-primary">@lang('crud.back')</a>
             </div>
         </div>
         <div class="content">
@@ -19,7 +19,7 @@
                            <div class="card-body ">
                                 {!! Form::open(['route' => 'attainmentDetails.store', 'files' => true]) !!}
                                     <div class="row">
-                                        @include('attainment_details.fields')
+                                        @include('teacher.attainment_details.fields')
                                     </div>
                                 {!! Form::close() !!}
                            </div>

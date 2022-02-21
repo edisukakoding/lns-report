@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $title
  * @property string $status
  * @property string $description
+ * @method static create(string[] $array)
  */
 class PeriodSetting extends Model
 {

@@ -19,7 +19,7 @@
                            <div class="card-body ">
                                 {!! Form::open(['route' => 'attainments.store']) !!}
                                     <div class="row">
-                                        @include('attainments.fields')
+                                        @include('teacher.attainments.fields')
                                     </div>
                                 {!! Form::close() !!}
                            </div>
