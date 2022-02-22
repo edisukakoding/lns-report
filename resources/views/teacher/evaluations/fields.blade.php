@@ -31,15 +31,19 @@
 
 @push('scripts-after')
     <script>
-        $('#evaluation_type').change(function () {
-            if($(this).val() === 'SKALA') {
-                $('#evaluation_id').select2({
-                    ajax: {
-                        url: '{{ route('evaluations.getScalaEvaluations') }}',
-                        dataType: "json"
+        $('#evaluation_type').change(function (e) {
+            $('#evaluation_id').select2({
+                ajax: {
+                    url: '{{ route('evaluations.getIndicators') }}',
+                    dataType: "json",
+                    data: function (params) {
+                        return {
+                            search: params.term,
+                            type: e.target.value
+                        };
                     }
-                });
-            }
+                }
+            });
         });
 
     </script>

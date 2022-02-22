@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property string $value
  * @property string $description
+ * @method static create(array $array)
  */
 class ScalaEvaluationSetting extends Model
 {

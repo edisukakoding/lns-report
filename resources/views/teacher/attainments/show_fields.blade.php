@@ -20,7 +20,7 @@
 <div class="row mt-5">
     <div class="col-md-12 col-lg-12">
         <div class="section justify-content-between d-flex">
-            <h6 style="font-weight: lighter; font-size: 18px">Penilaian hasil karya per tanggal: {{ $attainment->date->format('Y-m-d') }}</h6>
+            <h6 style="font-weight: lighter; font-size: 18px">Catatan hasil karya per tanggal: {{ $attainment->date->format('Y-m-d') }}</h6>
                 <a href="{{ route('attainmentDetails.create', ['attainment_id' => $attainment->id])}}" class="btn btn-outline-primary form-btn">@lang('crud.add_new')<i class="fas fa-plus"></i></a>
         </div>
     </div>

@@ -7,7 +7,7 @@
         <div class="section-header">
         <h1>@lang('models/attainmentDetails.singular') @lang('crud.details')</h1>
         <div class="section-header-breadcrumb">
-            <a href="{{ route('attainmentDetails.index') }}"
+            <a href="{{ url()->previous() }}"
                  class="btn btn-primary form-btn float-right">@lang('crud.back')</a>
         </div>
       </div>

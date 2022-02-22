@@ -21,7 +21,11 @@
 <!-- Image Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('image', __('models/attainmentDetails.fields.image').':') !!}
-    {!! Form::file('image', ['class' => 'form-control']) !!}
+{{--    {!! Form::file('image', ['class' => 'form-control']) !!}--}}
+    <div id="image-preview" class="image-preview">
+        <label for="image-upload" id="image-label">Pilih File</label>
+        <input type="file" name="image" id="image-upload"  style="cursor: pointer"/>
+    </div>
 </div>
 
 <!-- Description Field -->
@@ -45,4 +49,27 @@
 
 @push('scripts-before')
     <script src="{{ asset('stisla-master/node_modules/summernote/dist/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('stisla-master/node_modules/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
+    <script>
+        $.uploadPreview({
+            input_field: "#image-upload",   // Default: .image-upload
+            preview_box: "#image-preview",  // Default: .image-preview
+            label_field: "#image-label",    // Default: .image-label
+            label_default: "Pilih Gambar",   // Default: Choose File
+            label_selected: "Ubah Gambar",  // Default: Change File
+            no_label: false,                // Default: false
+            success_callback: null          // Default: null
+        });
+
+        const image = '{{ isset($attainmentDetail->image) ? \Illuminate\Support\Facades\Storage::url($attainmentDetail->image) : '' }}';
+        console.log(image)
+        if(image !== "") {
+            $('.image-preview').css({
+                "background-image"  : `url(${image})`,
+                "background-size"   : 'cover',
+                "background-position": 'center center'
+            });
+            $('#image-label').text('Ubah Gambar')
+        }
+    </script>
 @endpush

@@ -2,7 +2,7 @@
     <div class="col-md-4 col-sm-12 col-lg-4">
         <div class="card">
             <div class="card-body">
-                <img src="{{ \Illuminate\Support\Facades\Storage::url($personal->image) }}" alt="" class="img-fluid">
+                <img src="{{ \Illuminate\Support\Facades\Storage::url($personal->image) }}" alt="" class="img-fluid rounded-circle">
             </div>
         </div>
     </div>

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $title
  * @property string $description
  * @property string $image
+ * @method static create(array $array)
  */
 class AttainmentDetail extends Model
 {

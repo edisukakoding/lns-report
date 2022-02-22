@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $user_id
  * @method belongsTo(string $class)
  * @method static where(string $string, $id)
+ * @method static create(array $array)
  */
 class ScalaEvaluation extends Model
 {

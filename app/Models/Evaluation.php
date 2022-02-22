@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $achievements
  * @property integer $period_setting_id
  * @property integer $evaluation_id
+ * @method static create(array $array)
  */
 class Evaluation extends Model
 {
@@ -75,8 +76,8 @@ class Evaluation extends Model
         return $this->belongsTo(ScalaEvaluation::class, 'evaluation_id', 'id');
     }
 
-    public function anecdote(): BelongsTo
+    public function attainmentDetail(): BelongsTo
     {
-        return $this->belongsTo(AnecdoteEvaluation::class, 'evaluation_id', 'id');
+        return $this->belongsTo(AttainmentDetail::class, 'evaluation_id', 'id');
     }
 }

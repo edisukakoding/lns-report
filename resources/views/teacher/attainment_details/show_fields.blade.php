@@ -1,42 +1,17 @@
-<!-- Attainment Id Field -->
-<div class="form-group">
-    {!! Form::label('attainment_id', __('models/attainmentDetails.fields.attainment_id').':') !!}
-    <p>{{ 'Kelas : ' . $attainmentDetail->attainment->classRoom->name . ' ( ' . $attainmentDetail->attainment->date->format('Y-m-d') . ' )' }}</p>
+<div class="row m-5">
+    <div class="col-md-12 col-lg-12">
+        <h2>{{ ucwords($attainmentDetail->title) }}</h2>
+        <span class="text-muted d-inline">
+            {{ $attainmentDetail->attainment->user->name }}
+            <span class="bullet"></span> {{ 'Kelas : ' . $attainmentDetail->attainment->classRoom->name . ' ( ' . $attainmentDetail->attainment->date->format('Y-m-d') . ' )' }}
+            <span class="bullet"></span> {{ $attainmentDetail->created_at->diffForHumans() }}
+        </span>
+    </div>
+    <div class="col-md-12 col-lg-12">
+        @isset($attainmentDetail->image)
+        <img src="{{ \Illuminate\Support\Facades\Storage::url($attainmentDetail->image) }}" alt="{{ ucwords($attainmentDetail->title) }}" class="img-fluid mx-auto d-block">
+        @endisset
+        <br>
+        {!! $attainmentDetail->description !!}
+    </div>
 </div>
-
-<!-- Student Id Field -->
-<div class="form-group">
-    {!! Form::label('student_id', __('models/attainmentDetails.fields.student_id').':') !!}
-    <p>{{ $attainmentDetail->student->name }}</p>
-</div>
-
-<!-- Title Field -->
-<div class="form-group">
-    {!! Form::label('title', __('models/attainmentDetails.fields.title').':') !!}
-    <p>{{ $attainmentDetail->title }}</p>
-</div>
-
-<!-- Image Field -->
-<div class="form-group">
-    {!! Form::label('image', __('models/attainmentDetails.fields.image').':') !!}
-    <img src="{{ \Illuminate\Support\Facades\Storage::url($attainmentDetail->image) }}" alt="">
-</div>
-
-<!-- Description Field -->
-<div class="form-group">
-    {!! Form::label('description', __('models/attainmentDetails.fields.description').':') !!}
-    <p>{!! $attainmentDetail->description !!}</p>
-</div>
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', __('models/attainmentDetails.fields.created_at').':') !!}
-    <p>{{ $attainmentDetail->created_at }}</p>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', __('models/attainmentDetails.fields.updated_at').':') !!}
-    <p>{{ $attainmentDetail->updated_at }}</p>
-</div>
-

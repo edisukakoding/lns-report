@@ -59,7 +59,11 @@ class GuardDataTable extends DataTable
             'birthyear' => new Column(['title' => __('models/guards.fields.birthyear'), 'data' => 'birthyear']),
             'graduates' => new Column(['title' => __('models/guards.fields.graduates'), 'data' => 'graduates']),
             'job' => new Column(['title' => __('models/guards.fields.job'), 'data' => 'job']),
-            'income' => new Column(['title' => __('models/guards.fields.income'), 'data' => 'income']),
+            'income' => new Column([
+                'title' => __('models/guards.fields.income'),
+                'data' => 'income',
+                'render'    => HelperDataTable::formatIDR()
+            ]),
         ];
     }
 

@@ -8,7 +8,7 @@ use App\Http\Controllers\Teacher\ScalaEvaluationSettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('teacher')->middleware(['teacher', 'auth'])->group(function () {
-    Route::get('/evaluations/getScalaEvaluations', [EvaluationController::class, 'getScalaEvaluation'])->name('evaluations.getScalaEvaluations');
+    Route::get('/evaluations/getIndicators', [EvaluationController::class, 'getIndicators'])->name('evaluations.getIndicators');
     Route::resource('scalaEvaluationSettings', ScalaEvaluationSettingController::class);
     Route::resource('scalaEvaluations', ScalaEvaluationController::class);
     Route::resource('evaluations', EvaluationController::class);

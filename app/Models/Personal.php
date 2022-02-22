@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $phone
  * @property string $graduates
  * @property string $image
+ * @method static create(array $array)
  */
 class Personal extends \Illuminate\Database\Eloquent\Model
 {

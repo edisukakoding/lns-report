@@ -73,4 +73,12 @@ class HelperDataTable
              day: "numeric"
         })';
     }
+
+    /**
+     * @return string
+     */
+    public static function formatIDR(): string
+    {
+        return 'new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(data)';
+    }
 }

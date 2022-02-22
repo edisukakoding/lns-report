@@ -38,7 +38,7 @@ class EvaluationDataTable extends DataTable
 
     public function query(Evaluation $model): Builder
     {
-        return $model::with('user.personal', 'scala.student.classRoom')->newQuery();
+        return $model::with('user.personal', 'scala.student.classRoom', 'attainmentDetail.student.classRoom')->newQuery();
     }
 
     /**
@@ -76,7 +76,10 @@ class EvaluationDataTable extends DataTable
             'evaluation_id' => new Column([
                 'title' => __('models/evaluations.fields.evaluation_id'),
                 'data' => 'evaluation_id',
-                'render' => '`${full.scala.student.name} ( Kelas: ${full.scala.student.class_room.name} ) | ${full.scala.indicator}`'
+                'render' => 'full.evaluation_type === "SKALA"
+                    ? `${full.scala.student.name} ( Kelas: ${full.scala.student.class_room.name} ) | ${full.scala.indicator}`
+                    : `${full.attainment_detail.student.name} ( Kelas: ${full.attainment_detail.student.class_room.name} ) | ${full.attainment_detail.title}`
+                '
             ])
         ];
     }

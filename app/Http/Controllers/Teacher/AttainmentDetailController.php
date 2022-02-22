@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Storage;
 use function __;
 use function redirect;
 use function view;
@@ -98,15 +99,18 @@ class AttainmentDetailController extends AppBaseController
      */
     public function edit(int $id): View|Factory|Redirector|Application|RedirectResponse
     {
-        $attainmentDetail = $this->attainmentDetailRepository->find($id);
-
+        $attainmentDetail   = $this->attainmentDetailRepository->find($id);
+        $attainment         = null;
+        if (!empty($attainmentDetail->attainment_id)) {
+            $attainment         = Attainment::query()->findOrFail(id: $attainmentDetail->attainment_id);
+        }
         if (empty($attainmentDetail)) {
             flash(__('messages.not_found', ['model' => __('models/attainmentDetails.singular')]), 'error');
 
             return redirect(route('attainmentDetails.index'));
         }
 
-        return view('teacher.attainment_details.edit')->with('attainmentDetail', $attainmentDetail);
+        return view('teacher.attainment_details.edit', compact('attainmentDetail', 'attainment'));
     }
 
     /**
@@ -123,14 +127,21 @@ class AttainmentDetailController extends AppBaseController
         if (empty($attainmentDetail)) {
             flash(__('messages.not_found', ['model' => __('models/attainmentDetails.singular')]), 'error');
 
-            return redirect(route('attainmentDetails.index'));
+            return redirect(url()->previous());
         }
 
-        $attainmentDetail = $this->attainmentDetailRepository->update($request->all(), $id);
+        $input = $request->all();
+        if($request->hasFile('image')) {
+            if(isset($attainmentDetail->image)) {
+                Storage::delete($attainmentDetail->image);
+            }
+            $input['image'] = $request->file('image')->store('public/attainments');
+        }
+        $this->attainmentDetailRepository->update($input, $id);
 
         flash(__('messages.updated', ['model' => __('models/attainmentDetails.singular')]), 'success');
 
-        return redirect(route('attainmentDetails.index'));
+        return redirect(url()->previous());
     }
 
     /**
@@ -155,6 +166,6 @@ class AttainmentDetailController extends AppBaseController
 
         flash(__('messages.deleted', ['model' => __('models/attainmentDetails.singular')]), 'success');
 
-        return redirect(route('attainmentDetails.index'));
+        return redirect(url()->previous());
     }
 }

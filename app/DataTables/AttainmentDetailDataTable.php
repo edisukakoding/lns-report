@@ -28,11 +28,11 @@ class AttainmentDetailDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param AttainmentDetail $model
      * @return Builder
      */
-    public function query(AttainmentDetail $model): Builder
+    public function query(): Builder
     {
+        $model = AttainmentDetail::with('student.classRoom');
         return $model->newQuery();
     }
 
@@ -54,10 +54,12 @@ class AttainmentDetailDataTable extends DataTable
     #[ArrayShape(['attainment_id' => "\Yajra\DataTables\Html\Column", 'student_id' => "\Yajra\DataTables\Html\Column", 'title' => "\Yajra\DataTables\Html\Column", 'description' => "\Yajra\DataTables\Html\Column", 'image' => "\Yajra\DataTables\Html\Column"])] public function getColumns(): array
     {
         return [
-            'attainment_id' => new Column(['title' => __('models/attainmentDetails.fields.attainment_id'), 'data' => 'attainment_id']),
-            'student_id' => new Column(['title' => __('models/attainmentDetails.fields.student_id'), 'data' => 'student_id']),
+            'student_id' => new Column([
+                'title' => __('models/attainmentDetails.fields.student_id'),
+                'data' => 'student_id',
+                'render' => '`${full.student.name} (${full.student.class_room.name})`'
+            ]),
             'title' => new Column(['title' => __('models/attainmentDetails.fields.title'), 'data' => 'title']),
-            'image' => new Column(['title' => __('models/attainmentDetails.fields.image'), 'data' => 'image'])
         ];
     }
 

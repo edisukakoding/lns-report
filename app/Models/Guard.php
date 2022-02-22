@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $job
  * @property integer $income
  * @property string $status
+ * @method static create(array $array)
  */
 class Guard extends Model
 {
