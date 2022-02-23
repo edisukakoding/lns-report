@@ -54,10 +54,13 @@
 
 <li class="nav-item dropdown {{
     in_array(\Illuminate\Support\Facades\Request::segment(2), [
-    'scalaEvaluationSettings',
-    'scalaEvaluations',
-    'evaluations',
-    'attainments'
+        'scalaEvaluationSettings',
+        'scalaEvaluations',
+        'evaluations',
+        'attainments',
+        'attainmentDetails',
+        'anecdoteEvaluations',
+        'anecdoteEvaluationDetails'
     ]) ? 'active' : ''
     }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>Penilaian</span></a>
@@ -77,21 +80,18 @@
                href="{{ route('evaluations.index') }}">@lang('models/evaluations.plural')
             </a>
         </li>
-        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/attainments*') ? 'active' : '' }}">
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/attainment*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('attainments.index') }}">@lang('models/attainments.plural')
             </a>
         </li>
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/anecdoteEvaluation*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('anecdoteEvaluations.index') }}">@lang('models/anecdoteEvaluations.plural')
+            </a>
+        </li>
     </ul>
 </li>
-
-{{--<li class="{{ Request::is('anecdotEvaluations*') ? 'active' : '' }}">--}}
-{{--    <a href="{{ route('anecdotEvaluations.index') }}"><i class="fa fa-edit"></i><span>@lang('models/anecdotEvaluations.plural')</span></a>--}}
-{{--</li>--}}
-
-{{--<li class="{{ Request::is('anecdotEvaluationDetails*') ? 'active' : '' }}">--}}
-{{--    <a href="{{ route('anecdotEvaluationDetails.index') }}"><i class="fa fa-edit"></i><span>@lang('models/anecdotEvaluationDetails.plural')</span></a>--}}
-{{--</li>--}}
 
 <li class="{{ Request::is('raports*') ? 'active' : '' }}">
     <a href="{{ route('raports.index') }}"><i class="fa fa-edit"></i><span>@lang('models/raports.plural')</span></a>

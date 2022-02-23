@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title')
-    @lang('crud.edit') @lang('models/anecdotEvaluations.singular')
+    @lang('crud.edit') @lang('models/anecdoteEvaluationDetails.singular')
 @endsection
 @section('content')
     <section class="section">
             <div class="section-header">
-                <h3 class="page__heading m-0">@lang('crud.edit') @lang('models/anecdotEvaluations.singular')</h3>
+                <h3 class="page__heading m-0">@lang('crud.edit') @lang('models/anecdoteEvaluationDetails.singular')</h3>
                 <div class="filter-container section-header-breadcrumb row justify-content-md-end">
-                    <a href="{{ route('anecdotEvaluations.index') }}"  class="btn btn-primary">@lang('crud.back')</a>
+                    <a href="{{ url()->previous() }}"  class="btn btn-primary">@lang('crud.back')</a>
                 </div>
             </div>
   <div class="content">
@@ -17,11 +17,10 @@
                      <div class="col-lg-12">
                          <div class="card">
                              <div class="card-body ">
-                                    {!! Form::model($anecdotEvaluation, ['route' => ['anecdotEvaluations.update', $anecdotEvaluation->id], 'method' => 'patch']) !!}
+                                    {!! Form::model($anecdoteEvaluationDetail, ['route' => ['anecdoteEvaluationDetails.update', $anecdoteEvaluationDetail->id], 'method' => 'patch']) !!}
                                         <div class="row">
-                                            @include('anecdot_evaluations.fields')
+                                            @include('teacher.anecdote_evaluation_details.fields')
                                         </div>
-
                                     {!! Form::close() !!}
                             </div>
                          </div>

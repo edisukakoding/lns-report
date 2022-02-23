@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 
 /**
@@ -79,5 +80,23 @@ class ScalaEvaluation extends Model
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public static function makeSelect2(string $keyword): array
+    {
+        $results    = [];
+        $query      = static::where('user_id', Auth::id())
+            ->where('indicator', 'like', $keyword)
+            ->whereHas('student', function ($student) use ($keyword) {
+                $student->where('period', PeriodSetting::getActivePeriod())->where('name', 'like', $keyword);
+            });
+
+        foreach ($query->get() as $item) {
+            $results[] = [
+                'id'    => $item->id,
+                'text'  => $item->student->name . ' ( ' . $item->student->classRoom->name . ' )' . ' | ' . $item->indicator
+            ];
+        }
+        return $results;
     }
 }

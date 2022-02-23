@@ -70,23 +70,11 @@ class AttainmentController extends AppBaseController
      * Display the specified Attainment.
      *
      * @param int $id
-     * @return View|Factory|Redirector|Application|RedirectResponse
+     * @param AttainmentDetailDataTable $attainmentDetailDataTable
+     * @return Application|RedirectResponse|Redirector|mixed
      */
-//    public function show(int $id): View|Factory|Redirector|Application|RedirectResponse
-//    {
-//        $attainment = $this->attainmentRepository->find($id);
-//
-//        if (empty($attainment)) {
-//            flash(__('messages.not_found', ['model' => __('models/attainments.singular')]), 'error');
-//
-//            return redirect(route('attainments.index'));
-//        }
-//
-//        return view('teacher.attainments.show')->with('attainment', $attainment);
-//    }
 
-
-    public function show(int $id, AttainmentDetailDataTable $attainmentDetailDataTable)
+    public function show(int $id, AttainmentDetailDataTable $attainmentDetailDataTable): mixed
     {
         $attainment = $this->attainmentRepository->find($id);
 
@@ -97,9 +85,8 @@ class AttainmentController extends AppBaseController
         }
 
         return $attainmentDetailDataTable->render('teacher.attainments.show', compact('attainment'));
-
-//        return view('teacher.attainments.show')->with('attainment', $attainment);
     }
+
     /**
      * Show the form for editing the specified Attainment.
      *

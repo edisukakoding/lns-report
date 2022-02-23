@@ -58,10 +58,10 @@ Route::post(
 
 
 
-//Route::resource('anecdotEvaluations', App\Http\Controllers\AnecdoteEvaluationController::class);
 
 
-//Route::resource('anecdotEvaluationDetails', App\Http\Controllers\AnecdotEvaluationDetailController::class);
+
+
 
 
 

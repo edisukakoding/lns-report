@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\ArrayShape;
+use PHPUnit\TextUI\Help;
 use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
@@ -38,7 +39,12 @@ class EvaluationDataTable extends DataTable
 
     public function query(Evaluation $model): Builder
     {
-        return $model::with('user.personal', 'scala.student.classRoom', 'attainmentDetail.student.classRoom')->newQuery();
+        return $model::with([
+            'user.personal',
+            'scala.student.classRoom',
+            'attainmentDetail.student.classRoom',
+            'anecdoteEvaluationDetail.student.classRoom'
+        ])->newQuery();
     }
 
     /**
@@ -76,10 +82,21 @@ class EvaluationDataTable extends DataTable
             'evaluation_id' => new Column([
                 'title' => __('models/evaluations.fields.evaluation_id'),
                 'data' => 'evaluation_id',
-                'render' => 'full.evaluation_type === "SKALA"
-                    ? `${full.scala.student.name} ( Kelas: ${full.scala.student.class_room.name} ) | ${full.scala.indicator}`
-                    : `${full.attainment_detail.student.name} ( Kelas: ${full.attainment_detail.student.class_room.name} ) | ${full.attainment_detail.title}`
-                '
+                'render' => 'function(){
+                    switch(full.evaluation_type) {
+                        case "SKALA":
+                            return `${full.scala.student.name} ( Kelas: ${full.scala.student.class_room.name} ) | ${full.scala.indicator}`;
+                            break;
+                        case "HASIL KARYA":
+                            return `${full.attainment_detail.student.name} ( Kelas: ${full.attainment_detail.student.class_room.name} ) | ${full.attainment_detail.title}`;
+                            break;
+                        case "ANEKDOT":
+                            return `${full.anecdoteEvaluationDetail.student.name} ( Kelas: ${full.anecdoteEvaluationDetail.student.class_room.name} ) | ${full.anecdoteEvaluationDetail.location}`;
+                            break;
+                        default:
+                            return "";
+                    }
+                }'
             ])
         ];
     }

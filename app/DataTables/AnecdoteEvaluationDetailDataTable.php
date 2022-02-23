@@ -3,6 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\AnecdoteEvaluationDetail;
+use Illuminate\Database\Eloquent\Builder;
+use JetBrains\PhpStorm\ArrayShape;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
@@ -13,24 +16,24 @@ class AnecdoteEvaluationDetailDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable(mixed $query): DataTableAbstract
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'anecdot_evaluation_details.datatables_actions');
+        return $dataTable->addColumn('action', 'teacher.anecdote_evaluation_details.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\AnecdoteEvaluation $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param AnecdoteEvaluationDetail $model
+     * @return Builder
      */
-    public function query(AnecdoteEvaluationDetail $model)
+    public function query(AnecdoteEvaluationDetail $model): Builder
     {
-        return $model->newQuery();
+        return $model::with('student')->newQuery();
     }
 
     /**
@@ -38,47 +41,9 @@ class AnecdoteEvaluationDetailDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
-        return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
-            ->parameters([
-                'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
-                    [
-                       'extend' => 'create',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create').''
-                    ],
-                    [
-                       'extend' => 'export',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export').''
-                    ],
-                    [
-                       'extend' => 'print',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print').''
-                    ],
-                    [
-                       'extend' => 'reset',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset').''
-                    ],
-                    [
-                       'extend' => 'reload',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
-                    ],
-                ],
-                 'language' => [
-                   'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
-                 ],
-            ]);
+        return HelperDataTable::builder(object: $this);
     }
 
     /**
@@ -86,16 +51,26 @@ class AnecdoteEvaluationDetailDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    #[ArrayShape([
+        'anecdote_evaluation_id' => "\Yajra\DataTables\Html\Column",
+        'location' => "\Yajra\DataTables\Html\Column",
+        'time' => "\Yajra\DataTables\Html\Column",
+        'student_id' => "\Yajra\DataTables\Html\Column",
+        'incident' => "\Yajra\DataTables\Html\Column",
+    ])]
+    public function getColumns(): array
     {
         return [
-            'anecdot_evaluation_id' => new Column(['title' => __('models/anecdotEvaluationDetails.fields.anecdot_evaluation_id'), 'data' => 'anecdot_evaluation_id']),
-            'location' => new Column(['title' => __('models/anecdotEvaluationDetails.fields.location'), 'data' => 'location']),
-            'time' => new Column(['title' => __('models/anecdotEvaluationDetails.fields.time'), 'data' => 'time']),
-            'student_id' => new Column(['title' => __('models/anecdotEvaluationDetails.fields.student_id'), 'data' => 'student_id']),
-            'incident' => new Column(['title' => __('models/anecdotEvaluationDetails.fields.incident'), 'data' => 'incident']),
-            'basic_competencies' => new Column(['title' => __('models/anecdotEvaluationDetails.fields.basic_competencies'), 'data' => 'basic_competencies']),
-            'achievements' => new Column(['title' => __('models/anecdotEvaluationDetails.fields.achievements'), 'data' => 'achievements'])
+            'student_id' => new Column([
+                'title' => __('models/anecdoteEvaluationDetails.fields.student_id'),
+                'data' => 'student_id',
+                'render' => 'full.student.name'
+            ]),
+            'location' => new Column(['title' => __('models/anecdoteEvaluationDetails.fields.location'), 'data' => 'location']),
+            'time' => new Column([
+                'title' => __('models/anecdoteEvaluationDetails.fields.time'),
+                'data' => 'time',
+            ]),
         ];
     }
 
@@ -104,8 +79,8 @@ class AnecdoteEvaluationDetailDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
-        return 'anecdot_evaluation_details_datatable_' . time();
+        return 'Catatan Anekdot Anak ' . time();
     }
 }

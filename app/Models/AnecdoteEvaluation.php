@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
- * Class AnecdotEvaluation
+ * Class AnecdoteEvaluation
  * @package App\Models
  * @version February 4, 2022, 6:48 am UTC
  *
@@ -20,7 +21,7 @@ class AnecdoteEvaluation extends Model
     use SoftDeletes;
 
 
-    public $table = 'anecdot_evaluations';
+    public $table = 'anecdote_evaluations';
 
 
     protected $dates = ['deleted_at'];
@@ -34,7 +35,7 @@ class AnecdoteEvaluation extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
@@ -50,11 +51,24 @@ class AnecdoteEvaluation extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'class_room_id' => 'required',
-        'user_id' => 'required',
         'date' => 'required'
     ];
 
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
+    /**
+     * @return BelongsTo
+     */
+    public function classRoom(): BelongsTo
+    {
+        return $this->belongsTo(ClassRoom::class);
+    }
 }

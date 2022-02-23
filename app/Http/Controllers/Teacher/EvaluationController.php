@@ -156,39 +156,38 @@ class EvaluationController extends AppBaseController
      */
     public function getIndicators(Request $request): string
     {
-        $search = "%" . $request->input('search') ?? "%";
+        $search = "%" . $request->input('search') . '%' ?? "%";
         $type   = $request->input('type');
-        $query  = null;
-        $rawSql = '';
+//        $query  = null;
+//        if($type === 'SKALA') {
+//            $query      = ScalaEvaluation::with(['student' => function($query) use ($search) {
+//                $query->where('period', PeriodSetting::getActivePeriod())->where('name', 'like', $search);
+//            }])->where('user_id', Auth::id())->where('indicator', 'like', $search);
+//
+//        }else if($type === 'HASIL KARYA') {
+//            $query      = AttainmentDetail::with(['student.classRoom', 'attainment' => function($query) {
+//                $query->where('user_id', Auth::id());
+//            }])->where('title','like', $search);
+//        }
+//        $results = [];
+//        foreach ($query->get() as $row) {
+//            if($type === 'SKALA') {
+//                $results[] = [
+//                    'id'    => $row->id,
+//                    'text'  => $row->student->name . ' ( ' . $row->student->classRoom->name . ' )' . ' | ' . $row->indicator
+//                ];
+//            }else if($type === 'HASIL KARYA') {
+//                $results[] = [
+//                    'id'    => $row->id,
+//                    'text'  => $row->student->name . ' ( ' . $row->student->classRoom->name . ' )' . ' | ' . $row->title
+//                ];
+//            }
+//        }
+//        $data['results']    = $results;
+        $data = [];
         if($type === 'SKALA') {
-            $query      = ScalaEvaluation::with(['student' => function($query) use ($search) {
-                $query->where('period', PeriodSetting::getActivePeriod())->where('name', 'like', $search);
-            }])->where('user_id', Auth::id())->where('indicator', 'like', $search);
-            $rawSql     = $query->toSql();
-
-        }else if($type === 'HASIL KARYA') {
-            $query      = AttainmentDetail::with(['student.classRoom', 'attainment' => function($query) {
-                $query->where('user_id', Auth::id());
-            }])->where('title','like', $search);
-            $rawSql     = $query->toSql();
+            $data['results'] = ScalaEvaluation::makeSelect2($search);
         }
-        $results = [];
-        foreach ($query->get() as $row) {
-            if($type === 'SKALA') {
-                $results[] = [
-                    'id'    => $row->id,
-                    'text'  => $row->student->name . ' ( ' . $row->student->classRoom->name . ' )' . ' | ' . $row->indicator
-                ];
-            }else if($type === 'HASIL KARYA') {
-                $results[] = [
-                    'id'    => $row->id,
-                    'text'  => $row->student->name . ' ( ' . $row->student->classRoom->name . ' )' . ' | ' . $row->title
-                ];
-            }
-        }
-        $data['results']    = $results;
-        $data['query']      = $rawSql;
-        $data['request']    = $search;
 
         return Json::encode($data);
     }

@@ -66,18 +66,35 @@ class Evaluation extends Model
         'achievements' => 'required'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function scala(): BelongsTo
     {
         return $this->belongsTo(ScalaEvaluation::class, 'evaluation_id', 'id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function attainmentDetail(): BelongsTo
     {
         return $this->belongsTo(AttainmentDetail::class, 'evaluation_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function anecdoteEvaluationDetail(): BelongsTo
+    {
+        return $this->belongsTo(AnecdoteEvaluationDetail::class, 'evaluation_id', 'id');
     }
 }

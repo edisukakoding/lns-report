@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Teacher\AnecdoteEvaluationController;
+use App\Http\Controllers\Teacher\AnecdoteEvaluationDetailController;
 use App\Http\Controllers\Teacher\AttainmentController;
 use App\Http\Controllers\Teacher\AttainmentDetailController;
 use App\Http\Controllers\Teacher\EvaluationController;
@@ -14,4 +16,6 @@ Route::prefix('teacher')->middleware(['teacher', 'auth'])->group(function () {
     Route::resource('evaluations', EvaluationController::class);
     Route::resource('attainments', AttainmentController::class);
     Route::resource('attainmentDetails', AttainmentDetailController::class);
+    Route::resource('anecdoteEvaluations', AnecdoteEvaluationController::class);
+    Route::resource('anecdoteEvaluationDetails', AnecdoteEvaluationDetailController::class);
 });
