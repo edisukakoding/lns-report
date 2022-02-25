@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Helpers\Helper;
+use App\Models\AnecdoteEvaluation;
+use App\Models\AnecdoteEvaluationDetail;
 use App\Models\Attainment;
 use App\Models\AttainmentDetail;
 use App\Models\ClassRoom;
@@ -85,7 +87,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 //        personal seder
-        $personal = Personal::create([
+        Personal::create([
             "firstname"         => 'Administration',
             "lastname"          => 'System',
             "phone"             => '089664684169',
@@ -179,6 +181,31 @@ class DatabaseSeeder extends Seeder
                 "basic_competencies"    => $faker->sentence(),
                 "evaluation_id"         => $attainmentDetail->id,
                 "evaluation_type"       => 'HASIL KARYA'
+            ]);
+        }
+
+        $anecdote = AnecdoteEvaluation::create([
+            'user_id'   => $user->id,
+            'class_room_id' => $class->id,
+            'date'      => $faker->date,
+        ]);
+
+        AnecdoteEvaluationDetail::create([
+            'student_id'    => $student->id,
+            'anecdote_evaluation_id'    => $anecdote->id,
+            'location'  => $faker->city,
+            'incident'  => $faker->paragraphs(10, true),
+            'time'  => $faker->time
+        ]);
+
+        foreach (AnecdoteEvaluationDetail::all() as $anecdoteDetail) {
+            Evaluation::create([
+                "period"                => PeriodSetting::getActivePeriod(),
+                "user_id"               => $user->id,
+                "achievements"          => $value[$faker->randomFloat(3, 0, 3)],
+                "basic_competencies"    => $faker->sentence(),
+                "evaluation_id"         => $anecdoteDetail->id,
+                "evaluation_type"       => 'ANEKDOT'
             ]);
         }
     }

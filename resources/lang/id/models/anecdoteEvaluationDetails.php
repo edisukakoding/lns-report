@@ -9,7 +9,7 @@ return array (
     'anecdote_evaluation_id' => 'Master',
     'location' => 'Lokasi Peristiwa',
     'time' => 'Waktu',
-    'student_id' => 'Siswa',
+    'student_id' => 'Anak',
     'incident' => 'Peristiwa / Perilaku',
   ),
 );

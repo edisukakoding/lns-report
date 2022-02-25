@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -19,8 +20,6 @@ use Illuminate\Support\Facades\Auth;
  * @property integer $student_id
  * @property string $indicator
  * @property integer $user_id
- * @method belongsTo(string $class)
- * @method static where(string $string, $id)
  * @method static create(array $array)
  */
 class ScalaEvaluation extends Model
@@ -43,7 +42,7 @@ class ScalaEvaluation extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
@@ -76,25 +75,39 @@ class ScalaEvaluation extends Model
 
     /**
      * @return BelongsTo
-     **/
+     */
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public static function makeSelect2(string $keyword): array
+    /**
+     * @param string|null $keyword
+     * @return array
+     */
+    public static function makeSelect2(?string $keyword): array
     {
+        $search     = "%" . $keyword . '%' ?? "%";
         $results    = [];
-        $query      = static::where('user_id', Auth::id())
-            ->where('indicator', 'like', $keyword)
-            ->whereHas('student', function ($student) use ($keyword) {
-                $student->where('period', PeriodSetting::getActivePeriod())->where('name', 'like', $keyword);
-            });
+        $query      = DB::table('scala_evaluations')
+            ->join('students', 'scala_evaluations.student_id', '=', 'students.id')
+            ->join('class_rooms', 'students.class_room_id', '=', 'class_rooms.id')
+            ->whereNull('scala_evaluations.deleted_at')
+            ->where('scala_evaluations.user_id', Auth::id())
+            ->where('students.period', PeriodSetting::getActivePeriod())
+            ->where('scala_evaluations.indicator', 'like', $search)
+            ->orWhere('students.name', 'like', $search)
+            ->select([
+                'scala_evaluations.id',
+                'students.name',
+                'scala_evaluations.indicator',
+                'class_rooms.name as class'
+            ]);
 
         foreach ($query->get() as $item) {
             $results[] = [
                 'id'    => $item->id,
-                'text'  => $item->student->name . ' ( ' . $item->student->classRoom->name . ' )' . ' | ' . $item->indicator
+                'text'  => $item->name . ' ( ' . $item->class . ' ) ' . ' | ' . $item->indicator
             ];
         }
         return $results;

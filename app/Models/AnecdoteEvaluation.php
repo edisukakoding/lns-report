@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $class_room_id
  * @property integer $user_id
  * @property string $date
+ * @method static create(array $array)
  */
 class AnecdoteEvaluation extends Model
 {

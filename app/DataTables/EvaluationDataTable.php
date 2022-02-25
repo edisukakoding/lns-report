@@ -91,7 +91,7 @@ class EvaluationDataTable extends DataTable
                             return `${full.attainment_detail.student.name} ( Kelas: ${full.attainment_detail.student.class_room.name} ) | ${full.attainment_detail.title}`;
                             break;
                         case "ANEKDOT":
-                            return `${full.anecdoteEvaluationDetail.student.name} ( Kelas: ${full.anecdoteEvaluationDetail.student.class_room.name} ) | ${full.anecdoteEvaluationDetail.location}`;
+                            return `${full.anecdote_evaluation_detail.student.name} ( Kelas: ${full.anecdote_evaluation_detail.student.class_room.name} ) | ${full.anecdote_evaluation_detail.location}`;
                             break;
                         default:
                             return "";

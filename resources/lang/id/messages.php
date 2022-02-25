@@ -13,5 +13,11 @@ return [
     'saved'             => 'Data berhasil disimpan',
     'not_found'         => 'Data tidak ditemukan',
     'updated'           => 'Data berhasil diubah',
-    'deleted'           => 'Data berhasil dihapus'
+    'deleted'           => 'Data berhasil dihapus',
+    'menu' => [
+        'school'    => 'PAUD',
+        'dashboard' => 'Dashboard',
+        'parent'    => 'Perwalian',
+        'evaluation'=> 'Penilaian'
+    ]
 ];

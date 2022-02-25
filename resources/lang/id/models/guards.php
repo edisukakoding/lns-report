@@ -6,7 +6,7 @@ return array (
   'fields' =>
   array (
     'id' => 'Id',
-    'student_id' => 'Siswa',
+    'student_id' => 'Anak',
     'type' => 'Hubungan',
     'name' => 'Nama',
     'birthyear' => 'Tahun Lahir',

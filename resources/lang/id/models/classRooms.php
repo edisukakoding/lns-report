@@ -1,8 +1,8 @@
 <?php
 
 return array (
-  'singular' => 'Kelas',
-  'plural' => 'Kelas',
+  'singular' => 'Kelompok Belajar',
+  'plural' => 'Kelompok Belajar',
   'fields' =>
   array (
     'id' => 'Id',

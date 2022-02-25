@@ -7,7 +7,7 @@ return array (
   array (
     'id' => 'Id',
     'attainment_id' => 'Master',
-    'student_id' => 'Siswa',
+    'student_id' => 'Anak',
     'title' => 'Judul',
     'description' => 'Keterangan',
     'image' => 'Gambar',

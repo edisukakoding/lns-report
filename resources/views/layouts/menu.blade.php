@@ -1,6 +1,6 @@
 <li class="side-menus {{ \Illuminate\Support\Facades\Request::is('*') ? 'active' : '' }}">
-    <a class="nav-link" href="/">
-        <i class=" fas fa-tachometer-alt"></i><span>Dashboard</span>
+    <a class="nav-link" href="{{ route('home') }}">
+        <i class=" fas fa-tachometer-alt"></i><span>@lang('messages.menu.dashboard')</span>
     </a>
 </li>
 <li class="menu-header">Master</li>
@@ -11,7 +11,7 @@
     'students'
     ]) ? 'active' : ''
     }}">
-    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i><span>Sekolah</span></a>
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i><span>@lang('messages.menu.school')</span></a>
     <ul class="dropdown-menu">
         <li class="{{ \Illuminate\Support\Facades\Request::is('admin/periodSettings*') ? 'active' : '' }}">
             <a class="nav-link"
@@ -37,7 +37,7 @@
     'personals'
     ]) ? 'active' : ''
     }}">
-    <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Perwalian</span></a>
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>@lang('messages.menu.parent')</span></a>
     <ul class="dropdown-menu">
         <li class="{{ \Illuminate\Support\Facades\Request::is('admin/guards*') ? 'active' : '' }}">
             <a class="nav-link"
@@ -63,7 +63,7 @@
         'anecdoteEvaluationDetails'
     ]) ? 'active' : ''
     }}">
-    <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>Penilaian</span></a>
+    <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>@lang('messages.menu.evaluation')</span></a>
     <ul class="dropdown-menu">
         <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/scalaEvaluationSettings*') ? 'active' : '' }}">
             <a class="nav-link"
@@ -75,11 +75,6 @@
                href="{{ route('scalaEvaluations.index') }}">@lang('models/scalaEvaluations.plural')
             </a>
         </li>
-        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/evaluations*') ? 'active' : '' }}">
-            <a class="nav-link"
-               href="{{ route('evaluations.index') }}">@lang('models/evaluations.plural')
-            </a>
-        </li>
         <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/attainment*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('attainments.index') }}">@lang('models/attainments.plural')
@@ -88,6 +83,11 @@
         <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/anecdoteEvaluation*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('anecdoteEvaluations.index') }}">@lang('models/anecdoteEvaluations.plural')
+            </a>
+        </li>
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/evaluations*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('evaluations.index') }}">@lang('models/evaluations.plural')
             </a>
         </li>
     </ul>

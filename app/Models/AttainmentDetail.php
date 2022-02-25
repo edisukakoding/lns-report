@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -80,5 +82,40 @@ class AttainmentDetail extends Model
     public function student(): HasOne
     {
         return $this->hasOne(Student::class, 'id', 'student_id');
+    }
+
+    /**
+ * @param string|null $keyword
+ * @return array
+ */
+    public static function makeSelect2(?string $keyword): array
+    {
+        $search     = "%" . $keyword . '%' ?? "%";
+        $results    = [];
+        $query      = DB::table('attainment_details')
+            ->join('students', 'students.id', '=', 'attainment_details.student_id')
+            ->join('attainments', 'attainments.id', '=', 'attainment_details.attainment_id')
+            ->join('users', 'users.id', '=', 'attainments.user_id')
+            ->join('class_rooms', 'class_rooms.id', 'students.class_room_id')
+            ->whereNull('attainment_details.deleted_at')
+            ->where('students.period', PeriodSetting::getActivePeriod())
+            ->where('attainments.user_id', Auth::id())
+            ->orWhere('attainment_details.title', 'like', $search)
+            ->orWhere('students.name', 'like', $search)
+            ->select([
+                'attainment_details.id',
+                'students.name',
+                'class_rooms.name as class',
+                'attainment_details.title'
+            ]);
+
+
+        foreach ($query->get() as $item) {
+            $results[] = [
+                'id'    => $item->id,
+                'text'  => $item->name . ' ( ' . $item->class . ' ) ' . ' | ' . $item->title
+            ];
+        }
+        return $results;
     }
 }
