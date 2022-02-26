@@ -18,6 +18,7 @@ return [
         'school'    => 'PAUD',
         'dashboard' => 'Dashboard',
         'parent'    => 'Perwalian',
-        'evaluation'=> 'Penilaian'
+        'evaluation'=> 'Asesmen',
+        'setting'   => 'Pengaturan'
     ]
 ];

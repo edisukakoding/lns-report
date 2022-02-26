@@ -6,7 +6,7 @@ return array (
   'fields' =>
   array (
     'id' => 'Id',
-    'evaluation_type' => 'Tipe Penilaian',
+    'evaluation_type' => 'Tipe Asesmen',
     'basic_competencies' => 'Kompetensi Dasar',
     'achievements' => 'Bobot Nilai',
     'period' => 'Periode',

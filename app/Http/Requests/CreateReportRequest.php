@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Raport;
+use App\Models\Report;
 
-class UpdateRaportRequest extends FormRequest
+class CreateReportRequest extends FormRequest
 {
 
     /**
@@ -13,7 +13,7 @@ class UpdateRaportRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -23,10 +23,8 @@ class UpdateRaportRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        $rules = Raport::$rules;
-        
-        return $rules;
+        return Report::$rules;
     }
 }

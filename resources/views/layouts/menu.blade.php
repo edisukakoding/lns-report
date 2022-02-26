@@ -54,22 +54,18 @@
 
 <li class="nav-item dropdown {{
     in_array(\Illuminate\Support\Facades\Request::segment(2), [
-        'scalaEvaluationSettings',
         'scalaEvaluations',
         'evaluations',
         'attainments',
         'attainmentDetails',
         'anecdoteEvaluations',
-        'anecdoteEvaluationDetails'
+        'anecdoteEvaluationDetails',
+        'reports'
     ]) ? 'active' : ''
     }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>@lang('messages.menu.evaluation')</span></a>
     <ul class="dropdown-menu">
-        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/scalaEvaluationSettings*') ? 'active' : '' }}">
-            <a class="nav-link"
-               href="{{ route('scalaEvaluationSettings.index') }}">@lang('models/scalaEvaluationSettings.plural')
-            </a>
-        </li>
+
         <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/scalaEvaluations*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('scalaEvaluations.index') }}">@lang('models/scalaEvaluations.plural')
@@ -90,17 +86,44 @@
                href="{{ route('evaluations.index') }}">@lang('models/evaluations.plural')
             </a>
         </li>
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/reports*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('reports.index') }}">@lang('models/reports.plural')
+            </a>
+        </li>
     </ul>
 </li>
 
-<li class="{{ Request::is('raports*') ? 'active' : '' }}">
-    <a href="{{ route('raports.index') }}"><i class="fa fa-edit"></i><span>@lang('models/raports.plural')</span></a>
+<li class="nav-item dropdown {{
+    in_array(\Illuminate\Support\Facades\Request::segment(2), [
+        'scalaEvaluationSettings',
+        'aspectSettings'
+    ]) ? 'active' : ''
+    }}">
+    <a href="#" class="nav-link has-dropdown"><i
+            class="fas fa-cogs"></i><span>@lang('messages.menu.setting')</span></a>
+    <ul class="dropdown-menu">
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/scalaEvaluationSettings*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('scalaEvaluationSettings.index') }}">@lang('models/scalaEvaluationSettings.plural')
+            </a>
+        </li>
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/aspectSettings*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('aspectSettings.index') }}">@lang('models/aspectSettings.plural')
+            </a>
+        </li>
+    </ul>
 </li>
 
 <li class="{{ Request::is('raportDetails*') ? 'active' : '' }}">
-    <a href="{{ route('raportDetails.index') }}"><i class="fa fa-edit"></i><span>@lang('models/raportDetails.plural')</span></a>
+    <a href="{{ route('raportDetails.index') }}"><i
+            class="fa fa-edit"></i><span>@lang('models/raportDetails.plural')</span></a>
 </li>
 
 <li class="{{ Request::is('raportEtcs*') ? 'active' : '' }}">
-    <a href="{{ route('raportEtcs.index') }}"><i class="fa fa-edit"></i><span>@lang('models/raportEtcs.plural')</span></a>
+    <a href="{{ route('raportEtcs.index') }}"><i
+            class="fa fa-edit"></i><span>@lang('models/raportEtcs.plural')</span></a>
 </li>
+
+

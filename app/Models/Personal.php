@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $image
  * @method static create(array $array)
  */
-class Personal extends \Illuminate\Database\Eloquent\Model
+class Personal extends Model
 {
     use SoftDeletes;
 
@@ -47,7 +48,7 @@ class Personal extends \Illuminate\Database\Eloquent\Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */

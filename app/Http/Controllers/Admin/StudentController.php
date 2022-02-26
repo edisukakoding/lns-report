@@ -3,18 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\StudentDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreateStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\PeriodSetting;
 use App\Repositories\StudentRepository;
-use Laracasts\Flash\Flash;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\Response;
 
 class StudentController extends AppBaseController
 {
     /** @var  StudentRepository */
-    private $studentRepository;
+    private StudentRepository $studentRepository;
 
     public function __construct(StudentRepository $studentRepo)
     {
@@ -25,39 +31,35 @@ class StudentController extends AppBaseController
      * Display a listing of the Student.
      *
      * @param StudentDataTable $studentDataTable
-     * @return Response
+     * @return mixed
      */
-    public function index(StudentDataTable $studentDataTable)
+    public function index(StudentDataTable $studentDataTable): mixed
     {
         return $studentDataTable->render('admin.students.index');
     }
 
     /**
      * Show the form for creating a new Student.
-     *
-     * @return Response
+     * @return Factory|View|Application
      */
-    public function create()
+    public function create(): Factory|View|Application
     {
-        return view('admin.students.create', [
-            'classes'   => \App\Models\ClassRoom::all()
-        ]);
+        return view('admin.students.create');
     }
 
     /**
      * Store a newly created Student in storage.
      *
      * @param CreateStudentRequest $request
-     *
-     * @return Response
+     * @return Redirector|Application|RedirectResponse
      */
-    public function store(CreateStudentRequest $request)
+    public function store(CreateStudentRequest $request): Redirector|Application|RedirectResponse
     {
         $input = $request->all();
-        $input['period']    = \App\Models\PeriodSetting::getActivePeriod();
-        $student = $this->studentRepository->create($input);
+        $input['period']    = PeriodSetting::getActivePeriod();
+        $this->studentRepository->create($input);
 
-        Flash::success(__('messages.saved', ['model' => __('models/students.singular')]));
+        flash(__('messages.saved', ['model' => __('models/students.singular')]), 'success');
 
         return redirect(route('students.index'));
     }
@@ -65,16 +67,15 @@ class StudentController extends AppBaseController
     /**
      * Display the specified Student.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param int $id
+     * @return View|Factory|Redirector|Application|RedirectResponse
      */
-    public function show($id)
+    public function show(int $id): View|Factory|Redirector|Application|RedirectResponse
     {
         $student = $this->studentRepository->find($id);
 
         if (empty($student)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/students.singular')]));
+            flash(__('messages.not_found', ['model' => __('models/students.singular')]), 'error');
 
             return redirect(route('students.index'));
         }
@@ -85,16 +86,15 @@ class StudentController extends AppBaseController
     /**
      * Show the form for editing the specified Student.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param int $id
+     * @return View|Factory|Redirector|Application|RedirectResponse
      */
-    public function edit($id)
+    public function edit(int $id): View|Factory|Redirector|Application|RedirectResponse
     {
         $student = $this->studentRepository->find($id);
 
         if (empty($student)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/students.singular')]));
+            flash(__('messages.not_found', ['model' => __('models/students.singular')]), 'error');
 
             return redirect(route('students.index'));
         }
@@ -105,24 +105,23 @@ class StudentController extends AppBaseController
     /**
      * Update the specified Student in storage.
      *
-     * @param  int              $id
+     * @param int $id
      * @param UpdateStudentRequest $request
-     *
-     * @return Response
+     * @return Redirector|Application|RedirectResponse
      */
-    public function update($id, UpdateStudentRequest $request)
+    public function update(int $id, UpdateStudentRequest $request): Redirector|Application|RedirectResponse
     {
         $student = $this->studentRepository->find($id);
 
         if (empty($student)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/students.singular')]));
+            flash(__('messages.not_found', ['model' => __('models/students.singular')]), 'error');
 
             return redirect(route('students.index'));
         }
 
-        $student = $this->studentRepository->update($request->all(), $id);
+        $this->studentRepository->update($request->all(), $id);
 
-        Flash::success(__('messages.updated', ['model' => __('models/students.singular')]));
+        flash(__('messages.updated', ['model' => __('models/students.singular')]), 'success');
 
         return redirect(route('students.index'));
     }
@@ -130,24 +129,36 @@ class StudentController extends AppBaseController
     /**
      * Remove the specified Student from storage.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param int $id
+     * @return Redirector|Application|RedirectResponse
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(int $id): Redirector|Application|RedirectResponse
     {
         $student = $this->studentRepository->find($id);
 
         if (empty($student)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/students.singular')]));
+            flash(__('messages.not_found', ['model' => __('models/students.singular')]), 'error');
 
             return redirect(route('students.index'));
         }
 
         $this->studentRepository->delete($id);
 
-        Flash::success(__('messages.deleted', ['model' => __('models/students.singular')]));
+        flash(__('messages.deleted', ['model' => __('models/students.singular')]), 'success');
 
         return redirect(route('students.index'));
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     */
+    public function assessment(int $id): Response
+    {
+        $pdf = Pdf::setOptions(['isPhpEnabled' => true])->loadView('admin.students.assessment', compact('id'));
+        return $pdf->stream();
+//        return $pdf->download('oba.pdf');
+//        return \view('admin.students.assessment');
     }
 }

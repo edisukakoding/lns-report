@@ -5,6 +5,7 @@ use App\Http\Controllers\Teacher\AnecdoteEvaluationDetailController;
 use App\Http\Controllers\Teacher\AttainmentController;
 use App\Http\Controllers\Teacher\AttainmentDetailController;
 use App\Http\Controllers\Teacher\EvaluationController;
+use App\Http\Controllers\Teacher\ReportController;
 use App\Http\Controllers\Teacher\ScalaEvaluationController;
 use App\Http\Controllers\Teacher\ScalaEvaluationSettingController;
 use Illuminate\Support\Facades\Route;
@@ -18,4 +19,6 @@ Route::prefix('teacher')->middleware(['teacher', 'auth'])->group(function () {
     Route::resource('attainmentDetails', AttainmentDetailController::class);
     Route::resource('anecdoteEvaluations', AnecdoteEvaluationController::class);
     Route::resource('anecdoteEvaluationDetails', AnecdoteEvaluationDetailController::class);
+    Route::resource('aspectSettings', \App\Http\Controllers\Teacher\AspectSettingController::class);
+    Route::resource('reports', ReportController::class);
 });

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 class CreateReportsTable extends Migration
@@ -17,14 +18,15 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('student_id')->unsigned();
-            $table->bigInteger('teacher_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->text('aspect');
-            $table->text('value');
+            $table->enum('value', Config::get('constants.result_assessments'));
+            $table->timestamps();
             $table->softDeletes();
             $table->index('student_id');
-            $table->index('teacher_id');
+            $table->index('user_id');
             $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('teacher_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

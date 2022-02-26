@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Raport;
+use App\Models\AspectSetting;
 
-class CreateRaportRequest extends FormRequest
+class UpdateAspectSettingRequest extends FormRequest
 {
 
     /**
@@ -25,6 +25,8 @@ class CreateRaportRequest extends FormRequest
      */
     public function rules()
     {
-        return Raport::$rules;
+        $rules = AspectSetting::$rules;
+        
+        return $rules;
     }
 }

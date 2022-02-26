@@ -2,8 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Raport;
-use App\Repositories\BaseRepository;
+use App\Models\Report;
 
 /**
  * Class RaportRepository
@@ -11,15 +10,15 @@ use App\Repositories\BaseRepository;
  * @version February 4, 2022, 7:39 am UTC
 */
 
-class RaportRepository extends BaseRepository
+class ReportRepository extends BaseRepository
 {
     /**
      * @var array
      */
-    protected $fieldSearchable = [
+    protected array $fieldSearchable = [
         'student_id',
         'aspect',
-        'teacher_id',
+        'user_id',
         'value'
     ];
 
@@ -28,7 +27,7 @@ class RaportRepository extends BaseRepository
      *
      * @return array
      */
-    public function getFieldsSearchable()
+    public function getFieldsSearchable(): array
     {
         return $this->fieldSearchable;
     }
@@ -36,8 +35,8 @@ class RaportRepository extends BaseRepository
     /**
      * Configure the Model
      **/
-    public function model()
+    public function model(): string
     {
-        return Raport::class;
+        return Report::class;
     }
 }

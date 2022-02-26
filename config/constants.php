@@ -21,5 +21,30 @@ return [
         '+/- 2 Jam',
         '> 2 Jam',
     ],
-    'guards'                => ['AYAH', 'IBU', 'SAUDARA', 'KERABAT', 'LAINNYA']
+    'guards'                => ['AYAH', 'IBU', 'SAUDARA', 'KERABAT', 'LAINNYA'],
+    'aspect_categories'     => [
+        'NILAI-NILAI AGAMA DAN MORAL',
+        'FISIK MOTORIK',
+        'KOGNITIF',
+        'BAHASA',
+        'SOSIAL EMOSIONAL',
+        'SENI',
+    ],
+    'aspect_subcategories'  => [
+        'Motorik Kasar',
+        'Motorik Halus',
+        'Kesehatan dan Perilaku Keselamatan',
+        'Belajar dan Pemecahan Masalah',
+        'Berpikir Logis',
+        'Berpikir Simbolik',
+        'Memahami Bahasa',
+        'Mengungkapkan Bahasa',
+        'Keaksaraan',
+        'Kesadaran Diri',
+        'Rasa Tanggung jawab Diri Sendiri dan Orang lain',
+        'Perilaku Prososial',
+        'Anak mampu menikmati berbagai alunan lagu atau suara',
+        'Tertarik dengan kegiatan seni',
+    ],
+    'result_assessments'    => ['BAIK', 'CUKUP', 'PERLU DILATIH']
 ];

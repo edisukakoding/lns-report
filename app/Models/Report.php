@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -11,20 +12,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @version February 4, 2022, 7:39 am UTC
  *
- * @property \App\Models\Student $student
- * @property \App\Models\User $user
+ * @property Student $student
+ * @property User $user
  * @property integer $student_id
  * @property string $aspect
- * @property integer $teacher_id
+ * @property integer $user_id
  * @property string $value
  */
-class Raport extends Model
+class Report extends Model
 {
     use SoftDeletes;
 
 
-    public $table = 'raports';
-    
+    public $table = 'reports';
+
 
     protected $dates = ['deleted_at'];
 
@@ -33,12 +34,12 @@ class Raport extends Model
     public $fillable = [
         'student_id',
         'aspect',
-        'teacher_id',
+        'user_id',
         'value'
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
@@ -46,7 +47,7 @@ class Raport extends Model
         'id' => 'integer',
         'student_id' => 'integer',
         'aspect' => 'string',
-        'teacher_id' => 'integer',
+        'user_id' => 'integer',
         'value' => 'string'
     ];
 
@@ -55,26 +56,25 @@ class Raport extends Model
      *
      * @var array
      */
-    public static $rules = [
+    public static array $rules = [
         'student_id' => 'required',
         'aspect' => 'required',
-        'teacher_id' => 'required',
         'value' => 'required'
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     **/
-    public function student()
+     * @return BelongsTo
+     */
+    public function student(): BelongsTo
     {
-        return $this->hasOne(\App\Models\Student::class, 'id', 'student_id');
+        return $this->belongsTo(Student::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     **/
-    public function user()
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
     {
-        return $this->hasOne(\App\Models\User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

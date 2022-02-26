@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title')
-    @lang('models/raports.singular')  @lang('crud.details') 
+    @lang('models/aspectSettings.singular')  @lang('crud.details')
 @endsection
 @section('content')
     <section class="section">
         <div class="section-header">
-        <h1>@lang('models/raports.singular') @lang('crud.details')</h1>
+        <h1>@lang('models/aspectSettings.singular') @lang('crud.details')</h1>
         <div class="section-header-breadcrumb">
-            <a href="{{ route('raports.index') }}"
+            <a href="{{ route('aspectSettings.index') }}"
                  class="btn btn-primary form-btn float-right">@lang('crud.back')</a>
         </div>
       </div>
@@ -15,7 +15,7 @@
     <div class="section-body">
            <div class="card">
             <div class="card-body">
-                    @include('raports.show_fields')
+                    @include('teacher.aspect_settings.show_fields')
             </div>
             </div>
     </div>
