@@ -6,6 +6,8 @@ use App\DataTables\StudentDataTable;
 use App\Http\Requests\CreateStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\PeriodSetting;
+use App\Models\Report;
+use App\Models\Student;
 use App\Repositories\StudentRepository;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -16,6 +18,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\DB;
+use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 
 class StudentController extends AppBaseController
 {
@@ -152,11 +157,50 @@ class StudentController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return Application|Factory|View|Response
+     * @throws JsonException
      */
-    public function assessment(int $id): Response
+    public function assessment(int $id): Application|Factory|View|Response
     {
-        $pdf = Pdf::setOptions(['isPhpEnabled' => true])->loadView('admin.students.assessment', compact('id'));
+        $student    = Student::query()->findOrFail($id);
+        $query      = Report::query()->where('student_id', $id);
+        $reports    = $query->get();
+        $total_data = $query->count();
+        $data       = [];
+        foreach ($reports as $report) {
+            $arr = Json::decode($report->aspect);
+            if(!empty($arr->subcategory)) {
+                $data[$arr->category][$arr->subcategory][] = ['aspect' => $arr->point, 'value' => $report->value];
+            }else {
+                $data[$arr->category][] = ['aspect' => $arr->point, 'value' => $report->value];
+            }
+        }
+
+//        echo "<ul>";
+//        foreach ($data as $key => $value) {
+//            echo "<li>" . $key . "</li>";
+//            echo "<ul>";
+//            foreach ($value as $row => $item) {
+//                if(!is_string($row)) {
+//                    echo "<li>" . $item['aspect'] . "</li>";
+//                }else {
+//                    echo "<li>" . $row . "</li>";
+////                    print_r($item);
+//                    echo "<ul>";
+//                    foreach ($item as $asd) {
+//                        echo "<li>" . $asd['aspect'] . "</li>";
+//                    }
+//                    echo "</ul>";
+//                }
+//            }
+//            echo "</ul>";
+//        }
+//
+//        echo "</ul>";
+//        die;
+
+//        dd($data);
+        $pdf = Pdf::loadView('admin.students.assessment', compact('student', 'data', 'total_data'));
         return $pdf->stream();
 //        return $pdf->download('oba.pdf');
 //        return \view('admin.students.assessment');
