@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Helpers\Helper;
 use App\Models\AnecdoteEvaluation;
 use App\Models\AnecdoteEvaluationDetail;
+use App\Models\AspectSetting;
 use App\Models\Attainment;
 use App\Models\AttainmentDetail;
 use App\Models\ClassRoom;
@@ -12,6 +13,7 @@ use App\Models\Evaluation;
 use App\Models\Guard;
 use App\Models\PeriodSetting;
 use App\Models\Personal;
+use App\Models\Report;
 use App\Models\ScalaEvaluation;
 use App\Models\ScalaEvaluationSetting;
 use App\Models\Student;
@@ -21,6 +23,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Nette\Utils\Json;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,6 +31,7 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      *
      * @return void
+     * @throws \Nette\Utils\JsonException
      */
     public function run()
     {
@@ -206,6 +210,26 @@ class DatabaseSeeder extends Seeder
                 "basic_competencies"    => $faker->sentence(),
                 "evaluation_id"         => $anecdoteDetail->id,
                 "evaluation_type"       => 'ANEKDOT'
+            ]);
+        }
+
+        $no = 1;
+        foreach (require_once( __DIR__ . '/assessments.php') as $data) {
+            AspectSetting::create([
+                'category'      => $data['category'],
+                'subcategory'   => $data['subcategory'],
+                'index'         => $no,
+                'point'         => $data['point']
+            ]);
+            $no++;
+        }
+
+        foreach (AspectSetting::all() as $aspect) {
+            Report::create([
+                'student_id'    => $student->id,
+                'user_id'    => $user->id,
+                'aspect'        => Json::encode($aspect),
+                'value'         => $faker->randomElement(['BAIK', 'CUKUP', 'PERLU DILATIH'])
             ]);
         }
     }

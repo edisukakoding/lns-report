@@ -1,13 +1,12 @@
 <?php
 
 return array (
-  'singular' => 'RaportEtc',
-  'plural' => 'RaportEtcs',
+  'singular' => 'NoteAssessment',
+  'plural' => 'NoteAssessments',
   'fields' => 
   array (
     'id' => 'Id',
-    'raport_id' => 'Raport Id',
-    'title' => 'Title',
+    'student_id' => 'Student Id',
     'note' => 'Note',
     'created_at' => 'Created At',
     'updated_at' => 'Updated At',

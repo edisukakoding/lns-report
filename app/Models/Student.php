@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @version February 2, 2022, 7:03 am UTC
  *
- * @property \App\Models\ClassRoom $classRoom
+ * @property ClassRoom $classRoom
  * @property integer $class_room_id
  * @property string $name
  * @property string $gender
@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string period
  * @method static create(array $array)
  */
-class Student extends \Illuminate\Database\Eloquent\Model
+class Student extends Model
 {
     use SoftDeletes;
 
@@ -162,5 +162,13 @@ class Student extends \Illuminate\Database\Eloquent\Model
     public function reports(): HasMany
     {
         return $this->hasMany(Report::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function noteAssessments(): HasMany
+    {
+        return $this->hasMany(NoteAssessment::class);
     }
 }

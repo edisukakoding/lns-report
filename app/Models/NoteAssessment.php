@@ -8,24 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
- * Class Raport
+ * Class NoteAssessment
  * @package App\Models
- * @version February 4, 2022, 7:39 am UTC
+ * @version March 2, 2022, 3:33 am UTC
  *
  * @property Student $student
- * @property User $user
  * @property integer $student_id
- * @property string $aspect
- * @property integer $user_id
- * @property string $value
- * @method static create(array $array)
+ * @property integer $note
  */
-class Report extends Model
+class NoteAssessment extends Model
 {
     use SoftDeletes;
 
 
-    public $table = 'reports';
+    public $table = 'note_assessments';
 
 
     protected $dates = ['deleted_at'];
@@ -34,9 +30,7 @@ class Report extends Model
 
     public $fillable = [
         'student_id',
-        'aspect',
-        'user_id',
-        'value'
+        'note'
     ];
 
     /**
@@ -47,9 +41,7 @@ class Report extends Model
     protected $casts = [
         'id' => 'integer',
         'student_id' => 'integer',
-        'aspect' => 'string',
-        'user_id' => 'integer',
-        'value' => 'string'
+        'note' => 'string'
     ];
 
     /**
@@ -58,24 +50,14 @@ class Report extends Model
      * @var array
      */
     public static array $rules = [
-        'student_id' => 'required',
-        'aspect' => 'required',
-        'value' => 'required'
+
     ];
 
     /**
      * @return BelongsTo
-     */
+     **/
     public function student(): BelongsTo
     {
-        return $this->belongsTo(Student::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 }

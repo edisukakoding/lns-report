@@ -162,11 +162,14 @@ class StudentController extends AppBaseController
      */
     public function assessment(int $id): Application|Factory|View|Response
     {
-        $student    = Student::query()->findOrFail($id);
-        $query      = Report::query()->where('student_id', $id);
-        $reports    = $query->get();
-        $total_data = $query->count();
-        $data       = [];
+        $student        = Student::with('noteAssessments')->findOrFail($id);
+        $query          = Report::query()->where('student_id', $id);
+        $reports        = $query->get();
+        $total_data     = $query->count();
+        $baik           = 0;
+        $cukup          = 0;
+        $perlu_dilatih  = 0;
+        $data           = [];
         foreach ($reports as $report) {
             $arr = Json::decode($report->aspect);
             if(!empty($arr->subcategory)) {
@@ -174,6 +177,11 @@ class StudentController extends AppBaseController
             }else {
                 $data[$arr->category][] = ['aspect' => $arr->point, 'value' => $report->value];
             }
+            match ($report->value) {
+              'BAIK'            => $baik++,
+              'CUKUP'           => $cukup++,
+              'PERLU DILATIH'   => $perlu_dilatih++
+            };
         }
 
 //        echo "<ul>";
@@ -200,7 +208,7 @@ class StudentController extends AppBaseController
 //        die;
 
 //        dd($data);
-        $pdf = Pdf::loadView('admin.students.assessment', compact('student', 'data', 'total_data'));
+        $pdf = Pdf::loadView('admin.students.assessment', compact('student', 'data', 'total_data', 'baik', 'cukup', 'perlu_dilatih'));
         return $pdf->stream();
 //        return $pdf->download('oba.pdf');
 //        return \view('admin.students.assessment');

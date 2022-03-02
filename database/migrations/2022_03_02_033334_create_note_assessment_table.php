@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportDetailsTable extends Migration
+class CreateNoteAssessmentTable extends Migration
 {
 
     /**
@@ -14,15 +14,13 @@ class CreateReportDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('report_details', function (Blueprint $table) {
+        Schema::create('note_assessments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('report_id')->unsigned();
-            $table->text('type');
-            $table->text('description');
-            $table->enum('result', \Illuminate\Support\Facades\Config::get('constants.report_indicators'));
+            $table->integer('student_id')->unsigned();
+            $table->text('note');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('report_id')->references('id')->on('reports');
+            $table->foreign('student_id')->references('id')->on('students');
         });
     }
 
@@ -33,6 +31,6 @@ class CreateReportDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('report_details');
+        Schema::drop('note_assessment');
     }
 }

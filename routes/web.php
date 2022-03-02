@@ -41,10 +41,8 @@ Route::post(
 )->name('io_generator_builder_generate_from_file');
 
 
-Route::resource('raportDetails', App\Http\Controllers\RaportDetailController::class);
 
 
-Route::resource('raportEtcs', App\Http\Controllers\RaportEtcController::class);
 
 
 

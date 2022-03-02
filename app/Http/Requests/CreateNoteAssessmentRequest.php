@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\RaportEtc;
+use App\Models\NoteAssessment;
 
-class CreateRaportEtcRequest extends FormRequest
+class CreateNoteAssessmentRequest extends FormRequest
 {
 
     /**
@@ -25,6 +25,6 @@ class CreateRaportEtcRequest extends FormRequest
      */
     public function rules()
     {
-        return RaportEtc::$rules;
+        return NoteAssessment::$rules;
     }
 }

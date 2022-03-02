@@ -1,9 +1,9 @@
-{!! Form::open(['route' => ['raportEtcs.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['noteAssessments.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('raportEtcs.show', $id) }}" class='btn btn-info btn-sm'>
+    <a href="{{ route('noteAssessments.show', $id) }}" class='btn btn-info btn-sm'>
         <i class="fas fa-eye"></i>
     </a>
-    <a href="{{ route('raportEtcs.edit', $id) }}" class='btn btn-warning btn-sm'>
+    <a href="{{ route('noteAssessments.edit', $id) }}" class='btn btn-warning btn-sm'>
         <i class="fas fa-pencil-alt"></i>
     </a>
     {!! Form::button('<i class="fas fa-trash"></i>', [

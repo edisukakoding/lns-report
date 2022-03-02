@@ -17,6 +17,7 @@ use Nette\Utils\JsonException;
  * @property string $subcategory
  * @property string $point
  * @property integer $index
+ * @method static create(string[] $array)
  */
 class AspectSetting extends Model
 {

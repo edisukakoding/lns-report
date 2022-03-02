@@ -60,7 +60,8 @@
         'attainmentDetails',
         'anecdoteEvaluations',
         'anecdoteEvaluationDetails',
-        'reports'
+        'reports',
+        'noteAssessments'
     ]) ? 'active' : ''
     }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>@lang('messages.menu.evaluation')</span></a>
@@ -91,6 +92,11 @@
                href="{{ route('reports.index') }}">@lang('models/reports.plural')
             </a>
         </li>
+        <li class="{{ \Illuminate\Support\Facades\Request::is('teacher/noteAssessments*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('noteAssessments.index') }}">@lang('models/noteAssessments.plural')
+            </a>
+        </li>
     </ul>
 </li>
 
@@ -114,16 +120,6 @@
             </a>
         </li>
     </ul>
-</li>
-
-<li class="{{ Request::is('raportDetails*') ? 'active' : '' }}">
-    <a href="{{ route('raportDetails.index') }}"><i
-            class="fa fa-edit"></i><span>@lang('models/raportDetails.plural')</span></a>
-</li>
-
-<li class="{{ Request::is('raportEtcs*') ? 'active' : '' }}">
-    <a href="{{ route('raportEtcs.index') }}"><i
-            class="fa fa-edit"></i><span>@lang('models/raportEtcs.plural')</span></a>
 </li>
 
 

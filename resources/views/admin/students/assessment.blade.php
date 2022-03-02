@@ -19,12 +19,10 @@
             width: 14px;
             height: 8px;
             border-bottom: solid 1.5px currentColor;
-            border-left: solid 1.5px currentColor;
+            border-left: solid 1.5px cu rrentColor;
             -webkit-transform: rotate(-45deg);
             transform: rotate(-45deg);
         }
-
-
     </style>
 </head>
 <body>
@@ -84,7 +82,8 @@
     <table class="table-header">
         <tr>
             <td>
-                <div style="width: 100px; height: 100px; border: 1px solid black"> logo</div>
+                <div style="width: 100px; height: 100px; background-image: url({{ public_path('img/logo.png') }});background-repeat: no-repeat;
+                    background-size: contain; background-position: center"> </div>
             </td>
             <td style="text-align: center">
                 <p style="font-size: 20px; font-weight: lighter;">YAYASAN PENGELOLA PENDIDIKAN BERMAIN</p>
@@ -134,16 +133,18 @@
 
     </style>
     <table class="table-assessment">
-        <tr>
-            <th rowspan="2" style="width: 20px">NO</th>
-            <th rowspan="2" colspan="3">ASPEK PERKEMBANGAN</th>
-            <th colspan="3" >HASIL PENILAIAN</th>
-        </tr>
-        <tr>
-            <th style="width: 80px">BAIK</th>
-            <th style="width: 80px">CUKUP</th>
-            <th style="width: 150px">PERLU DILATIH</th>
-        </tr>
+        <thead style="background: #eaeaea">
+            <tr>
+                <th rowspan="2" style="width: 20px">NO</th>
+                <th rowspan="2" colspan="3">ASPEK PERKEMBANGAN</th>
+                <th colspan="3" >HASIL PENILAIAN</th>
+            </tr>
+            <tr>
+                <th style="width: 80px">BAIK</th>
+                <th style="width: 80px">CUKUP</th>
+                <th style="width: 150px">PERLU DILATIH</th>
+            </tr>
+        </thead>
 {{--        <tr>--}}
 {{--            <td style="width: 20px; text-align: center">I</td>--}}
 {{--            <td colspan="3">NILAI-NILAI AGAMA DAN MORAL</td>--}}
@@ -222,17 +223,22 @@
 {{--            <td>6</td>--}}
 {{--            <td>7</td>--}}
 {{--        </tr>--}}
+        @php
+        $number = 0;
+        @endphp
         @foreach($data as $category => $child)
             <tr>
-                <td style="width: 20px; text-align: center">{{ App\Helpers\Helper::numberToRomanRepresentation($loop->iteration) }}</td>
-                <td colspan="3">{{ $category }}</td>
+                <td style="width: 20px; text-align: center; font-weight: bold">{{ App\Helpers\Helper::numberToRomanRepresentation($loop->iteration) }}</td>
+                <td colspan="3" style="font-weight: bold">{{ $category }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
 
             @php
-              $total_child2 = 0;
+                $total_child2 = 0;
+                $number += $loop->iteration;
+
             @endphp
             @foreach($child as $subcategory => $child2)
                 @php
@@ -256,6 +262,9 @@
                         </tr>
                     @endif
                 @else
+                    @php
+
+                    @endphp
                     @if($loop->first)
                         <tr>
                             <td rowspan="{{ $total_child2 }}"></td>
@@ -309,7 +318,45 @@
                 @endif
             @endforeach
         @endforeach
-
+        <tr>
+            <td style="width: 20px; text-align: center; font-weight: bold">{{ App\Helpers\Helper::numberToRomanRepresentation($number + 1) }}</td>
+            <td colspan="6" style="font-weight: bold">KESIMPULAN PERKEMBANGAN ANAK</td>
+        </tr>
+        <tr>
+            <td style="width: 20px; text-align: center; "></td>
+            <td colspan="6" >
+                <ul style="list-style: circle">
+                    <li>Tingkat Pencapaian Perkembangan BAIK{!! str_repeat("&nbsp;", 20) !!}: {{ $baik }}/{{ $total_data }} ( {{ !empty($baik) && !empty($total_data) ? $baik/$total_data*100 : '0' }}% )</li>
+                    <li>Tingkat Pencapaian Perkembangan CUKUP{!! str_repeat("&nbsp;", 16) !!}: {{ $cukup }}/{{ $total_data }} ( {{ !empty($cukup) && !empty($total_data) ? $cukup/$total_data*100 : '0' }}% )</li>
+                    <li>Tingkat Pencapaian Perkembangan PERLU DILATIH{!! str_repeat("&nbsp;", 2) !!}: {{ $perlu_dilatih }}/{{ $total_data }} ( {{ !empty($perlu_dilatih) && !empty($total_data) ? $perlu_dilatih/$total_data*100 : '0' }}% )</li>
+                </ul>
+                <p>Deskripsi :<br>Perkembangan dicapai maksimal test kesimpulan 1 untuk usia 4-5 tahun</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 20px; text-align: center; font-weight: bold">{{ App\Helpers\Helper::numberToRomanRepresentation($number + 2) }}</td>
+            <td colspan="6" style="font-weight: bold">CATATAN DAN REKOMENDASI PENDIDIK</td>
+        </tr>
+        <tr>
+            <td style="width: 20px; text-align: center; "></td>
+            <td colspan="6" >
+                @foreach($student->noteAssessments as $note)
+                    {!! $note->note !!}
+                @endforeach
+            </td>
+        </tr>
+    </table>
+    <br><br><br><br>
+    <table style="width: 100%">
+        <tr>
+            <td style="text-align: center">Mengetahui, <br>Kepala Sekolah</td>
+            <td style="text-align: center">Semarang, {{ \Illuminate\Support\Carbon::now()->locale('id')->format('d M Y') }}</td>
+        </tr>
+        {!! str_repeat("<tr><td></td><td></td></tr>", 20) !!}
+        <tr>
+            <td style="text-align: center; font-weight: bold; text-decoration: underline;text-transform: capitalize">NURKHIKMAH UMAMI, S.Psi</td>
+            <td style="text-align: center; font-weight: bold; text-decoration: underline;text-transform: capitalize">META NUGRAHENI, S.Pd.AUD</td>
+        </tr>
     </table>
 </body>
 </html>
