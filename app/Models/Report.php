@@ -47,7 +47,7 @@ class Report extends Model
     protected $casts = [
         'id' => 'integer',
         'student_id' => 'integer',
-        'aspect' => 'string',
+        'aspect' => 'array',
         'user_id' => 'integer',
         'value' => 'string'
     ];

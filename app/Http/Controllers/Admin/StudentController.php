@@ -9,7 +9,6 @@ use App\Models\PeriodSetting;
 use App\Models\Report;
 use App\Models\Student;
 use App\Repositories\StudentRepository;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,7 +17,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\DB;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 
@@ -208,9 +206,10 @@ class StudentController extends AppBaseController
 //        die;
 
 //        dd($data);
-        $pdf = Pdf::loadView('admin.students.assessment', compact('student', 'data', 'total_data', 'baik', 'cukup', 'perlu_dilatih'));
-        return $pdf->stream();
+//        $pdf = Pdf::loadView('admin.students.assessment', compact('student', 'data', 'total_data', 'baik', 'cukup', 'perlu_dilatih'));
+//        return $pdf->stream();
 //        return $pdf->download('oba.pdf');
-//        return \view('admin.students.assessment');
+        return \view('admin.students.assessment', compact('student', 'data', 'baik', 'cukup', 'perlu_dilatih', 'total_data'));
+//        return \view('admin.students.assessment2');
     }
 }

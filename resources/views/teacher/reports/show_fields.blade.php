@@ -7,19 +7,19 @@
 <!-- Student Id Field -->
 <div class="form-group">
     {!! Form::label('student_id', __('models/reports.fields.student_id').':') !!}
-    <p>{{ $report->student_id }}</p>
+    <p>{{ $report->student->name }}</p>
 </div>
 
 <!-- Aspect Field -->
 <div class="form-group">
     {!! Form::label('aspect', __('models/reports.fields.aspect').':') !!}
-    <p>{{ $report->aspect }}</p>
+    <p>{{ $report->aspect['point'] }}</p>
 </div>
 
 <!-- Teacher Id Field -->
 <div class="form-group">
-    {!! Form::label('teacher_id', __('models/reports.fields.teacher_id').':') !!}
-    <p>{{ $report->teacher_id }}</p>
+    {!! Form::label('teacher_id', __('models/reports.fields.user_id').':') !!}
+    <p>{{ $report->user->personal->firstname }}</p>
 </div>
 
 <!-- Value Field -->
