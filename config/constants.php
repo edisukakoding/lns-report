@@ -2,7 +2,8 @@
 
 return [
     'evaluation_types'      => ['SKALA', 'HASIL KARYA', 'ANEKDOT'],
-    'evaluation_indicators' => ['BB', 'MB', 'BSH', 'BSB'],
+//    'evaluation_indicators' => ['BB', 'MB', 'BSH', 'BSB'],
+    'evaluation_indicators' => ['BAIK', 'CUKUP', 'PERLU DILATIH'],
     'report_indicators'     => ['A', 'B', 'C'],
     'user_role'             => ['ADMIN', 'TEACHER', 'STUDENT', 'PARENT', 'GUEST'],
     'gender'                => ['Pria', 'Wanita'],

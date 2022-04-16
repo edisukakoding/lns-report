@@ -57,17 +57,17 @@ class ReportDataTable extends DataTable
             'student_id' => new Column([
                 'title' => __('models/reports.fields.student_id'),
                 'data' => 'student_id',
-                'render' => '`${full.student.name} ( Kelas ${full.student.class_room.name} )`'
+//                'render' => '`${full.student.name} ( Kelas ${full.student.class_room.name} )`'
             ]),
             'aspect' => new Column([
                 'title' => __('models/reports.fields.aspect'),
                 'data' => 'aspect',
-                'render' => 'data.point'
+//                'render' => 'data.point'
             ]),
             'user_id' => new Column([
                 'title' => __('models/reports.fields.user_id'),
                 'data' => 'user_id',
-                'render' => 'full.user.personal.firstname'
+//                'render' => 'full.user.personal.firstname'
             ]),
             'value' => new Column([
                 'title' => __('models/reports.fields.value'),
