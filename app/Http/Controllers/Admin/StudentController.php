@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\StudentDataTable;
 use App\Http\Requests\CreateStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\GeneralSetting;
 use App\Models\PeriodSetting;
 use App\Models\Report;
 use App\Models\Student;
@@ -162,6 +163,7 @@ class StudentController extends AppBaseController
     {
         $student        = Student::with('noteAssessments')->findOrFail($id);
         $query          = Report::query()->where('student_id', $id);
+        $general        = GeneralSetting::with('personal')->first();
         $reports        = $query->get();
         $total_data     = $query->count();
         $baik           = 0;
@@ -181,35 +183,6 @@ class StudentController extends AppBaseController
               'PERLU DILATIH'   => $perlu_dilatih++
             };
         }
-
-//        echo "<ul>";
-//        foreach ($data as $key => $value) {
-//            echo "<li>" . $key . "</li>";
-//            echo "<ul>";
-//            foreach ($value as $row => $item) {
-//                if(!is_string($row)) {
-//                    echo "<li>" . $item['aspect'] . "</li>";
-//                }else {
-//                    echo "<li>" . $row . "</li>";
-////                    print_r($item);
-//                    echo "<ul>";
-//                    foreach ($item as $asd) {
-//                        echo "<li>" . $asd['aspect'] . "</li>";
-//                    }
-//                    echo "</ul>";
-//                }
-//            }
-//            echo "</ul>";
-//        }
-//
-//        echo "</ul>";
-//        die;
-
-//        dd($data);
-//        $pdf = Pdf::loadView('admin.students.assessment', compact('student', 'data', 'total_data', 'baik', 'cukup', 'perlu_dilatih'));
-//        return $pdf->stream();
-//        return $pdf->download('oba.pdf');
-        return \view('admin.students.assessment', compact('student', 'data', 'baik', 'cukup', 'perlu_dilatih', 'total_data'));
-//        return \view('admin.students.assessment2');
+        return \view('admin.students.assessment', compact('student', 'data', 'baik', 'cukup', 'perlu_dilatih', 'total_data', 'general'));
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Attainment;
 use App\Models\AttainmentDetail;
 use App\Models\ClassRoom;
 use App\Models\Evaluation;
+use App\Models\GeneralSetting;
 use App\Models\Guard;
 use App\Models\PeriodSetting;
 use App\Models\Personal;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,9 +33,9 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      *
      * @return void
-     * @throws \Nette\Utils\JsonException
+     * @throws JsonException
      */
-    public function run()
+    public function run(): void
     {
 //        \App\Models\User::factory(10)->create();
         $faker = Factory::create('id_ID');
@@ -214,7 +216,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $no = 1;
-        foreach (require_once( __DIR__ . '/assessments.php') as $data) {
+        foreach (require( __DIR__ . '/assessments.php') as $data) {
             AspectSetting::create([
                 'category'      => $data['category'],
                 'subcategory'   => $data['subcategory'],
@@ -232,5 +234,29 @@ class DatabaseSeeder extends Seeder
                 'value'         => $faker->randomElement(['BAIK', 'CUKUP', 'PERLU DILATIH'])
             ]);
         }
+
+        $personal = Personal::create([
+            'firstname' => 'WAHYUNI',
+            'lastname' => null,
+            'address' => null,
+            'birthdate' => null,
+            'birthplace' => null,
+            'phone' => null,
+            'graduates' => null,
+            'image' => null,
+            'user_id' => null,
+            'title' => 'SE'
+        ]);
+
+        GeneralSetting::create([
+            'paud_name' => 'KB Anak Hebat Indonesia',
+            'paud_address' => 'Dukuh Titang RT 03 RW 02, Bumirejo, Karangawen, Demak 59566',
+            'paud_phone_number' => null,
+            'paud_fax' => null,
+            'paud_telephone' => null,
+            'paud_email' => 'suparnyoskom@yahoo.co.id',
+            'paud_website' => null,
+            'head_of_paud' => $personal->id
+        ]);
     }
 }

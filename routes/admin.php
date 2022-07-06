@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ClassRoomController;
+use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\GuardController;
 use App\Http\Controllers\Admin\PeriodSettingController;
 use App\Http\Controllers\Admin\PersonalController;
@@ -14,4 +15,6 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
     Route::resource('periodSettings', PeriodSettingController::class);
     Route::resource('guards', GuardController::class);
     Route::resource('personals', PersonalController::class);
+    Route::get('/generalSettings/show', [GeneralSettingController::class, 'show'])->name('generalSettings.show');
+    Route::put('/generalSettings/update', [GeneralSettingController::class, 'update'])->name('generalSettings.update');
 });

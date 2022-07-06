@@ -13,8 +13,8 @@
             margin: 0 auto 3px;
             width: 14px;
             height: 8px;
-            border-bottom: solid 1.5px currentColor;
-            border-left: solid 1.5px currentColor;
+            border-bottom: solid 2px currentColor;
+            border-left: solid 2px currentColor;
             -webkit-transform: rotate(-45deg);
             transform: rotate(-45deg);
         }
@@ -41,9 +41,8 @@
 <h1 style="text-align: center; font-size: 24px; font-weight: bold;">LAPORAN <br>PERKEMBANGAN ANAK DIDIK <br>KELOMPOK
     BERMAIN</h1>
 <br>
-<h2 style="text-align: center; font-size: 24px; font-weight: bold;">KB PAUD JATENG</h2>
-<h3 style="text-align: center; font-size: 18px; font-weight: lighter; margin-top: -20px">KEL. KALIWIRU - KEC. SEMARANG
-    TENGAH - KOTA SEMARANG</h3>
+<h2 style="text-align: center; font-size: 24px; font-weight: bold;">{{ strtoupper($general->paud_name) }}</h2>
+<h3 style="text-align: center; font-size: 18px; font-weight: lighter; margin-top: -20px">{{ strtoupper($general->paud_address) }}</h3>
 <h2 style="text-align: center; font-size: 18px; font-weight: bold;">TERDAFTAR</h2>
 <br>
 <br>
@@ -95,16 +94,16 @@
 <table class="table-header">
     <tr>
         <td>
-            <img src="{{ url('img/logo.png') }}" alt="" style="width: 100%;">
+            <img src="{{ url('img/logo.png') }}" alt="" style="width: 100px;">
         </td>
         <td style="text-align: center">
             <p style="font-size: 20px; font-weight: lighter;">YAYASAN PENGELOLA PENDIDIKAN BERMAIN</p>
-            <p style="font-size: 20px; font-weight: bold; margin-top: -20px">KB PAUD JATENG SEMARANG</p>
-            <p style="margin-top: -20px">Kelurahan Kaliwiru Kecamatan Semarang Tengah 50132
+            <p style="font-size: 20px; font-weight: bold; margin-top: -20px">{{ strtoupper($general->paud_name) }}</p>
+            <p style="margin-top: -20px">{{ $general->paud_address }}
                 <br>
-                Jl. Pemuda No. 138 HP 08123456xxx
+                No HP: {{ $general->paud_phone_number }} - FAX: {{ $general->paud_fax }}
                 <br>
-                Email : paudjateng@yahoo.com - Website : http://paudjateng.xahzgs.com</p>
+                Email : {{ $general->paud_email }} - Website : {{ $general->paud_website }}</p>
         </td>
     </tr>
 </table>
@@ -286,10 +285,11 @@
     </tr>
     {!! str_repeat("<tr><td></td><td></td></tr>", 20) !!}
     <tr>
-        <td style="text-align: center; font-weight: bold; text-decoration: underline;text-transform: capitalize">
-            NURKHIKMAH UMAMI, S.Psi
+        <td style="text-align: center; font-weight: bold; text-decoration: underline;">
+            {{ strtoupper($general->personal->firstname) }}
+            {{ $general->personal->lastname ? ' ' . strtoupper($general->personal->lastname) : '' }}, {{ $general->personal->title }}
         </td>
-        <td style="text-align: center; font-weight: bold; text-decoration: underline;text-transform: capitalize">META
+        <td style="text-align: center; font-weight: bold; text-decoration: underline;">META
             NUGRAHENI, S.Pd.AUD
         </td>
     </tr>

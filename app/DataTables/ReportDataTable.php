@@ -20,9 +20,7 @@ class ReportDataTable extends DataTable
      */
     public function dataTable(mixed $query): DataTableAbstract
     {
-        $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'teacher.reports.datatables_actions');
+        return (new EloquentDataTable($query))->addColumn('action', 'teacher.reports.datatables_actions');
     }
 
     /**
@@ -51,23 +49,51 @@ class ReportDataTable extends DataTable
      *
      * @return array
      */
-    #[ArrayShape(['student_id' => "\Yajra\DataTables\Html\Column", 'aspect' => "\Yajra\DataTables\Html\Column", 'user_id' => "\Yajra\DataTables\Html\Column", 'value' => "\Yajra\DataTables\Html\Column"])] public function getColumns(): array
+    #[ArrayShape([
+        'student_id' => Column::class,
+        'aspect.category' => Column::class,
+        'aspect.subcategory' => Column::class,
+        'aspect.point' => Column::class,
+        'user_id' => Column::class,
+        'value' => Column::class
+    ])] public function getColumns(): array
     {
         return [
             'student_id' => new Column([
                 'title' => __('models/reports.fields.student_id'),
                 'data' => 'student_id',
-//                'render' => '`${full.student.name} ( Kelas ${full.student.class_room.name} )`'
+                'render' => '`${full.student.name} ( Kelas ${full.student.class_room.name} )`'
             ]),
-            'aspect' => new Column([
+            'aspect.category' => new Column([
+                'title' => __('models/aspectSettings.fields.category'),
+                'data' => 'aspect',
+                'render' => '((data, type, full, meta) => {
+                    let json = data.replace(/&quot;/g, `\\"`);
+                    let aspect = JSON.parse(json);
+                    return aspect.category;
+                })(data, type, full, meta)'
+            ]),'aspect.subcategory' => new Column([
+                'title' => __('models/aspectSettings.fields.subcategory'),
+                'data' => 'aspect',
+                'render' => '((data, type, full, meta) => {
+                    let json = data.replace(/&quot;/g, `\\"`);
+                    let aspect = JSON.parse(json);
+                    return aspect.subcategory;
+                })(data, type, full, meta)'
+            ]),
+            'aspect.point' => new Column([
                 'title' => __('models/reports.fields.aspect'),
                 'data' => 'aspect',
-//                'render' => 'data.point'
+                'render' => '((data, type, full, meta) => {
+                    let json = data.replace(/&quot;/g, `\\"`);
+                    let aspect = JSON.parse(json);
+                    return aspect.point;
+                })(data, type, full, meta)'
             ]),
             'user_id' => new Column([
                 'title' => __('models/reports.fields.user_id'),
                 'data' => 'user_id',
-//                'render' => 'full.user.personal.firstname'
+                'render' => 'full.user.personal.firstname'
             ]),
             'value' => new Column([
                 'title' => __('models/reports.fields.value'),

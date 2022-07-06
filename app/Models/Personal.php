@@ -44,7 +44,8 @@ class Personal extends Model
         'phone',
         'graduates',
         'image',
-        'user_id'
+        'user_id',
+        'title'
     ];
 
     /**
@@ -61,7 +62,8 @@ class Personal extends Model
         'birthplace' => 'string',
         'phone' => 'string',
         'graduates' => 'string',
-        'image' => 'string'
+        'image' => 'string',
+        'title' => 'string'
     ];
 
     /**
