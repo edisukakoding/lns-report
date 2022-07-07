@@ -14,7 +14,13 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+    public const TEACHER = 'TEACHER';
+    public const ADMIN = 'ADMIN';
+    public const HEADMASTER = 'HEADMASTER';
+    public const STAFF = 'STAFF';
+    public const PARENT = 'PARENT';
+    public const STUDENT = 'STUDENT';
+    public const GUEST = 'GUEST';
     /**
      * The attributes that are mass assignable.
      *

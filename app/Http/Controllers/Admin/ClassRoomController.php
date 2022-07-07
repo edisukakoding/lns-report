@@ -6,19 +6,19 @@ use App\DataTables\ClassRoomDataTable;
 use App\Http\Requests\CreateClassRoomRequest;
 use App\Http\Requests\UpdateClassRoomRequest;
 use App\Repositories\ClassRoomRepository;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\Response;
+use function flash;
 
 class ClassRoomController extends AppBaseController
 {
     /** @var  ClassRoomRepository */
-    private $classRoomRepository;
+    private ClassRoomRepository $classRoomRepository;
 
     public function __construct(ClassRoomRepository $classRoomRepo)
     {
@@ -31,7 +31,7 @@ class ClassRoomController extends AppBaseController
      * @param ClassRoomDataTable $classRoomDataTable
      * @return mixed
      */
-    public function index(ClassRoomDataTable $classRoomDataTable)
+    public function index(ClassRoomDataTable $classRoomDataTable): mixed
     {
         return $classRoomDataTable->render('admin.class_rooms.index');
     }
@@ -39,7 +39,7 @@ class ClassRoomController extends AppBaseController
     /**
      * Show the form for creating a new ClassRoom.
      *
-     * @return Application|Factory|View
+     * @return View
      */
     public function create(): View
     {
@@ -57,23 +57,23 @@ class ClassRoomController extends AppBaseController
     {
         $input = $request->all();
         $this->classRoomRepository->create($input);
-        \flash(__('messages.saved', ['model' => __('models/classRooms.singular')]))->success();
+        flash(__('messages.saved', ['model' => __('models/classRooms.singular')]))->success();
         return redirect(route('classRooms.index'));
     }
+
 
     /**
      * Display the specified ClassRoom.
      *
      * @param int $id
-     *
-     * @return Application|Factory|View
+     * @return View|Factory|Redirector|Application|RedirectResponse
      */
-    public function show(int $id): View
+    public function show(int $id): View|Factory|Redirector|Application|RedirectResponse
     {
         $classRoom = $this->classRoomRepository->find($id);
 
         if (empty($classRoom)) {
-            \flash(__('messages.not_found', ['model' => __('models/classRooms.singular')]))->error();
+            flash(__('messages.not_found', ['model' => __('models/classRooms.singular')]))->error();
 
             return redirect(route('classRooms.index'));
         }
@@ -84,44 +84,43 @@ class ClassRoomController extends AppBaseController
     /**
      * Show the form for editing the specified ClassRoom.
      *
-     * @param  int $id
+     * @param int $id
      *
-     * @return Response
+     * @return Application|Factory|Redirector|RedirectResponse|View
      */
-    public function edit($id)
+    public function edit(int $id): View|Factory|Redirector|RedirectResponse|Application
     {
         $classRoom = $this->classRoomRepository->find($id);
 
         if (empty($classRoom)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/classRooms.singular')]));
+            flash(__('messages.not_found', ['model' => __('models/classRooms.singular')]), 'error');
 
             return redirect(route('classRooms.index'));
         }
-
-        return view('admin.class_rooms.edit')->with('classRoom', $classRoom);
+        return view('admin.class_rooms.edit', compact('classRoom'));
     }
 
     /**
      * Update the specified ClassRoom in storage.
      *
-     * @param  int              $id
+     * @param int $id
      * @param UpdateClassRoomRequest $request
      *
-     * @return Response
+     * @return Application|Redirector|RedirectResponse
      */
-    public function update($id, UpdateClassRoomRequest $request)
+    public function update(int $id, UpdateClassRoomRequest $request): Redirector|RedirectResponse|Application
     {
         $classRoom = $this->classRoomRepository->find($id);
 
         if (empty($classRoom)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/classRooms.singular')]));
+            flash(__('messages.not_found', ['model' => __('models/classRooms.singular')]), 'error');
 
             return redirect(route('classRooms.index'));
         }
 
-        $classRoom = $this->classRoomRepository->update($request->all(), $id);
+        $this->classRoomRepository->update($request->all(), $id);
 
-        Flash::success(__('messages.updated', ['model' => __('models/classRooms.singular')]));
+        flash(__('messages.updated', ['model' => __('models/classRooms.singular')]), 'success');
 
         return redirect(route('classRooms.index'));
     }
@@ -129,24 +128,25 @@ class ClassRoomController extends AppBaseController
     /**
      * Remove the specified ClassRoom from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
-     * @return Response
+     * @return Application|Redirector|RedirectResponse
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(int $id): Redirector|RedirectResponse|Application
     {
         $classRoom = $this->classRoomRepository->find($id);
 
         if (empty($classRoom)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/classRooms.singular')]));
+            flash(__('messages.not_found', ['model' => __('models/classRooms.singular')]), 'error');
 
-            return redirect(route('admin.classRooms.index'));
+            return redirect(route('classRooms.index'));
         }
 
         $this->classRoomRepository->delete($id);
 
-        Flash::success(__('messages.deleted', ['model' => __('models/classRooms.singular')]));
+        flash(__('messages.deleted', ['model' => __('models/classRooms.singular')]), 'success');
 
-        return redirect(route('admin.classRooms.index'));
+        return redirect(route('classRooms.index'));
     }
 }

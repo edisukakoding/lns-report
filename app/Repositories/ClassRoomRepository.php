@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\ClassRoom;
-use App\Repositories\BaseRepository;
 
 /**
  * Class ClassRoomRepository
@@ -16,7 +15,7 @@ class ClassRoomRepository extends BaseRepository
     /**
      * @var array
      */
-    protected $fieldSearchable = [
+    protected array $fieldSearchable = [
         'name',
         'description'
     ];
@@ -26,7 +25,7 @@ class ClassRoomRepository extends BaseRepository
      *
      * @return array
      */
-    public function getFieldsSearchable()
+    public function getFieldsSearchable(): array
     {
         return $this->fieldSearchable;
     }
@@ -34,7 +33,7 @@ class ClassRoomRepository extends BaseRepository
     /**
      * Configure the Model
      **/
-    public function model()
+    public function model(): string
     {
         return ClassRoom::class;
     }

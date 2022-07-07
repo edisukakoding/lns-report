@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -29,7 +30,8 @@ class ClassRoom extends Model
 
     public $fillable = [
         'name',
-        'description'
+        'description',
+        'homeroom'
     ];
 
     /**
@@ -40,7 +42,8 @@ class ClassRoom extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'description' => 'string'
+        'description' => 'string',
+        'homeroom' => 'integer'
     ];
 
     /**
@@ -49,8 +52,17 @@ class ClassRoom extends Model
      * @var array
      */
     public static array $rules = [
-        'name' => 'required'
+        'name' => 'required',
+        'homeroom' => 'required'
     ];
+
+    /**
+     * @return HasOne
+     */
+    public function personal(): HasOne
+    {
+        return $this->hasOne(Personal::class, 'id', 'homeroom');
+    }
 
     public static function makeOptionList(): array
     {

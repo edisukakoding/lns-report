@@ -65,4 +65,8 @@
             </form>
         </div>
     </div>
+    <div class="mt-5 text-muted text-center">
+        Don't have an account yet? <a
+        href="{{ route('login') }}">SignUp</a>
+    </div>
 @endsection

@@ -82,4 +82,14 @@ class Personal extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public static function getHomeroom(): array
+    {
+        $users = User::with('personal')->where('role', '=', User::TEACHER)->get();
+        $homerooms = [];
+        foreach ($users as $user) {
+            $homerooms[$user->personal->id] = $user->personal->firstname . ' ' . $user->personal->lastname;
+        }
+        return $homerooms;
+    }
 }

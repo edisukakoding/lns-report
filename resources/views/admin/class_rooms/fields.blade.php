@@ -1,7 +1,17 @@
+@php
+    use App\Models\Personal;
+@endphp
+
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('name', __('models/classRooms.fields.name').':') !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
+</div>
+
+{{--Homeroom--}}
+<div class="form-group col-sm-6">
+    {!! Form::label('homeroom', __('models/classRooms.fields.homeroom').':') !!}
+    {!! Form::select('homeroom', Personal::getHomeroom(), null, ['class' => 'form-control select2', 'id' => 'evaluation_id']) !!}
 </div>
 
 <!-- Description Field -->
@@ -9,6 +19,7 @@
     {!! Form::label('description', __('models/classRooms.fields.description').':') !!}
     {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
 </div>
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

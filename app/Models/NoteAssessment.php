@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Student $student
  * @property integer $student_id
  * @property integer $note
+ * @method static create(array $array)
  */
 class NoteAssessment extends Model
 {

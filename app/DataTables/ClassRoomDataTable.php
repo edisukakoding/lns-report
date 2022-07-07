@@ -20,9 +20,7 @@ class ClassRoomDataTable extends DataTable
      */
     public function dataTable(mixed $query): DataTableAbstract
     {
-        $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'admin.class_rooms.datatables_actions');
+        return (new EloquentDataTable($query))->addColumn('action', 'admin.class_rooms.datatables_actions');
     }
 
     /**
@@ -33,7 +31,7 @@ class ClassRoomDataTable extends DataTable
      */
     public function query(ClassRoom $model): Builder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('personal');
     }
 
     /**
@@ -51,10 +49,11 @@ class ClassRoomDataTable extends DataTable
      *
      * @return array
      */
-    #[ArrayShape(['name' => "\Yajra\DataTables\Html\Column", 'description' => "\Yajra\DataTables\Html\Column"])] public function getColumns()
+    #[ArrayShape(['name' => Column::class, 'homeroom' => Column::class, 'description' => Column::class])] public function getColumns(): array
     {
         return [
             'name' => new Column(['title' => __('models/classRooms.fields.name'), 'data' => 'name']),
+            'homeroom' => new Column(['title' => __('models/classRooms.fields.homeroom'), 'data' => 'personal', 'render' => '`${data.firstname} ${data.lastname}`']),
             'description' => new Column(['title' => __('models/classRooms.fields.description'), 'data' => 'description'])
         ];
     }

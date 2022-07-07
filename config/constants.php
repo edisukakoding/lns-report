@@ -5,7 +5,7 @@ return [
 //    'evaluation_indicators' => ['BB', 'MB', 'BSH', 'BSB'],
     'evaluation_indicators' => ['BAIK', 'CUKUP', 'PERLU DILATIH'],
     'report_indicators'     => ['A', 'B', 'C'],
-    'user_role'             => ['ADMIN', 'TEACHER', 'STUDENT', 'PARENT', 'GUEST'],
+    'user_role'             => ['ADMIN', 'HEADMASTER', 'STAFF', 'TEACHER', 'STUDENT', 'PARENT', 'GUEST'],
     'gender'                => ['Pria', 'Wanita'],
     'religion'              => ['ISLAM', 'KRISTEN', 'KATOLIK', 'BUDHA', 'HINDU', 'KONG HU CU'],
     'distance_from_home'    => [
