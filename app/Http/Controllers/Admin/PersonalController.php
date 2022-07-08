@@ -7,6 +7,9 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreatePersonalRequest;
 use App\Http\Requests\UpdatePersonalRequest;
 use App\Repositories\PersonalRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Response;
 use function __;
@@ -16,7 +19,7 @@ use function view;
 class PersonalController extends AppBaseController
 {
     /** @var  PersonalRepository */
-    private $personalRepository;
+    private PersonalRepository $personalRepository;
 
     public function __construct(PersonalRepository $personalRepo)
     {
@@ -27,9 +30,9 @@ class PersonalController extends AppBaseController
      * Display a listing of the Personal.
      *
      * @param PersonalDataTable $personalDataTable
-     * @return Response
+     * @return mixed
      */
-    public function index(PersonalDataTable $personalDataTable)
+    public function index(PersonalDataTable $personalDataTable): mixed
     {
         return $personalDataTable->render('admin.personals.index');
     }
@@ -37,9 +40,9 @@ class PersonalController extends AppBaseController
     /**
      * Show the form for creating a new Personal.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
         return view('admin.personals.create');
     }

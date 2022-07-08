@@ -3,6 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\GeneralSetting;
+use Illuminate\Database\Eloquent\Builder;
+use JetBrains\PhpStorm\ArrayShape;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
@@ -13,22 +16,20 @@ class GeneralSettingDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable(mixed $query): DataTableAbstract
     {
-        $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'general_settings.datatables_actions');
+        return (new EloquentDataTable($query))->addColumn('action', 'general_settings.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\GeneralSetting $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param GeneralSetting $model
+     * @return Builder
      */
-    public function query(GeneralSetting $model)
+    public function query(GeneralSetting $model): Builder
     {
         return $model->newQuery();
     }
@@ -38,47 +39,9 @@ class GeneralSettingDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
-        return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
-            ->parameters([
-                'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
-                    [
-                       'extend' => 'create',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create').''
-                    ],
-                    [
-                       'extend' => 'export',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export').''
-                    ],
-                    [
-                       'extend' => 'print',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print').''
-                    ],
-                    [
-                       'extend' => 'reset',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset').''
-                    ],
-                    [
-                       'extend' => 'reload',
-                       'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
-                    ],
-                ],
-                 'language' => [
-                   'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
-                 ],
-            ]);
+        return HelperDataTable::builder($this);
     }
 
     /**
@@ -86,7 +49,7 @@ class GeneralSettingDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    #[ArrayShape(['paud_name' => Column::class, 'paud_address' => Column::class, 'paud_phone_number' => Column::class, 'paud_fax' => Column::class, 'paud_telephone' => Column::class, 'paud_email' => Column::class, 'paud_website' => Column::class, 'head_of_paud' => Column::class])] protected function getColumns(): array
     {
         return [
             'paud_name' => new Column(['title' => __('models/generalSettings.fields.paud_name'), 'data' => 'paud_name']),
@@ -105,7 +68,7 @@ class GeneralSettingDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'general_settings_datatable_' . time();
     }

@@ -3,14 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\Evaluation;
-use App\Models\ScalaEvaluation;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\ArrayShape;
-use PHPUnit\TextUI\Help;
 use Yajra\DataTables\DataTableAbstract;
-use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
@@ -25,9 +20,7 @@ class EvaluationDataTable extends DataTable
      */
     public function dataTable(mixed $query): DataTableAbstract
     {
-        $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'teacher.evaluations.datatables_actions');
+        return (new EloquentDataTable($query))->addColumn('action', 'teacher.evaluations.datatables_actions');
     }
 
     /**
@@ -63,11 +56,11 @@ class EvaluationDataTable extends DataTable
      * @return array
      */
     #[ArrayShape([
-        'evaluation_type' => "\Yajra\DataTables\Html\Column",
-        'basic_competencies' => "\Yajra\DataTables\Html\Column",
-        'achievements' => "\Yajra\DataTables\Html\Column",
-        'user_id' => "\Yajra\DataTables\Html\Column",
-        'evaluation_id' => "\Yajra\DataTables\Html\Column",
+        'evaluation_type' => Column::class,
+        'basic_competencies' => Column::class,
+        'achievements' => Column::class,
+        'user_id' => Column::class,
+        'evaluation_id' => Column::class,
     ])] public function getColumns():array
     {
         return [

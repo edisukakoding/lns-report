@@ -62,6 +62,10 @@ class User extends Authenticatable
         return $option;
     }
 
+    public static array $rules = [
+
+    ];
+
     public function personal(): HasOne
     {
         return $this->hasOne(Personal::class);

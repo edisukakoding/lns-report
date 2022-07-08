@@ -128,6 +128,11 @@
                href="{{ route('generalSettings.show') }}">@lang('models/generalSettings.plural')
             </a>
         </li>
+        <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('users.index') }}">Hak Akses
+            </a>
+        </li>
     </ul>
 </li>
 
