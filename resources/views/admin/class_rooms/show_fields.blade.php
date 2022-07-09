@@ -6,6 +6,12 @@
 
 <!-- Name Field -->
 <div class="form-group">
+    {!! Form::label('homeroom', __('models/classRooms.fields.homeroom').':') !!}
+    <p>{{ $classRoom->personal->firstname }} {{ $classRoom->personal->lastname }}</p>
+</div>
+
+<!-- Personal Field -->
+<div class="form-group">
     {!! Form::label('name', __('models/classRooms.fields.name').':') !!}
     <p>{{ $classRoom->name }}</p>
 </div>

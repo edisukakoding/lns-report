@@ -289,8 +289,9 @@
             {{ strtoupper($general->personal->firstname) }}
             {{ $general->personal->lastname ? ' ' . strtoupper($general->personal->lastname) : '' }}, {{ $general->personal->title }}
         </td>
-        <td style="text-align: center; font-weight: bold; text-decoration: underline;">META
-            NUGRAHENI, S.Pd.AUD
+        <td style="text-align: center; font-weight: bold; text-decoration: underline;">
+            {{ strtoupper($student->classRoom->personal->firstname) }}
+            {{ $student->classRoom->personal->lastname ? ' ' . strtoupper($student->classRoom->personal->lastname) : '' }}, {{ $student->classRoom->personal->title }}
         </td>
     </tr>
 </table>

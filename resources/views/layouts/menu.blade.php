@@ -6,6 +6,7 @@
         <i class=" fas fa-tachometer-alt"></i><span>@lang('messages.menu.dashboard')</span>
     </a>
 </li>
+@if(in_array(\Illuminate\Support\Facades\Auth::user()->role, [\App\Models\User::TEACHER, \App\Models\User::ADMIN, \App\Models\User::HEADMASTER], true))
 <li class="menu-header">Master</li>
 <li class="nav-item dropdown {{
     in_array(Request::segment(2), [
@@ -16,6 +17,7 @@
     }}">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i><span>@lang('messages.menu.school')</span></a>
     <ul class="dropdown-menu">
+        @if(in_array(\Illuminate\Support\Facades\Auth::user()->role, [\App\Models\User::ADMIN, \App\Models\User::HEADMASTER], true))
         <li class="{{ Request::is('admin/periodSettings*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('periodSettings.index') }}">@lang('models/periodSettings.plural')
@@ -26,6 +28,7 @@
                href="{{ route('classRooms.index') }}">@lang('models/classRooms.plural')
             </a>
         </li>
+        @endif
         <li class="{{ Request::is('admin/students*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('students.index') }}">@lang('models/students.plural')
@@ -34,6 +37,7 @@
     </ul>
 </li>
 
+@if(in_array(\Illuminate\Support\Facades\Auth::user()->role, [\App\Models\User::ADMIN, \App\Models\User::HEADMASTER], true))
 <li class="nav-item dropdown {{
     in_array(Request::segment(2), [
     'guards',
@@ -54,6 +58,7 @@
         </li>
     </ul>
 </li>
+@endif
 
 <li class="nav-item dropdown {{
     in_array(Request::segment(2), [
@@ -123,18 +128,22 @@
                href="{{ route('aspectSettings.index') }}">@lang('models/aspectSettings.plural')
             </a>
         </li>
+        @if(in_array(\Illuminate\Support\Facades\Auth::user()->role, [\App\Models\User::HEADMASTER, \App\Models\User::ADMIN], true))
         <li class="{{ Request::is('admin/generalSettings*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('generalSettings.show') }}">@lang('models/generalSettings.plural')
             </a>
         </li>
+        @endif
+        @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\User::ADMIN)
         <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
             <a class="nav-link"
                href="{{ route('users.index') }}">Hak Akses
             </a>
         </li>
+        @endif
     </ul>
 </li>
-
+@endif
 
 

@@ -50,8 +50,9 @@ $html .= '</div>';
             type: 'PUT',
             data: {role: value},
             success: function(res) {
-                if(res.status) {
-                    $('.buttons-reload').trigger('click');
+                const result = JSON.parse(res);
+                if(result.status) {
+                    window.LaravelDataTables.dataTableBuilder.ajax.reload();
                 }
             },
             error: function(err) {
